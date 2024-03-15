@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace WorkWithDatabase;
 
@@ -10,6 +9,8 @@ public partial class StudyGroup
     public string GroupName { get; set; } = null!;
 
     public virtual ICollection<Student> StudentsTables { get; set; } = new List<Student>();
+
+    public virtual GroupSchedule? StudyGroupScheduleTable { get; set; }
 
     public StudyGroup(string groupName)
     {

@@ -1,4 +1,8 @@
-﻿namespace WorkWithDatabase
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System;
+
+namespace WorkWithDatabase
 {
     static class ClassForWorkWithDatabase
     {
@@ -45,7 +49,7 @@
             using (var database = new DatabaseForElectronicDiaryContext())
             {
                 int userIndex = int.Parse(informationAboutAccount[informationAboutAccount.Length - 1].ToString());
-                string isAdmin = informationAboutAccount.Substring(0, informationAboutAccount.Length - 1) ;
+                string isAdmin = informationAboutAccount.Substring(0, informationAboutAccount.Length - 1);
 
                 if (isAdmin == "Admin")
                 {
@@ -56,10 +60,21 @@
 
                 else
                 {
-                    var diaryStudent = (from student in database.Students where student.NumberInUserTable == userIndex select student).ToList()[0];
+                    var diaryStudent = (from student in database.Students.Include(u => u.StudentGroupNumberNavigation) where student.NumberInUserTable == userIndex select student).ToList()[0];
 
-                    return new List<string> { userIndex.ToString(), diaryStudent.StudentName, diaryStudent.StudentSurname, diaryStudent.StudentPatronymic };
+                    return new List<string> { userIndex.ToString(), diaryStudent.StudentName, diaryStudent.StudentSurname, diaryStudent.StudentPatronymic, diaryStudent.StudentGroupNumberNavigation.GroupName};
                 }
+            }
+        }
+
+        public static List<List<string>> LoadingScheduleData(int groupId)
+        {
+            using (var database = new DatabaseForElectronicDiaryContext())
+            {
+                var groupSchedule = (from schedule in database.StudyGroupSchedule where schedule.GroupNumberInGroupTable == groupId select schedule).ToList()[0];
+
+                return new List<List<string>>() { groupSchedule.Monday.Split('/').ToList(), groupSchedule.Tuesday.Split('/').ToList(), groupSchedule.Wednesday.Split('/').ToList(),
+                                                  groupSchedule.Thursday.Split('/').ToList(), groupSchedule.Friday.Split('/').ToList(), groupSchedule.Saturday.Split('/').ToList() };
             }
         }
 

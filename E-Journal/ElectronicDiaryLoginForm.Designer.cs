@@ -1,6 +1,9 @@
-﻿namespace E_Journal
+﻿using System.Windows.Forms;
+using System.Drawing;
+
+namespace E_Journal
 {
-    partial class Entry_Form
+    partial class ElectronicDiaryLoginForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,76 +31,150 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Entry_Form));
-            Entry_Picture = new PictureBox();
-            Login_Field = new TextBox();
-            Password_Field = new TextBox();
-            Entry_Btn = new Button();
-            ((System.ComponentModel.ISupportInitialize)Entry_Picture).BeginInit();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ElectronicDiaryLoginForm));
+            entryFormPictureBox = new PictureBox();
+            loginFieldTextBox = new TextBox();
+            passwordFieldTextBox = new TextBox();
+            enteryFormTableLayoutPanel = new TableLayoutPanel();
+            errorMessagesLabel = new Label();
+            enteryFormButton = new Button();
+            ((System.ComponentModel.ISupportInitialize)entryFormPictureBox).BeginInit();
+            enteryFormTableLayoutPanel.SuspendLayout();
             SuspendLayout();
             // 
-            // Entry_Picture
+            // entryFormPictureBox
             // 
-            Entry_Picture.Image = (Image)resources.GetObject("Entry_Picture.Image");
-            Entry_Picture.Location = new Point(307, 132);
-            Entry_Picture.Margin = new Padding(4, 4, 4, 4);
-            Entry_Picture.Name = "Entry_Picture";
-            Entry_Picture.Size = new Size(257, 267);
-            Entry_Picture.SizeMode = PictureBoxSizeMode.StretchImage;
-            Entry_Picture.TabIndex = 0;
-            Entry_Picture.TabStop = false;
+            entryFormPictureBox.Dock = DockStyle.Fill;
+            entryFormPictureBox.Image = (Image)resources.GetObject("entryFormPictureBox.Image");
+            entryFormPictureBox.Location = new Point(199, 4);
+            entryFormPictureBox.Margin = new Padding(4);
+            entryFormPictureBox.Name = "entryFormPictureBox";
+            entryFormPictureBox.Size = new Size(383, 296);
+            entryFormPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            entryFormPictureBox.TabIndex = 0;
+            entryFormPictureBox.TabStop = false;
+            entryFormPictureBox.Click += EnteryFormElementsOnClick;
             // 
-            // Login_Field
+            // loginFieldTextBox
             // 
-            Login_Field.Font = new Font("Arial", 20.25F);
-            Login_Field.Location = new Point(307, 445);
-            Login_Field.Margin = new Padding(4, 4, 4, 4);
-            Login_Field.Name = "Login_Field";
-            Login_Field.Size = new Size(256, 46);
-            Login_Field.TabIndex = 1;
+            loginFieldTextBox.BackColor = SystemColors.Window;
+            loginFieldTextBox.BorderStyle = BorderStyle.FixedSingle;
+            loginFieldTextBox.Cursor = Cursors.IBeam;
+            loginFieldTextBox.Dock = DockStyle.Fill;
+            loginFieldTextBox.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            loginFieldTextBox.ForeColor = SystemColors.WindowText;
+            loginFieldTextBox.Location = new Point(210, 374);
+            loginFieldTextBox.Margin = new Padding(15, 15, 15, 8);
+            loginFieldTextBox.MaxLength = 50;
+            loginFieldTextBox.Name = "loginFieldTextBox";
+            loginFieldTextBox.PlaceholderText = "Введите логин";
+            loginFieldTextBox.Size = new Size(361, 30);
+            loginFieldTextBox.TabIndex = 1;
+            loginFieldTextBox.TabStop = false;
+            loginFieldTextBox.Enter += DataFieldsTextBoxEnter;
             // 
-            // Password_Field
+            // passwordFieldTextBox
             // 
-            Password_Field.Font = new Font("Arial", 20.25F);
-            Password_Field.Location = new Point(307, 528);
-            Password_Field.Margin = new Padding(4, 4, 4, 4);
-            Password_Field.Name = "Password_Field";
-            Password_Field.Size = new Size(256, 46);
-            Password_Field.TabIndex = 2;
+            passwordFieldTextBox.BorderStyle = BorderStyle.FixedSingle;
+            passwordFieldTextBox.Cursor = Cursors.IBeam;
+            passwordFieldTextBox.Dock = DockStyle.Fill;
+            passwordFieldTextBox.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            passwordFieldTextBox.ForeColor = SystemColors.WindowText;
+            passwordFieldTextBox.Location = new Point(210, 434);
+            passwordFieldTextBox.Margin = new Padding(15, 15, 15, 8);
+            passwordFieldTextBox.MaxLength = 20;
+            passwordFieldTextBox.Name = "passwordFieldTextBox";
+            passwordFieldTextBox.PlaceholderText = "Введите пароль";
+            passwordFieldTextBox.Size = new Size(361, 30);
+            passwordFieldTextBox.TabIndex = 1;
+            passwordFieldTextBox.TabStop = false;
+            passwordFieldTextBox.UseSystemPasswordChar = true;
+            passwordFieldTextBox.Enter += DataFieldsTextBoxEnter;
             // 
-            // Entry_Btn
+            // enteryFormTableLayoutPanel
             // 
-            Entry_Btn.Location = new Point(350, 631);
-            Entry_Btn.Margin = new Padding(4, 4, 4, 4);
-            Entry_Btn.Name = "Entry_Btn";
-            Entry_Btn.Size = new Size(172, 52);
-            Entry_Btn.TabIndex = 3;
-            Entry_Btn.Text = "Войти";
-            Entry_Btn.UseVisualStyleBackColor = true;
+            enteryFormTableLayoutPanel.ColumnCount = 3;
+            enteryFormTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            enteryFormTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            enteryFormTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            enteryFormTableLayoutPanel.Controls.Add(entryFormPictureBox, 1, 0);
+            enteryFormTableLayoutPanel.Controls.Add(loginFieldTextBox, 1, 2);
+            enteryFormTableLayoutPanel.Controls.Add(passwordFieldTextBox, 1, 3);
+            enteryFormTableLayoutPanel.Controls.Add(errorMessagesLabel, 1, 1);
+            enteryFormTableLayoutPanel.Controls.Add(enteryFormButton, 1, 4);
+            enteryFormTableLayoutPanel.Dock = DockStyle.Fill;
+            enteryFormTableLayoutPanel.Location = new Point(0, 0);
+            enteryFormTableLayoutPanel.Name = "enteryFormTableLayoutPanel";
+            enteryFormTableLayoutPanel.RowCount = 5;
+            enteryFormTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 55.0002861F));
+            enteryFormTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10.0000515F));
+            enteryFormTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10.9997931F));
+            enteryFormTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10.9997931F));
+            enteryFormTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 13.0000677F));
+            enteryFormTableLayoutPanel.Size = new Size(782, 553);
+            enteryFormTableLayoutPanel.TabIndex = 4;
+            enteryFormTableLayoutPanel.Click += EnteryFormElementsOnClick;
             // 
-            // Entry_Form
+            // errorMessagesLabel
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            errorMessagesLabel.AutoSize = true;
+            errorMessagesLabel.Dock = DockStyle.Fill;
+            errorMessagesLabel.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            errorMessagesLabel.Location = new Point(210, 312);
+            errorMessagesLabel.Margin = new Padding(15, 8, 15, 8);
+            errorMessagesLabel.Name = "errorMessagesLabel";
+            errorMessagesLabel.Size = new Size(361, 39);
+            errorMessagesLabel.TabIndex = 3;
+            errorMessagesLabel.Text = "Вход в систему";
+            errorMessagesLabel.TextAlign = ContentAlignment.MiddleCenter;
+            errorMessagesLabel.Click += EnteryFormElementsOnClick;
+            // 
+            // enteryFormButton
+            // 
+            enteryFormButton.BackColor = Color.LightGray;
+            enteryFormButton.Dock = DockStyle.Fill;
+            enteryFormButton.FlatAppearance.BorderSize = 0;
+            enteryFormButton.FlatStyle = FlatStyle.Flat;
+            enteryFormButton.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            enteryFormButton.Location = new Point(295, 494);
+            enteryFormButton.Margin = new Padding(100, 15, 100, 15);
+            enteryFormButton.Name = "enteryFormButton";
+            enteryFormButton.Size = new Size(191, 44);
+            enteryFormButton.TabIndex = 4;
+            enteryFormButton.Text = "Вход";
+            enteryFormButton.UseVisualStyleBackColor = false;
+            enteryFormButton.Click += EnteryButtonClick;
+            // 
+            // ElectronicDiaryLoginForm
+            // 
+            AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(879, 748);
-            Controls.Add(Entry_Btn);
-            Controls.Add(Password_Field);
-            Controls.Add(Login_Field);
-            Controls.Add(Entry_Picture);
+            AutoValidate = AutoValidate.EnablePreventFocusChange;
+            BackColor = SystemColors.Window;
+            ClientSize = new Size(782, 553);
+            Controls.Add(enteryFormTableLayoutPanel);
+            Font = new Font("Arial", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            ForeColor = SystemColors.WindowText;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(4, 4, 4, 4);
-            Name = "Entry_Form";
+            Margin = new Padding(4);
+            MaximizeBox = false;
+            Name = "ElectronicDiaryLoginForm";
             Text = "Электронный дневник студента";
-            ((System.ComponentModel.ISupportInitialize)Entry_Picture).EndInit();
+            Click += EnteryFormElementsOnClick;
+            ((System.ComponentModel.ISupportInitialize)entryFormPictureBox).EndInit();
+            enteryFormTableLayoutPanel.ResumeLayout(false);
+            enteryFormTableLayoutPanel.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private PictureBox Entry_Picture;
-        private TextBox Login_Field;
-        private TextBox Password_Field;
-        private Button Entry_Btn;
+        private PictureBox entryFormPictureBox;
+        private TextBox loginFieldTextBox;
+        private TextBox passwordFieldTextBox;
+        private TableLayoutPanel enteryFormTableLayoutPanel;
+        private Label errorMessagesLabel;
+        private Button enteryFormButton;
     }
 }

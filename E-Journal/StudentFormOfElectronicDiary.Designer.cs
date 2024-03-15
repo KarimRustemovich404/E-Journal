@@ -1,6 +1,6 @@
 ﻿namespace E_Journal
 {
-    partial class MainFormOfElectronicDiary
+    partial class StudentFormOfElectronicDiary
     {
         /// <summary>
         /// Required designer variable.

@@ -1,18 +1,33 @@
+using System.Windows.Forms;
+using System;
+
 namespace E_Journal
 {
     internal static class Program
     {
+        public static string informationAboutAccount = String.Empty;
+
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Entry_Form());
-            Application.Run(new MainFormOfElectronicDiary());
+            Application.Run(new ElectronicDiaryLoginForm());
+
+            if (informationAboutAccount != String.Empty)
+            {
+                if (informationAboutAccount.Contains("Admin"))
+                {
+                    Application.Run(new AdministratorFormOfElectronicDiary());
+                }
+
+                else
+                {
+                    Application.Run(new StudentFormOfElectronicDiary());
+                }
+            }
         }
     }
 }

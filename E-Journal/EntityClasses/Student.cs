@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace WorkWithDatabase;
+﻿namespace WorkWithDatabase;
 
 public partial class Student
 {
@@ -17,9 +14,16 @@ public partial class Student
 
     public int StudentGroupNumber { get; set; }
 
+    public virtual StudentExamScores? ExamScoresTable { get; set; }
+
     public virtual ElectronicDiaryUser NumberInUserTableNavigation { get; set; } = null!;
 
+    public virtual StudentPointsForSemesterWork? PointsForSemesterWorkTable { get; set; }
+
     public virtual StudyGroup StudentGroupNumberNavigation { get; set; } = null!;
+
+    public virtual StudentNotesForClasses? StudentNotesForClassesTable { get; set; }
+
 
     public Student(int numberInUserTable, string studentName, string studentSurname, string studentPatronymic, int studentGroupNumber)
     {

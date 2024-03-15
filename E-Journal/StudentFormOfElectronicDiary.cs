@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace E_Journal
 {
-    public partial class MainFormOfElectronicDiary : Form
+    public partial class StudentFormOfElectronicDiary : Form
     {
-        public MainFormOfElectronicDiary()
+        public StudentFormOfElectronicDiary()
         {
             InitializeComponent();
         }
