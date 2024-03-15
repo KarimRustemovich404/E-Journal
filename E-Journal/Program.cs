@@ -12,6 +12,7 @@ namespace E_Journal
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new Entry_Form());
+            Application.Run(new MainFormOfElectronicDiary());
         }
     }
 }
