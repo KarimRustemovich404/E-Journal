@@ -15,23 +15,23 @@ namespace E_Journal
         {
             ApplicationConfiguration.Initialize();
 
-            Application.Run(new StudentFormOfElectronicDiary("Student1"));
+            //Application.Run(new StudentFormOfElectronicDiary("Student1"));
 
-            //Application.Run(new ElectronicDiaryLoginForm());
+            Application.Run(new ElectronicDiaryLoginForm());
 
-            //if (informationAboutAccount != String.Empty)
-            //{
-            //    if (informationAboutAccount.Contains("Admin"))
-            //    {
-            //        Application.Run(new AdministratorFormOfElectronicDiary());
-            //    }
+            if (informationAboutAccount != String.Empty)
+            {
+                if (informationAboutAccount.Contains("Admin"))
+                {
+                    Application.Run(new AdministratorFormOfElectronicDiary());
+                }
 
-            //    else
-            //    {
-            //        Application.Run(new StudentFormOfElectronicDiary(informationAboutAccount));
-            //    }
-            //}
-            
+                else
+                {
+                    Application.Run(new StudentFormOfElectronicDiary(informationAboutAccount));
+                }
+            }
+
         }
     }
 }
