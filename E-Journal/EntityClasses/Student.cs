@@ -12,6 +12,8 @@ public partial class Student
 
     public string StudentPatronymic { get; set; } = null!;
 
+    public string studentBirthday { get; set; } = null!;
+
     public int StudentGroupNumber { get; set; }
 
     public virtual StudentExamScores? ExamScoresTable { get; set; }

@@ -55,14 +55,14 @@ namespace WorkWithDatabase
                 {
                     var diaryAdmin = (from admin in database.Administrators where admin.NumberInUserTable == userIndex select admin).ToList()[0];
 
-                    return new List<string> { userIndex.ToString(), diaryAdmin.AdministratorName, diaryAdmin.AdministratorSurname, diaryAdmin.AdministratorPatronymic };
+                    return new List<string> { diaryAdmin.AdministratorId.ToString(), diaryAdmin.AdministratorName, diaryAdmin.AdministratorSurname, diaryAdmin.AdministratorPatronymic };
                 }
 
                 else
                 {
                     var diaryStudent = (from student in database.Students.Include(u => u.StudentGroupNumberNavigation) where student.NumberInUserTable == userIndex select student).ToList()[0];
 
-                    return new List<string> { userIndex.ToString(), diaryStudent.StudentName, diaryStudent.StudentSurname, diaryStudent.StudentPatronymic, diaryStudent.StudentGroupNumberNavigation.GroupName};
+                    return new List<string> { diaryStudent.StudentId.ToString(), diaryStudent.StudentName, diaryStudent.StudentSurname, diaryStudent.StudentPatronymic, diaryStudent.StudentGroupNumberNavigation.GroupName, diaryStudent.studentBirthday};
                 }
             }
         }
@@ -75,6 +75,15 @@ namespace WorkWithDatabase
 
                 return new List<List<string>>() { groupSchedule.Monday.Split('/').ToList(), groupSchedule.Tuesday.Split('/').ToList(), groupSchedule.Wednesday.Split('/').ToList(),
                                                   groupSchedule.Thursday.Split('/').ToList(), groupSchedule.Friday.Split('/').ToList(), groupSchedule.Saturday.Split('/').ToList() };
+            }
+        }
+
+        public static string[] LoadingStudyGroups()
+        {
+            using (var database = new DatabaseForElectronicDiaryContext())
+            {
+                var studyGroups = (from studyGroup in database.Groups select studyGroup.GroupName).ToArray();
+                return studyGroups;
             }
         }
 
@@ -147,6 +156,25 @@ namespace WorkWithDatabase
 
                 return false;
             }
+        }
+
+        public static void ChangeStudentData(string studentId, string studentName, string studentSurname, string studentPatronymic, string studentBirthday, string studentGroupName)
+        {
+            using (var database = new DatabaseForElectronicDiaryContext())
+            {
+                var student = (from stud in database.Students where stud.StudentId == int.Parse(studentId) select stud).ToList()[0];
+                var studyGroup = (from gr in database.Groups where gr.GroupName == studentGroupName select gr).ToList()[0];
+
+                student.StudentName = studentName;
+                student.StudentSurname = studentSurname;
+                student.StudentPatronymic = studentPatronymic;
+                student.StudentGroupNumber = studyGroup.GroupId;
+                student.studentBirthday = studentBirthday;
+
+                student.StudentGroupNumberNavigation = studyGroup;
+
+                database.SaveChanges();
+            }        
         }
     }
 }
