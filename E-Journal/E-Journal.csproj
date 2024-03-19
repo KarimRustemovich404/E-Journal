@@ -8,7 +8,6 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <BaseOutputPath>\E-Journal\Resurses</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
