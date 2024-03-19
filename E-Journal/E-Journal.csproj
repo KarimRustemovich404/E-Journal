@@ -7,7 +7,8 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <BaseOutputPath>C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\bin</BaseOutputPath>
+    <BaseOutputPath>C:\Users\Егор\Desktop\Новая папка\E-Journal\Resurses</BaseOutputPath>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
