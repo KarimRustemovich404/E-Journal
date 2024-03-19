@@ -1,0 +1,22 @@
+C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\bin\Debug\net8.0-windows7.0\E-Journal.exe
+C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\bin\Debug\net8.0-windows7.0\E-Journal.deps.json
+C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\bin\Debug\net8.0-windows7.0\E-Journal.runtimeconfig.json
+C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\bin\Debug\net8.0-windows7.0\E-Journal.dll
+C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\bin\Debug\net8.0-windows7.0\E-Journal.pdb
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E-Journal.csproj.AssemblyReference.cache
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E_Journal.AdministratorFormOfElectronicDiary.resources
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E_Journal.ElectronicDiaryLoginForm.resources
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E_Journal.Properties.Resources.resources
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E_Journal.StudentFormOfElectronicDiary.resources
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E-Journal.csproj.GenerateResource.cache
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E-Journal.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E-Journal.AssemblyInfoInputs.cache
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E-Journal.AssemblyInfo.cs
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E-Journal.csproj.CoreCompileInputs.cache
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E-Journal.sourcelink.json
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E-Journal.csproj.Up2Date
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E-Journal.dll
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\refint\E-Journal.dll
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E-Journal.pdb
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E-Journal.genruntimeconfig.cache
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\ref\E-Journal.dll
