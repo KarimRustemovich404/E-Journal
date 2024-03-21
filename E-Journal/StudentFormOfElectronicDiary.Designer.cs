@@ -51,7 +51,7 @@
             studentFormTableLayoutPanel.Name = "studentFormTableLayoutPanel";
             studentFormTableLayoutPanel.RowCount = 1;
             studentFormTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            studentFormTableLayoutPanel.Size = new Size(1082, 653);
+            studentFormTableLayoutPanel.Size = new Size(984, 651);
             studentFormTableLayoutPanel.TabIndex = 0;
             // 
             // studentMainMenuTableLayoutPanel
@@ -70,7 +70,7 @@
             studentMainMenuTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 12F));
             studentMainMenuTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 12F));
             studentMainMenuTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 64F));
-            studentMainMenuTableLayoutPanel.Size = new Size(209, 645);
+            studentMainMenuTableLayoutPanel.Size = new Size(190, 643);
             studentMainMenuTableLayoutPanel.TabIndex = 1;
             // 
             // myProfileLabel
@@ -83,7 +83,7 @@
             myProfileLabel.Location = new Point(3, 30);
             myProfileLabel.Margin = new Padding(3, 30, 3, 0);
             myProfileLabel.Name = "myProfileLabel";
-            myProfileLabel.Size = new Size(203, 23);
+            myProfileLabel.Size = new Size(184, 18);
             myProfileLabel.TabIndex = 0;
             myProfileLabel.Text = "Мой профиль";
             myProfileLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -98,7 +98,7 @@
             academicPerformanceLabel.Location = new Point(3, 107);
             academicPerformanceLabel.Margin = new Padding(3, 30, 3, 0);
             academicPerformanceLabel.Name = "academicPerformanceLabel";
-            academicPerformanceLabel.Size = new Size(203, 23);
+            academicPerformanceLabel.Size = new Size(184, 18);
             academicPerformanceLabel.TabIndex = 1;
             academicPerformanceLabel.Text = "Успеваемость";
             academicPerformanceLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -114,7 +114,7 @@
             scheduleLabel.Location = new Point(3, 184);
             scheduleLabel.Margin = new Padding(3, 30, 3, 0);
             scheduleLabel.Name = "scheduleLabel";
-            scheduleLabel.Size = new Size(203, 23);
+            scheduleLabel.Size = new Size(184, 18);
             scheduleLabel.TabIndex = 2;
             scheduleLabel.Text = "Расписание";
             scheduleLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -127,10 +127,10 @@
             exitLabel.Dock = DockStyle.Bottom;
             exitLabel.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
             exitLabel.ForeColor = Color.Brown;
-            exitLabel.Location = new Point(3, 589);
+            exitLabel.Location = new Point(3, 591);
             exitLabel.Margin = new Padding(3, 0, 3, 30);
             exitLabel.Name = "exitLabel";
-            exitLabel.Size = new Size(203, 26);
+            exitLabel.Size = new Size(184, 22);
             exitLabel.TabIndex = 3;
             exitLabel.Text = "Выйти";
             exitLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -138,10 +138,10 @@
             // 
             // StudentFormOfElectronicDiary
             // 
-            AutoScaleDimensions = new SizeF(10F, 21F);
+            AutoScaleDimensions = new SizeF(8F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLight;
-            ClientSize = new Size(1082, 653);
+            ClientSize = new Size(984, 651);
             Controls.Add(studentFormTableLayoutPanel);
             Font = new Font("Arial", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
             ForeColor = SystemColors.WindowText;
@@ -149,6 +149,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "StudentFormOfElectronicDiary";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Электронный дневник студента";
             studentFormTableLayoutPanel.ResumeLayout(false);
             studentMainMenuTableLayoutPanel.ResumeLayout(false);

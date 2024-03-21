@@ -47,7 +47,7 @@
             // 
             // CardWithDailySchedule
             // 
-            AutoScaleDimensions = new SizeF(11F, 23F);
+            AutoScaleDimensions = new SizeF(9F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLight;
             ClientSize = new Size(682, 453);
@@ -58,6 +58,7 @@
             Margin = new Padding(4, 3, 4, 3);
             MaximizeBox = false;
             Name = "CardWithDailySchedule";
+            StartPosition = FormStartPosition.CenterScreen;
             FormClosing += CardWithDailySchedule_FormClosing;
             ResumeLayout(false);
         }
