@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace WorkWithDatabase;
 
@@ -13,78 +15,38 @@ public partial class DatabaseForElectronicDiaryContext : DbContext
     {
     }
 
-    public virtual DbSet<Administrator> Administrators { get; set; }
+    public virtual DbSet<Group> Groups { get; set; }
 
-    public virtual DbSet<ElectronicDiaryUser> ElectronicDiaryUsers { get; set; }
+    public virtual DbSet<LessonTimeTable> LessonsTimes { get; set; }
 
-    public virtual DbSet<StudentExamScores> ExamScores { get; set; }
+    public virtual DbSet<Semester> Semesters { get; set; }
 
-    public virtual DbSet<StudyGroup> Groups { get; set; }
+    public virtual DbSet<StudentNote> StudentsNotes { get; set; }
 
-    public virtual DbSet<LessonsTimeTable> LessonsTime { get; set; }
-
-    public virtual DbSet<StudentPointsForSemesterWork> PointsForSemesterWork { get; set; }
-
-    public virtual DbSet<StudentNotesForClasses> StudentNotesForClasses { get; set; }
+    public virtual DbSet<StudentMark> StudentsMarks { get; set; }
 
     public virtual DbSet<Student> Students { get; set; }
 
-    public virtual DbSet<GroupSchedule> StudyGroupSchedule { get; set; }
+    public virtual DbSet<GroupSchedule> StudyGroupScheduleTables { get; set; }
+
+    public virtual DbSet<Subject> Subject { get; set; }
+
+    public virtual DbSet<TypeOfMark> TypeOfMarks { get; set; }
+
+    public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlite("Data Source=../../../Database/DatabaseForElectronicDiary.db");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<ElectronicDiaryUser>().Property("UserId").HasField("userId");
-        modelBuilder.Entity<ElectronicDiaryUser>().Property("UserLogin").HasField("userLogin");
-        modelBuilder.Entity<ElectronicDiaryUser>().Property("UserPassword").HasField("userPassword");
-        modelBuilder.Entity<ElectronicDiaryUser>().Property("IsAccountActive").HasField("isAccountActive");
-        modelBuilder.Entity<ElectronicDiaryUser>().Property("IsAdmin").HasField("isAdmin");
+        modelBuilder.Entity<User>().Property("UserId").HasField("userId");
+        modelBuilder.Entity<User>().Property("UserLogin").HasField("userLogin");
+        modelBuilder.Entity<User>().Property("UserPassword").HasField("userPassword");
+        modelBuilder.Entity<User>().Property("IsAccountActive").HasField("isAccountActive");
+        modelBuilder.Entity<User>().Property("IsAdmin").HasField("isAdmin");
 
-
-        modelBuilder.Entity<Administrator>().Property("AdministratorId").HasField("administratorId");
-        modelBuilder.Entity<Administrator>().Property("NumberInUserTable").HasField("numberInUserTable");
-        modelBuilder.Entity<Administrator>().Property("AdministratorName").HasField("administratorName");
-        modelBuilder.Entity<Administrator>().Property("AdministratorSurname").HasField("administratorSurname");
-        modelBuilder.Entity<Administrator>().Property("AdministratorPatronymic").HasField("administratorPatronymic");
-
-        modelBuilder.Entity<Administrator>(entity =>
-        {
-            entity.HasKey(e => e.AdministratorId);
-
-            entity.ToTable("AdministratorsTable");
-
-            entity.HasIndex(e => e.NumberInUserTable, "IX_AdministratorsTable_NumberInUserTable").IsUnique();
-
-            entity.HasOne(d => d.NumberInUserTableNavigation).WithOne(p => p.AdministratorsTable)
-                .HasForeignKey<Administrator>(d => d.NumberInUserTable)
-                .OnDelete(DeleteBehavior.ClientSetNull);
-        });
-
-        modelBuilder.Entity<ElectronicDiaryUser>(entity =>
-        {
-            entity.HasKey(e => e.UserId);
-
-            entity.ToTable("ElectronicDiaryUsersTable");
-
-            entity.HasIndex(e => e.UserLogin, "IX_ElectronicDiaryUsersTable_UserLogin").IsUnique();
-        });
-
-        modelBuilder.Entity<StudentExamScores>(entity =>
-        {
-            entity.HasKey(e => e.StudentId);
-
-            entity.ToTable("ExamScoresTable");
-
-            entity.Property(e => e.StudentId).ValueGeneratedNever();
-
-            entity.HasOne(d => d.Student).WithOne(p => p.ExamScoresTable)
-                .HasForeignKey<StudentExamScores>(d => d.StudentId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
-        });
-
-        modelBuilder.Entity<StudyGroup>(entity =>
+        modelBuilder.Entity<Group>(entity =>
         {
             entity.HasKey(e => e.GroupId);
 
@@ -93,36 +55,59 @@ public partial class DatabaseForElectronicDiaryContext : DbContext
             entity.HasIndex(e => e.GroupName, "IX_GroupsTable_GroupName").IsUnique();
         });
 
-        modelBuilder.Entity<LessonsTimeTable>(entity =>
+        modelBuilder.Entity<LessonTimeTable>(entity =>
         {
             entity.HasKey(e => e.LessonId);
 
             entity.ToTable("LessonsTimeTable");
+
+            entity.HasIndex(e => e.LessonTime, "IX_LessonsTimeTable_LessonTime").IsUnique();
         });
 
-        modelBuilder.Entity<StudentPointsForSemesterWork>(entity =>
+        modelBuilder.Entity<Semester>(entity =>
         {
-            entity.HasKey(e => e.StudentId);
+            entity.HasKey(e => e.SemesterId);
 
-            entity.ToTable("PointsForSemesterWorkTable");
+            entity.ToTable("SemestersTable");
 
-            entity.Property(e => e.StudentId).ValueGeneratedNever();
+            entity.HasIndex(e => e.SemesterName, "IX_SemestersTable_SemesterName").IsUnique();
+        });
 
-            entity.HasOne(d => d.Student).WithOne(p => p.PointsForSemesterWorkTable)
-                .HasForeignKey<StudentPointsForSemesterWork>(d => d.StudentId)
+        modelBuilder.Entity<StudentNote>(entity =>
+        {
+            entity.HasKey(e => e.NoteId);
+
+            entity.ToTable("StudentNotesTable");
+
+            entity.HasOne(d => d.Student).WithMany(p => p.StudentNotesTables)
+                .HasForeignKey(d => d.StudentId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.Subject).WithMany(p => p.StudentNotesTables)
+                .HasForeignKey(d => d.SubjectId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<StudentNotesForClasses>(entity =>
+        modelBuilder.Entity<StudentMark>(entity =>
         {
-            entity.HasKey(e => e.StudentId);
+            entity.HasKey(e => e.MarkId);
 
-            entity.ToTable("StudentNotesForClassesTable");
+            entity.ToTable("StudentsMarksTable");
 
-            entity.Property(e => e.StudentId).ValueGeneratedNever();
+            entity.HasOne(d => d.Semester).WithMany(p => p.StudentsMarksTables)
+                .HasForeignKey(d => d.SemesterId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
-            entity.HasOne(d => d.Student).WithOne(p => p.StudentNotesForClassesTable)
-                .HasForeignKey<StudentNotesForClasses>(d => d.StudentId)
+            entity.HasOne(d => d.Student).WithMany(p => p.StudentsMarksTables)
+                .HasForeignKey(d => d.StudentId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.Subject).WithMany(p => p.StudentsMarksTables)
+                .HasForeignKey(d => d.SubjectId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.TypeOfMark).WithMany(p => p.StudentsMarksTables)
+                .HasForeignKey(d => d.TypeOfMarkId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
@@ -145,17 +130,44 @@ public partial class DatabaseForElectronicDiaryContext : DbContext
 
         modelBuilder.Entity<GroupSchedule>(entity =>
         {
-            entity.HasKey(e => e.ScheduleId);
+            entity.HasKey(e => e.StudyGroupId);
 
             entity.ToTable("StudyGroupScheduleTable");
 
-            entity.HasIndex(e => e.GroupNumberInGroupTable, "IX_StudyGroupScheduleTable_GroupNumberInGroupTable").IsUnique();
+            entity.Property(e => e.StudyGroupId)
+                .ValueGeneratedNever()
+                .HasColumnName("StudyGroupID");
 
-            entity.Property(e => e.ScheduleId).HasColumnName("ScheduleID");
-
-            entity.HasOne(d => d.GroupNumberInGroupTableNavigation).WithOne(p => p.StudyGroupScheduleTable)
-                .HasForeignKey<GroupSchedule>(d => d.GroupNumberInGroupTable)
+            entity.HasOne(d => d.StudyGroup).WithOne(p => p.StudyGroupScheduleTable)
+                .HasForeignKey<GroupSchedule>(d => d.StudyGroupId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+        });
+
+        modelBuilder.Entity<Subject>(entity =>
+        {
+            entity.HasKey(e => e.SubjectId);
+
+            entity.ToTable("SubjectsTable");
+
+            entity.HasIndex(e => e.SubjectName, "IX_SubjectsTable_SubjectName").IsUnique();
+        });
+
+        modelBuilder.Entity<TypeOfMark>(entity =>
+        {
+            entity.HasKey(e => e.TypeOfMarkId);
+
+            entity.ToTable("TypeOfMarksTable");
+
+            entity.HasIndex(e => e.TypeOfMarkName, "IX_TypeOfMarksTable_TypeOfMarkName").IsUnique();
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(e => e.UserId);
+
+            entity.ToTable("UsersTable");
+
+            entity.HasIndex(e => e.UserLogin, "IX_UsersTable_UserLogin").IsUnique();
         });
 
         OnModelCreatingPartial(modelBuilder);

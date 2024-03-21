@@ -1,10 +1,11 @@
-﻿namespace WorkWithDatabase;
+﻿using System;
+using System.Collections.Generic;
+
+namespace WorkWithDatabase;
 
 public partial class GroupSchedule
 {
-    public int ScheduleId { get; set; }
-
-    public int GroupNumberInGroupTable { get; set; }
+    public int StudyGroupId { get; set; }
 
     public string? Monday { get; set; }
 
@@ -18,5 +19,5 @@ public partial class GroupSchedule
 
     public string? Saturday { get; set; }
 
-    public virtual StudyGroup GroupNumberInGroupTableNavigation { get; set; } = null!;
+    public virtual Group StudyGroup { get; set; } = null!;
 }

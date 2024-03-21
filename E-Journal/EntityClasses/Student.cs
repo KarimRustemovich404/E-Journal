@@ -16,23 +16,11 @@ public partial class Student
 
     public int StudentGroupNumber { get; set; }
 
-    public virtual StudentExamScores? ExamScoresTable { get; set; }
+    public virtual User NumberInUserTableNavigation { get; set; } = null!;
 
-    public virtual ElectronicDiaryUser NumberInUserTableNavigation { get; set; } = null!;
+    public virtual Group StudentGroupNumberNavigation { get; set; } = null!;
 
-    public virtual StudentPointsForSemesterWork? PointsForSemesterWorkTable { get; set; }
+    public virtual ICollection<StudentNote> StudentNotesTables { get; set; } = new List<StudentNote>();
 
-    public virtual StudyGroup StudentGroupNumberNavigation { get; set; } = null!;
-
-    public virtual StudentNotesForClasses? StudentNotesForClassesTable { get; set; }
-
-
-    public Student(int numberInUserTable, string studentName, string studentSurname, string studentPatronymic, int studentGroupNumber)
-    {
-        NumberInUserTable = numberInUserTable;
-        StudentName = studentName;
-        StudentSurname = studentSurname;
-        StudentPatronymic = studentPatronymic;
-        StudentGroupNumber = studentGroupNumber;
-    }
+    public virtual ICollection<StudentMark> StudentsMarksTables { get; set; } = new List<StudentMark>();
 }

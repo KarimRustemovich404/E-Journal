@@ -1,6 +1,6 @@
 ﻿namespace WorkWithDatabase;
 
-public partial class LessonsTimeTable
+public partial class LessonTimeTable
 {
     public int LessonId { get; set; }
 

@@ -2,15 +2,14 @@
 
 namespace WorkWithDatabase;
 
-[Table("ElectronicDiaryUsersTable")]
-public partial class ElectronicDiaryUser
+[Table("UsersTable")]
+public partial class User
 {
     private int userId;
     private string userLogin;
     private string userPassword;
     private int isAccountActive;
     private int isAdmin;
-    private Administrator administratorsTable = null!;
     private Student studentsTable = null!;
 
     public int UserId
@@ -53,14 +52,6 @@ public partial class ElectronicDiaryUser
         }
     }
 
-    public Administrator AdministratorsTable
-    {
-        get
-        {
-            return administratorsTable;
-        }
-    }
-
     public Student StudentsTable
     {
         get
@@ -69,7 +60,7 @@ public partial class ElectronicDiaryUser
         }
     }
 
-    public ElectronicDiaryUser(string userLogin, string userPassword, int isAccountActive, int isAdmin)
+    public User(string userLogin, string userPassword, int isAccountActive, int isAdmin)
     {
         this.userLogin = userLogin;
         this.userPassword = userPassword;

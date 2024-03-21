@@ -51,7 +51,7 @@
             studentFormTableLayoutPanel.Name = "studentFormTableLayoutPanel";
             studentFormTableLayoutPanel.RowCount = 1;
             studentFormTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            studentFormTableLayoutPanel.Size = new Size(889, 472);
+            studentFormTableLayoutPanel.Size = new Size(1082, 653);
             studentFormTableLayoutPanel.TabIndex = 0;
             // 
             // studentMainMenuTableLayoutPanel
@@ -70,7 +70,7 @@
             studentMainMenuTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 12F));
             studentMainMenuTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 12F));
             studentMainMenuTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 64F));
-            studentMainMenuTableLayoutPanel.Size = new Size(171, 464);
+            studentMainMenuTableLayoutPanel.Size = new Size(209, 645);
             studentMainMenuTableLayoutPanel.TabIndex = 1;
             // 
             // myProfileLabel
@@ -83,7 +83,7 @@
             myProfileLabel.Location = new Point(3, 30);
             myProfileLabel.Margin = new Padding(3, 30, 3, 0);
             myProfileLabel.Name = "myProfileLabel";
-            myProfileLabel.Size = new Size(165, 23);
+            myProfileLabel.Size = new Size(203, 23);
             myProfileLabel.TabIndex = 0;
             myProfileLabel.Text = "Мой профиль";
             myProfileLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -95,10 +95,10 @@
             academicPerformanceLabel.Cursor = Cursors.Hand;
             academicPerformanceLabel.Dock = DockStyle.Top;
             academicPerformanceLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            academicPerformanceLabel.Location = new Point(3, 85);
+            academicPerformanceLabel.Location = new Point(3, 107);
             academicPerformanceLabel.Margin = new Padding(3, 30, 3, 0);
             academicPerformanceLabel.Name = "academicPerformanceLabel";
-            academicPerformanceLabel.Size = new Size(165, 23);
+            academicPerformanceLabel.Size = new Size(203, 23);
             academicPerformanceLabel.TabIndex = 1;
             academicPerformanceLabel.Text = "Успеваемость";
             academicPerformanceLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -107,13 +107,14 @@
             // scheduleLabel
             // 
             scheduleLabel.AutoSize = true;
+            scheduleLabel.BackColor = SystemColors.ControlLight;
             scheduleLabel.Cursor = Cursors.Hand;
             scheduleLabel.Dock = DockStyle.Top;
             scheduleLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            scheduleLabel.Location = new Point(3, 140);
+            scheduleLabel.Location = new Point(3, 184);
             scheduleLabel.Margin = new Padding(3, 30, 3, 0);
             scheduleLabel.Name = "scheduleLabel";
-            scheduleLabel.Size = new Size(165, 23);
+            scheduleLabel.Size = new Size(203, 23);
             scheduleLabel.TabIndex = 2;
             scheduleLabel.Text = "Расписание";
             scheduleLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -124,12 +125,12 @@
             exitLabel.AutoSize = true;
             exitLabel.Cursor = Cursors.Hand;
             exitLabel.Dock = DockStyle.Bottom;
-            exitLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            exitLabel.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
             exitLabel.ForeColor = Color.Brown;
-            exitLabel.Location = new Point(3, 411);
+            exitLabel.Location = new Point(3, 589);
             exitLabel.Margin = new Padding(3, 0, 3, 30);
             exitLabel.Name = "exitLabel";
-            exitLabel.Size = new Size(165, 23);
+            exitLabel.Size = new Size(203, 26);
             exitLabel.TabIndex = 3;
             exitLabel.Text = "Выйти";
             exitLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -139,12 +140,14 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.Window;
-            ClientSize = new Size(889, 472);
+            BackColor = SystemColors.ControlLight;
+            ClientSize = new Size(1082, 653);
             Controls.Add(studentFormTableLayoutPanel);
             Font = new Font("Arial", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
             ForeColor = SystemColors.WindowText;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "StudentFormOfElectronicDiary";
             Text = "Электронный дневник студента";
             studentFormTableLayoutPanel.ResumeLayout(false);

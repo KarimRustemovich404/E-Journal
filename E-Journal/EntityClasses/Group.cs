@@ -2,7 +2,7 @@
 
 namespace WorkWithDatabase;
 
-public partial class StudyGroup
+public partial class Group
 {
     public int GroupId { get; set; }
 
@@ -12,7 +12,7 @@ public partial class StudyGroup
 
     public virtual GroupSchedule? StudyGroupScheduleTable { get; set; }
 
-    public StudyGroup(string groupName)
+    public Group(string groupName)
     {
         GroupName = groupName;
     }

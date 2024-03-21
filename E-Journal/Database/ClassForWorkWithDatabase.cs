@@ -10,7 +10,7 @@ namespace WorkWithDatabase
         {
             using (var database = new DatabaseForElectronicDiaryContext())
             {
-                var diaryUser = (from user in database.ElectronicDiaryUsers where user.UserLogin == login select user).ToList();
+                var diaryUser = (from user in database.Users where user.UserLogin == login select user).ToList();
 
                 if (diaryUser.Count != 0)
                 {
@@ -48,33 +48,42 @@ namespace WorkWithDatabase
         {
             using (var database = new DatabaseForElectronicDiaryContext())
             {
-                int userIndex = int.Parse(informationAboutAccount[informationAboutAccount.Length - 1].ToString());
-                string isAdmin = informationAboutAccount.Substring(0, informationAboutAccount.Length - 1);
+                int userIndex = int.Parse(informationAboutAccount.Remove(0, 7));
 
-                if (isAdmin == "Admin")
-                {
-                    var diaryAdmin = (from admin in database.Administrators where admin.NumberInUserTable == userIndex select admin).ToList()[0];
-
-                    return new List<string> { diaryAdmin.AdministratorId.ToString(), diaryAdmin.AdministratorName, diaryAdmin.AdministratorSurname, diaryAdmin.AdministratorPatronymic };
-                }
-
-                else
-                {
-                    var diaryStudent = (from student in database.Students.Include(u => u.StudentGroupNumberNavigation) where student.NumberInUserTable == userIndex select student).ToList()[0];
-
-                    return new List<string> { diaryStudent.StudentId.ToString(), diaryStudent.StudentName, diaryStudent.StudentSurname, diaryStudent.StudentPatronymic, diaryStudent.StudentGroupNumberNavigation.GroupName, diaryStudent.studentBirthday};
-                }
+                var diaryStudent = (from student in database.Students.Include(u => u.StudentGroupNumberNavigation) where student.NumberInUserTable == userIndex select student).ToList()[0];
+                return new List<string> { diaryStudent.StudentId.ToString(), diaryStudent.StudentName, diaryStudent.StudentSurname, diaryStudent.StudentPatronymic, diaryStudent.StudentGroupNumberNavigation.GroupName, diaryStudent.studentBirthday };
             }
         }
 
-        public static List<List<string>> LoadingScheduleData(int groupId)
+        public static List<List<string>> LoadingScheduleData(string groupName)
         {
             using (var database = new DatabaseForElectronicDiaryContext())
             {
-                var groupSchedule = (from schedule in database.StudyGroupSchedule where schedule.GroupNumberInGroupTable == groupId select schedule).ToList()[0];
+                var groupId = (from studyGroup in database.Groups where studyGroup.GroupName == groupName select studyGroup.GroupId).ToList()[0];
+                var groupSchedule = (from schedule in database.StudyGroupScheduleTables where schedule.StudyGroupId == groupId select schedule).ToList()[0];
+                var classes = (from cl in database.Subject select cl).ToList();
+                classes.OrderBy(p => p.SubjectId);
 
-                return new List<List<string>>() { groupSchedule.Monday.Split('/').ToList(), groupSchedule.Tuesday.Split('/').ToList(), groupSchedule.Wednesday.Split('/').ToList(),
+                var scheduleWithFullName = new List<List<string>>() { groupSchedule.Monday.Split('/').ToList(), groupSchedule.Tuesday.Split('/').ToList(), groupSchedule.Wednesday.Split('/').ToList(),
                                                   groupSchedule.Thursday.Split('/').ToList(), groupSchedule.Friday.Split('/').ToList(), groupSchedule.Saturday.Split('/').ToList() };
+
+                foreach(List<string> scheduleData in scheduleWithFullName) 
+                {
+                    for (int i = 0; i < scheduleData.Count; i++) 
+                    {
+                        if (scheduleData[i] != string.Empty)
+                        {
+                            int classIndex = int.Parse(scheduleData[i]);
+                            scheduleData[i] = classes[classIndex - 1].SubjectName;
+                        }
+                        else
+                        {
+                            scheduleData[i] = String.Empty;
+                        }
+                    }
+                }
+
+                return scheduleWithFullName;
             }
         }
 
@@ -87,6 +96,30 @@ namespace WorkWithDatabase
             }
         }
 
+        public static List<StudentMark> LoadStudentMarks(int semesterId, int studentId)
+        {
+            using (var database = new DatabaseForElectronicDiaryContext())
+            {
+                return (from mark in database.StudentsMarks.Include(p => p.Subject).Include(p => p.TypeOfMark) where mark.SemesterId == semesterId where mark.StudentId == studentId select mark).ToList();
+            }
+        }
+
+        public static List<string> LoadSemesters()
+        {
+            using (var database = new DatabaseForElectronicDiaryContext())
+            {
+                return (from semester in database.Semesters select semester.SemesterName).ToList();
+            }
+        }
+
+        public static string[] LoadStudentSubjects()
+        {
+            using (var database = new DatabaseForElectronicDiaryContext())
+            {
+                return (from cl in database.Subject select cl.SubjectName).ToArray();
+            }
+        }
+
         public static bool AddingNewStudyGroup(string groupName)
         {
             using (var database = new DatabaseForElectronicDiaryContext()) 
@@ -95,7 +128,7 @@ namespace WorkWithDatabase
 
                 if (isGroupExist) 
                 {
-                    var newStudyGroup = new StudyGroup(groupName);
+                    var newStudyGroup = new Group(groupName);
                     database.Groups.Add(newStudyGroup);
 
                     database.SaveChanges();
@@ -106,57 +139,7 @@ namespace WorkWithDatabase
             }
         }
 
-        public static bool AddingNewAdministrator(string administratorLogin, string administratorPassword, string administratorName, string administratorSurname, string administratorPatronymic)
-        {
-            using (var database = new DatabaseForElectronicDiaryContext())
-            {
-                bool isLoginExist = (from user in database.ElectronicDiaryUsers where user.UserLogin == administratorLogin select user).ToList().Count == 0;
-
-                if (isLoginExist)
-                {
-                    var newUser = new ElectronicDiaryUser(administratorLogin, administratorPassword, Convert.ToInt32(true), Convert.ToInt32(true));
-                    database.ElectronicDiaryUsers.Add(newUser);
-
-                    var newAdministrator = new Administrator(database.ElectronicDiaryUsers.ToList().Count, administratorName, administratorSurname, administratorPatronymic);
-                    newAdministrator.NumberInUserTableNavigation = newUser;
-                    database.Administrators.Add(newAdministrator);
-
-                    database.SaveChanges();
-                    return true;
-                }
-
-                return false;
-            }
-        }
-
-        public static bool AddingNewStudent(string studentLogin, string studentPassword, string studentName, string studentSurname, string studentPatronymic, string groupName)
-        {
-            using (var database = new DatabaseForElectronicDiaryContext())
-            {
-                bool isLoginExist = (from user in database.ElectronicDiaryUsers where user.UserLogin == studentLogin select user).ToList().Count == 0;
-
-                if (isLoginExist)
-                {
-                    var studentStudyGroup = (from studyGroup in database.Groups where studyGroup.GroupName == groupName select studyGroup).ToList();
-
-                    if (studentStudyGroup.Count != 0)
-                    {
-                        var newUser = new ElectronicDiaryUser(studentLogin, studentPassword, Convert.ToInt32(true), Convert.ToInt32(false));
-                        database.ElectronicDiaryUsers.Add(newUser);
-
-                        var newStudent = new Student(database.ElectronicDiaryUsers.Count(), studentName, studentSurname, studentPatronymic, studentStudyGroup[0].GroupId);
-                        newStudent.StudentGroupNumberNavigation = studentStudyGroup[0];
-                        newStudent.NumberInUserTableNavigation = newUser;
-                        database.Students.Add(newStudent);
-
-                        database.SaveChanges();
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-        }
+        
 
         public static void ChangeStudentData(string studentId, string studentName, string studentSurname, string studentPatronymic, string studentBirthday, string studentGroupName)
         {
@@ -175,6 +158,57 @@ namespace WorkWithDatabase
 
                 database.SaveChanges();
             }        
+        }
+
+        public static string LoadStudentNote(int studentId, int subjectId)
+        {
+            using (var database = new DatabaseForElectronicDiaryContext())
+            {
+                var studentNote = (from note in database.StudentsNotes where note.StudentId == studentId where note.SubjectId == subjectId select note).ToList();
+
+                if (studentNote.Count != 0)
+                {
+                    return studentNote[0].NoteText;
+                }
+                else
+                {
+                    return String.Empty;
+                }
+            }
+        }
+
+        public static string LoadLessonsTime(int numberOfLesson)
+        {
+            using (var database = new DatabaseForElectronicDiaryContext())
+            {
+                return (from lesson in database.LessonsTimes where lesson.LessonId == numberOfLesson select lesson.LessonTime).ToList()[0];
+            }
+        }
+
+        public static void SaveStudentNote(int studentId, int subjectId, string noteText)
+        {
+            using (var database = new DatabaseForElectronicDiaryContext())
+            {
+                var studentNote = (from note in database.StudentsNotes where note.StudentId == studentId where note.SubjectId == subjectId select note).ToList();
+
+                if (studentNote.Count != 0) 
+                {
+                    studentNote[0].NoteText = noteText;
+                }
+                else
+                {
+                    var newNote = new StudentNote(studentId, subjectId, noteText);
+                    var noteSubject = (from subject in database.Subject where subject.SubjectId == subjectId select subject).ToList()[0];
+                    var noteStudent = (from student in database.Students where student.StudentId == studentId select student).ToList()[0];
+
+                    newNote.Student = noteStudent;
+                    newNote.Subject = noteSubject;
+
+                    database.StudentsNotes.Add(newNote);
+                }
+
+                database.SaveChanges();
+            }
         }
     }
 }
