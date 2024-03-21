@@ -28,12 +28,62 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "AdministratorFormOfElectronicDiary";
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdministratorFormOfElectronicDiary));
+            listOfGroupsButton = new Button();
+            scheduleButton = new Button();
+            exitButton = new Button();
+            SuspendLayout();
+            // 
+            // listOfGroupsButton
+            // 
+            listOfGroupsButton.BackColor = Color.LightGray;
+            listOfGroupsButton.Cursor = Cursors.Hand;
+            listOfGroupsButton.FlatStyle = FlatStyle.Flat;
+            listOfGroupsButton.ForeColor = SystemColors.ControlText;
+            listOfGroupsButton.Location = new Point(12, 12);
+            listOfGroupsButton.Name = "listOfGroupsButton";
+            listOfGroupsButton.Size = new Size(120, 45);
+            listOfGroupsButton.TabIndex = 0;
+            listOfGroupsButton.Text = "Список групп";
+            listOfGroupsButton.UseVisualStyleBackColor = false;
+            // 
+            // scheduleButton
+            // 
+            scheduleButton.Location = new Point(12, 64);
+            scheduleButton.Name = "scheduleButton";
+            scheduleButton.Size = new Size(120, 45);
+            scheduleButton.TabIndex = 1;
+            scheduleButton.Text = "Расписание";
+            scheduleButton.UseVisualStyleBackColor = true;
+            // 
+            // exitButton
+            // 
+            exitButton.ForeColor = Color.Red;
+            exitButton.Location = new Point(12, 518);
+            exitButton.Name = "exitButton";
+            exitButton.Size = new Size(80, 23);
+            exitButton.TabIndex = 2;
+            exitButton.Text = "Выйти";
+            exitButton.UseVisualStyleBackColor = true;
+            // 
+            // AdministratorFormOfElectronicDiary
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(782, 553);
+            Controls.Add(exitButton);
+            Controls.Add(scheduleButton);
+            Controls.Add(listOfGroupsButton);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Name = "AdministratorFormOfElectronicDiary";
+            Text = "AdministratorFormOfElectronicDiary";
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private Button listOfGroupsButton;
+        private Button scheduleButton;
+        private Button exitButton;
     }
 }
