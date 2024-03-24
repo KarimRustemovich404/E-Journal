@@ -5,7 +5,7 @@
     <version>1.0.0</version>
     <authors>E-Journal</authors>
     <description>Package Description</description>
-    <repository type="git" commit="c00048b3faff137e3ab754e1894f5fe7b8846014" />
+    <repository type="git" commit="b65c6d751edad513a3439ce1908be0a0e37baab3" />
     <dependencies>
       <group targetFramework="net8.0-windows7.0">
         <dependency id="Microsoft.EntityFrameworkCore.Sqlite" version="9.0.0-preview.2.24128.4" exclude="Build,Analyzers" />
@@ -18,7 +18,7 @@
     </frameworkReferences>
   </metadata>
   <files>
-    <file src="C:\Users\ASUS ROG\source\repos\E-Journal\E-Journal\bin\Debug\net8.0-windows7.0\E-Journal.runtimeconfig.json" target="lib\net8.0-windows7.0\E-Journal.runtimeconfig.json" />
-    <file src="C:\Users\ASUS ROG\source\repos\E-Journal\E-Journal\bin\Debug\net8.0-windows7.0\E-Journal.dll" target="lib\net8.0-windows7.0\E-Journal.dll" />
+    <file src="C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\bin\Debug\net8.0-windows7.0\E-Journal.runtimeconfig.json" target="lib\net8.0-windows7.0\E-Journal.runtimeconfig.json" />
+    <file src="C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\bin\Debug\net8.0-windows7.0\E-Journal.dll" target="lib\net8.0-windows7.0\E-Journal.dll" />
   </files>
 </package>

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WorkWithDatabase;
 
-namespace E_Journal
+namespace ElectronicDiary
 {
     public partial class CreatingOfGroupForm : Form
     {

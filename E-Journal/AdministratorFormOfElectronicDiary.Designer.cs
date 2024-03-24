@@ -1,4 +1,4 @@
-﻿namespace E_Journal
+﻿namespace ElectronicDiary
 {
     partial class AdministratorFormOfElectronicDiary
     {

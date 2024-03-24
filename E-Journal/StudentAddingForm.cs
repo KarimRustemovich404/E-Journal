@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace E_Journal
+namespace ElectronicDiary
 {
     public partial class StudentIDForm : Form
     {

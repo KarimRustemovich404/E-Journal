@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WorkWithDatabase;
 
-namespace E_Journal
+namespace ElectronicDiary
 {
     public partial class AdministratorFormOfElectronicDiary : Form
     {
@@ -147,8 +147,8 @@ namespace E_Journal
             int todayDayOfWeek = (int)DateTime.Today.DayOfWeek;
             string dateOfDay = DateTime.Today.AddDays(dayIndex - todayDayOfWeek + 1).ToShortDateString();
 
-            var cardWithDailySchedule = new CardWithDailySchedule(dateOfDay, studentId, adminSchedule[dayIndex]);
-            cardWithDailySchedule.Show();
+            //var cardWithDailySchedule = new CardWithDailySchedule(dateOfDay, studentId, adminSchedule[dayIndex]);
+            //cardWithDailySchedule.Show();
         }
 
         private void SaveSchedule(object sender, EventArgs e)
