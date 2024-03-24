@@ -16,22 +16,55 @@ namespace E_Journal
         public AdministratorFormOfElectronicDiary()
         {
             InitializeComponent();
+
+            MaximizeBox = false;
         }
 
         #region Поля
+        private TabControl tabControl;
+        private Button btnSave;
         private string studentId;
         private string[] adminSubjects;
         private List<List<string>> adminSchedule;
         private List<Control> controlsInTableLayoutPanel = new List<Control>();
         #endregion
 
-        #region Раздел "Выйти"
-        /// <summary>
-        /// Метод, который обрабатывает нажатие на кнопку "Выход".
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
-        private void ExitLabelClick(object sender, EventArgs e)
+        #region Раздел "Список групп"
+
+        private void ListOfGroupsLabelClick(object sender, EventArgs e)
+        {
+            if (listOfGroupsLabel.ForeColor == SystemColors.WindowText)
+            {
+                listOfGroupsLabel.ForeColor = Color.DeepSkyBlue;
+                listOfGroupsLabel.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
+
+                if (adminFormTableLayoutPanel.Controls.Count > 1)
+                {
+                    adminFormTableLayoutPanel.Controls[1].Dispose();
+                }
+
+                controlsInTableLayoutPanel.Clear();
+
+                var listOfStudyingGroupsLabel = new Label();
+                adminFormTableLayoutPanel.Controls.Add(listOfStudyingGroupsLabel, 0, 0);
+                listOfStudyingGroupsLabel.Text = "Список учебных групп";
+                listOfStudyingGroupsLabel.Font = new Font("Arial", 28F, FontStyle.Regular, GraphicsUnit.Point, 204);
+                listOfStudyingGroupsLabel.ForeColor = SystemColors.WindowText;
+                listOfStudyingGroupsLabel.TextAlign = ContentAlignment.TopLeft;
+                listOfStudyingGroupsLabel.Dock = DockStyle.Fill;
+                listOfStudyingGroupsLabel.Margin = new Padding(20, 18, 0, 0);
+            }
+        }
+
+                #endregion
+
+                #region Раздел "Выйти"
+                /// <summary>
+                /// Метод, который обрабатывает нажатие на кнопку "Выход".
+                /// </summary>
+                /// <param name="sender"> Объект-инициатор. </param>
+                /// <param name="e"> Объект-событие. </param>
+                private void ExitLabelClick(object sender, EventArgs e)
         {
             if (MessageBox.Show("Вы действительно хотите выйти?", "Выход из приложения", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
@@ -89,7 +122,7 @@ namespace E_Journal
                 scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 27.33F));
                 scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 3));
 
-            }
+            }    
         }
 
         /// <summary>
@@ -116,6 +149,25 @@ namespace E_Journal
 
             var cardWithDailySchedule = new CardWithDailySchedule(dateOfDay, studentId, adminSchedule[dayIndex]);
             cardWithDailySchedule.Show();
+        }
+
+        private void SaveSchedule(object sender, EventArgs e)
+        {
+            tabControl = new TabControl();
+            tabControl.Dock = DockStyle.Fill;
+
+            btnSave = new Button();
+            btnSave.Text = "Сохранить";
+            btnSave.Dock = DockStyle.Bottom;
+            btnSave.Click += SaveButtonClick;
+
+            this.Controls.Add(tabControl);
+            this.Controls.Add(btnSave);
+        }
+
+        private void SaveButtonClick (object sender, EventArgs e)
+        {
+            MessageBox.Show("Расписание сохранено успешно.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         #endregion
 

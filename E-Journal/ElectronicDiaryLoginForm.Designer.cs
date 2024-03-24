@@ -160,6 +160,8 @@ namespace E_Journal
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4);
             MaximizeBox = false;
+            MaximumSize = new Size(800, 595);
+            MinimumSize = new Size(800, 595);
             Name = "ElectronicDiaryLoginForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Электронный дневник студента";

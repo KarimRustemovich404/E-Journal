@@ -508,3 +508,6 @@ C:\Users\ASUS ROG\source\repos\E-Journal\E-Journal\obj\Debug\net8.0-windows7.0\r
 C:\Users\ASUS ROG\source\repos\E-Journal\E-Journal\obj\Debug\net8.0-windows7.0\E-Journal.pdb
 C:\Users\ASUS ROG\source\repos\E-Journal\E-Journal\obj\Debug\net8.0-windows7.0\E-Journal.genruntimeconfig.cache
 C:\Users\ASUS ROG\source\repos\E-Journal\E-Journal\obj\Debug\net8.0-windows7.0\ref\E-Journal.dll
+C:\Users\ASUS ROG\source\repos\E-Journal\E-Journal\obj\Debug\net8.0-windows7.0\E_Journal.CreatingOfGroupForm.resources
+C:\Users\ASUS ROG\source\repos\E-Journal\E-Journal\obj\Debug\net8.0-windows7.0\E_Journal.MarkAddingForm.resources
+C:\Users\ASUS ROG\source\repos\E-Journal\E-Journal\obj\Debug\net8.0-windows7.0\E_Journal.StudentIDForm.resources

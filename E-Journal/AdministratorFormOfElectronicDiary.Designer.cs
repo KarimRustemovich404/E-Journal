@@ -117,6 +117,8 @@
             ClientSize = new Size(984, 651);
             Controls.Add(adminFormTableLayoutPanel);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximumSize = new Size(1000, 690);
+            MinimumSize = new Size(1000, 690);
             Name = "AdministratorFormOfElectronicDiary";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Электронный дневник студента";
