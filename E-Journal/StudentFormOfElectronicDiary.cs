@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WorkWithDatabase;
 
-namespace E_Journal
+namespace ElectronicDiary
 {
     public partial class StudentFormOfElectronicDiary : Form
     {
         #region Поля
-        private string studentId;
+        private int studentId;
         private string studentName;
         private string studentSurname;
         private string studentPatronymic;
-        private string studentStudyGroup;
+        private string studentGroupName;
         private string studentBirthday;
-        private string[] studentSubjects;
-        private List<List<string>> studentSchedule;
+        private int studentGroupId;
         private List<Control> controlsInTableLayoutPanel = new List<Control>();
         #endregion
 
@@ -33,27 +33,24 @@ namespace E_Journal
         /// <param name="e"> Объект-событие. </param>
         private void MyProfileLabelClick(object sender, EventArgs e)
         {
+            controlsInTableLayoutPanel.Clear();
+
+            if (studentFormTableLayoutPanel.Controls.Count > 1)
+            {
+                studentFormTableLayoutPanel.Controls[1].Dispose();
+            }
+
             if (myProfileLabel.ForeColor == SystemColors.WindowText)
             {
                 myProfileLabel.ForeColor = Color.DeepSkyBlue;
-                myProfileLabel.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
                 academicPerformanceLabel.ForeColor = SystemColors.WindowText;
-                academicPerformanceLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
                 scheduleLabel.ForeColor = SystemColors.WindowText;
-                scheduleLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-
-                if (studentFormTableLayoutPanel.Controls.Count > 1)
-                {
-                    studentFormTableLayoutPanel.Controls[1].Dispose();
-                }
-
-                controlsInTableLayoutPanel.Clear();
 
                 var myProfileTableLayoutPanel = new TableLayoutPanel();
                 studentFormTableLayoutPanel.Controls.Add(myProfileTableLayoutPanel, 1, 0);
                 myProfileTableLayoutPanel.Dock = DockStyle.Fill;
-                myProfileTableLayoutPanel.ColumnCount = 4;
                 myProfileTableLayoutPanel.RowCount = 7;
+                myProfileTableLayoutPanel.ColumnCount = 4;
                 myProfileTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 23));
                 myProfileTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 11));
                 myProfileTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 11));
@@ -69,12 +66,11 @@ namespace E_Journal
                 var myProfileTitleLabel = new Label();
                 myProfileTableLayoutPanel.Controls.Add(myProfileTitleLabel, 1, 0);
                 myProfileTitleLabel.Text = "Мой профиль";
-                myProfileTitleLabel.Font = new Font("Arial", 28F, FontStyle.Regular, GraphicsUnit.Point, 204);
+                myProfileTitleLabel.Font = new Font("Arial", 30F, FontStyle.Regular, GraphicsUnit.Point, 204);
                 myProfileTitleLabel.ForeColor = SystemColors.WindowText;
                 myProfileTitleLabel.TextAlign = ContentAlignment.TopLeft;
                 myProfileTitleLabel.Dock = DockStyle.Fill;
-                myProfileTitleLabel.Margin = new Padding(0, 33, 0, 0);
-                controlsInTableLayoutPanel.Add(myProfileTableLayoutPanel);
+                myProfileTitleLabel.Margin = new Padding(0, 27, 0, 0);
 
                 var surnameTitleLabel = new Label();
                 myProfileTableLayoutPanel.Controls.Add(surnameTitleLabel, 1, 1);
@@ -154,7 +150,7 @@ namespace E_Journal
 
                 var studyGroupLabel = new Label();
                 myProfileTableLayoutPanel.Controls.Add(studyGroupLabel, 2, 5);
-                studyGroupLabel.Text = studentStudyGroup;
+                studyGroupLabel.Text = studentGroupName;
                 studyGroupLabel.Font = new Font("Arial", 18F, FontStyle.Regular, GraphicsUnit.Point, 204);
                 studyGroupLabel.ForeColor = SystemColors.WindowText;
                 studyGroupLabel.TextAlign = ContentAlignment.TopLeft;
@@ -168,7 +164,7 @@ namespace E_Journal
                 editButton.ForeColor = SystemColors.WindowText;
                 editButton.TextAlign = ContentAlignment.MiddleCenter;
                 editButton.Dock = DockStyle.Fill;
-                editButton.Margin = new Padding(35, 25, 100, 50);
+                editButton.Margin = new Padding(25, 20, 95, 70);
                 editButton.BackColor = SystemColors.ControlLight;
                 editButton.FlatStyle = FlatStyle.Flat;
                 editButton.FlatAppearance.BorderColor = Color.Black;
@@ -183,7 +179,7 @@ namespace E_Journal
                 saveButton.ForeColor = SystemColors.WindowText;
                 saveButton.TextAlign = ContentAlignment.MiddleCenter;
                 saveButton.Dock = DockStyle.Fill;
-                saveButton.Margin = new Padding(35, 25, 100, 50);
+                saveButton.Margin = new Padding(25, 20, 95, 70);
                 saveButton.BackColor = SystemColors.ControlLight;
                 saveButton.FlatStyle = FlatStyle.Flat;
                 saveButton.FlatAppearance.BorderColor = Color.Black;
@@ -195,9 +191,6 @@ namespace E_Journal
             else
             {
                 myProfileLabel.ForeColor = SystemColors.WindowText;
-                myProfileLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-
-                studentFormTableLayoutPanel.Controls[1].Dispose();
             }
         }
 
@@ -210,9 +203,9 @@ namespace E_Journal
         {
             ActiveControl = null;
             var editButton = sender as Button;
-            var myProfileTableLayoutPanel = controlsInTableLayoutPanel.First() as TableLayoutPanel;
+            var myProfileTableLayoutPanel = studentFormTableLayoutPanel.Controls[1] as TableLayoutPanel;
 
-            for (int i = 1; i < (controlsInTableLayoutPanel.Count - 2); i++)
+            for (int i = 0; i < (controlsInTableLayoutPanel.Count - 2); i++)
             {
                 myProfileTableLayoutPanel.Controls.Remove(controlsInTableLayoutPanel[i]);
             }
@@ -231,7 +224,7 @@ namespace E_Journal
                 surnameTextBox.Dock = DockStyle.Fill;
                 surnameTextBox.BorderStyle = BorderStyle.FixedSingle;
                 surnameTextBox.Enter += FullNameTextBoxEnter;
-                controlsInTableLayoutPanel[1] = surnameTextBox;
+                controlsInTableLayoutPanel[0] = surnameTextBox;
 
                 var nameTextBox = new TextBox();
                 myProfileTableLayoutPanel.Controls.Add(nameTextBox, 2, 2);
@@ -241,7 +234,7 @@ namespace E_Journal
                 nameTextBox.Dock = DockStyle.Fill;
                 nameTextBox.BorderStyle = BorderStyle.FixedSingle;
                 nameTextBox.Enter += FullNameTextBoxEnter;
-                controlsInTableLayoutPanel[2] = nameTextBox;
+                controlsInTableLayoutPanel[1] = nameTextBox;
 
                 var patronymicTextBox = new TextBox();
                 myProfileTableLayoutPanel.Controls.Add(patronymicTextBox, 2, 3);
@@ -251,8 +244,7 @@ namespace E_Journal
                 patronymicTextBox.Dock = DockStyle.Fill;
                 patronymicTextBox.BorderStyle = BorderStyle.FixedSingle;
                 patronymicTextBox.Enter += FullNameTextBoxEnter;
-                controlsInTableLayoutPanel[3] = patronymicTextBox;
-
+                controlsInTableLayoutPanel[2] = patronymicTextBox;
 
                 var birthDayDateTimePicker = new DateTimePicker();
                 myProfileTableLayoutPanel.Controls.Add(birthDayDateTimePicker, 2, 4);
@@ -260,17 +252,17 @@ namespace E_Journal
                 birthDayDateTimePicker.Font = new Font("Arial", 18F, FontStyle.Regular, GraphicsUnit.Point, 204);
                 birthDayDateTimePicker.CalendarForeColor = SystemColors.WindowText;
                 birthDayDateTimePicker.Dock = DockStyle.Fill;
-                controlsInTableLayoutPanel[4] = birthDayDateTimePicker;
+                controlsInTableLayoutPanel[3] = birthDayDateTimePicker;
 
                 var studyGroupComboBox = new ComboBox();
                 myProfileTableLayoutPanel.Controls.Add(studyGroupComboBox, 2, 5);
-                studyGroupComboBox.Items.AddRange(ClassForWorkWithDatabase.LoadingStudyGroups());
+                studyGroupComboBox.Items.AddRange(ClassForWorkWithDatabase.LoadingStudyGroups().ToArray());
                 studyGroupComboBox.Font = new Font("Arial", 18F, FontStyle.Regular, GraphicsUnit.Point, 204);
                 studyGroupComboBox.ForeColor = SystemColors.WindowText;
                 studyGroupComboBox.Dock = DockStyle.Fill;
-                studyGroupComboBox.SelectedItem = studentStudyGroup;
+                studyGroupComboBox.SelectedItem = studentGroupName;
                 studyGroupComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-                controlsInTableLayoutPanel[5] = studyGroupComboBox;
+                controlsInTableLayoutPanel[4] = studyGroupComboBox;
             }
             else
             {
@@ -285,7 +277,7 @@ namespace E_Journal
                 surnameLabel.ForeColor = SystemColors.WindowText;
                 surnameLabel.TextAlign = ContentAlignment.TopLeft;
                 surnameLabel.Dock = DockStyle.Fill;
-                controlsInTableLayoutPanel[1] = surnameLabel;
+                controlsInTableLayoutPanel[0] = surnameLabel;
 
                 var nameLabel = new Label();
                 myProfileTableLayoutPanel.Controls.Add(nameLabel, 2, 2);
@@ -294,7 +286,7 @@ namespace E_Journal
                 nameLabel.ForeColor = SystemColors.WindowText;
                 nameLabel.TextAlign = ContentAlignment.TopLeft;
                 nameLabel.Dock = DockStyle.Fill;
-                controlsInTableLayoutPanel[2] = nameLabel;
+                controlsInTableLayoutPanel[1] = nameLabel;
 
                 var patronymicLabel = new Label();
                 myProfileTableLayoutPanel.Controls.Add(patronymicLabel, 2, 3);
@@ -303,7 +295,7 @@ namespace E_Journal
                 patronymicLabel.ForeColor = SystemColors.WindowText;
                 patronymicLabel.TextAlign = ContentAlignment.TopLeft;
                 patronymicLabel.Dock = DockStyle.Fill;
-                controlsInTableLayoutPanel[3] = patronymicLabel;
+                controlsInTableLayoutPanel[2] = patronymicLabel;
 
                 var birthdayDateLabel = new Label();
                 myProfileTableLayoutPanel.Controls.Add(birthdayDateLabel, 2, 4);
@@ -312,16 +304,16 @@ namespace E_Journal
                 birthdayDateLabel.ForeColor = SystemColors.WindowText;
                 birthdayDateLabel.TextAlign = ContentAlignment.TopLeft;
                 birthdayDateLabel.Dock = DockStyle.Fill;
-                controlsInTableLayoutPanel[4] = birthdayDateLabel;
+                controlsInTableLayoutPanel[3] = birthdayDateLabel;
 
                 var studyGroupLabel = new Label();
                 myProfileTableLayoutPanel.Controls.Add(studyGroupLabel, 2, 5);
-                studyGroupLabel.Text = studentStudyGroup;
+                studyGroupLabel.Text = studentGroupName;
                 studyGroupLabel.Font = new Font("Arial", 18F, FontStyle.Regular, GraphicsUnit.Point, 204);
                 studyGroupLabel.ForeColor = SystemColors.WindowText;
                 studyGroupLabel.TextAlign = ContentAlignment.TopLeft;
                 studyGroupLabel.Dock = DockStyle.Fill;
-                controlsInTableLayoutPanel[5] = studyGroupLabel;
+                controlsInTableLayoutPanel[4] = studyGroupLabel;
             }
         }
 
@@ -332,13 +324,13 @@ namespace E_Journal
         /// <param name="e"> Объект-событие. </param>
         private void SaveButtonClick(object sender, EventArgs e)
         {
-            var myProfileTableLayoutPanel = controlsInTableLayoutPanel.First() as TableLayoutPanel;
-            var surnameTexBox = controlsInTableLayoutPanel[1] as TextBox;
-            var nameTexBox = controlsInTableLayoutPanel[2] as TextBox;
-            var patronymicTexBox = controlsInTableLayoutPanel[3] as TextBox;
-            var birthDayDateTimePicker = controlsInTableLayoutPanel[4] as DateTimePicker;
-            var studyGroupComboBox = controlsInTableLayoutPanel[5] as ComboBox;
-            var editButton = controlsInTableLayoutPanel[6] as Button;
+            var myProfileTableLayoutPanel = studentFormTableLayoutPanel.Controls[1] as TableLayoutPanel;
+            var surnameTexBox = controlsInTableLayoutPanel[0] as TextBox;
+            var nameTexBox = controlsInTableLayoutPanel[1] as TextBox;
+            var patronymicTexBox = controlsInTableLayoutPanel[2] as TextBox;
+            var birthDayDateTimePicker = controlsInTableLayoutPanel[3] as DateTimePicker;
+            var studyGroupComboBox = controlsInTableLayoutPanel[4] as ComboBox;
+            var editButton = controlsInTableLayoutPanel[5] as Button;
 
             if ((surnameTexBox.Text != String.Empty) && (nameTexBox.Text != String.Empty) && (patronymicTexBox.Text != String.Empty))
             {
@@ -346,15 +338,16 @@ namespace E_Journal
                 studentName = nameTexBox.Text;
                 studentPatronymic = patronymicTexBox.Text;
                 studentBirthday = birthDayDateTimePicker.Value.ToString("dd.MM.yyyy");
-                studentStudyGroup = studyGroupComboBox.SelectedItem.ToString();
+                studentGroupName = studyGroupComboBox.SelectedItem.ToString();
+                studentGroupId = ClassForWorkWithDatabase.LoadingStudyGroups().IndexOf(studentGroupName) + 1;
 
-                ClassForWorkWithDatabase.ChangeStudentData(studentId, studentName, studentSurname, studentPatronymic, studentBirthday, studentStudyGroup);
+                ClassForWorkWithDatabase.ChangeStudentData(studentId, studentName, studentSurname, studentPatronymic, studentBirthday, studentGroupName);
 
                 editButton.BackColor = SystemColors.ControlLight;
                 editButton.FlatAppearance.BorderSize = 2;
                 controlsInTableLayoutPanel.Last().Enabled = false;
 
-                for (int i = 1; i < (controlsInTableLayoutPanel.Count - 2); i++)
+                for (int i = 0; i < (controlsInTableLayoutPanel.Count - 2); i++)
                 {
                     myProfileTableLayoutPanel.Controls.Remove(controlsInTableLayoutPanel[i]);
                 }
@@ -366,7 +359,7 @@ namespace E_Journal
                 surnameLabel.ForeColor = SystemColors.WindowText;
                 surnameLabel.TextAlign = ContentAlignment.TopLeft;
                 surnameLabel.Dock = DockStyle.Fill;
-                controlsInTableLayoutPanel[1] = surnameLabel;
+                controlsInTableLayoutPanel[0] = surnameLabel;
 
                 var nameLabel = new Label();
                 myProfileTableLayoutPanel.Controls.Add(nameLabel, 2, 2);
@@ -375,7 +368,7 @@ namespace E_Journal
                 nameLabel.ForeColor = SystemColors.WindowText;
                 nameLabel.TextAlign = ContentAlignment.TopLeft;
                 nameLabel.Dock = DockStyle.Fill;
-                controlsInTableLayoutPanel[2] = nameLabel;
+                controlsInTableLayoutPanel[1] = nameLabel;
 
                 var patronymicLabel = new Label();
                 myProfileTableLayoutPanel.Controls.Add(patronymicLabel, 2, 3);
@@ -384,7 +377,7 @@ namespace E_Journal
                 patronymicLabel.ForeColor = SystemColors.WindowText;
                 patronymicLabel.TextAlign = ContentAlignment.TopLeft;
                 patronymicLabel.Dock = DockStyle.Fill;
-                controlsInTableLayoutPanel[3] = patronymicLabel;
+                controlsInTableLayoutPanel[2] = patronymicLabel;
 
                 var birthdayDateLabel = new Label();
                 myProfileTableLayoutPanel.Controls.Add(birthdayDateLabel, 2, 4);
@@ -393,16 +386,16 @@ namespace E_Journal
                 birthdayDateLabel.ForeColor = SystemColors.WindowText;
                 birthdayDateLabel.TextAlign = ContentAlignment.TopLeft;
                 birthdayDateLabel.Dock = DockStyle.Fill;
-                controlsInTableLayoutPanel[4] = birthdayDateLabel;
+                controlsInTableLayoutPanel[3] = birthdayDateLabel;
 
                 var studyGroupLabel = new Label();
                 myProfileTableLayoutPanel.Controls.Add(studyGroupLabel, 2, 5);
-                studyGroupLabel.Text = studentStudyGroup;
+                studyGroupLabel.Text = studentGroupName;
                 studyGroupLabel.Font = new Font("Arial", 18F, FontStyle.Regular, GraphicsUnit.Point, 204);
                 studyGroupLabel.ForeColor = SystemColors.WindowText;
                 studyGroupLabel.TextAlign = ContentAlignment.TopLeft;
                 studyGroupLabel.Dock = DockStyle.Fill;
-                controlsInTableLayoutPanel[5] = studyGroupLabel;
+                controlsInTableLayoutPanel[4] = studyGroupLabel;
             }
             else
             {
@@ -428,7 +421,7 @@ namespace E_Journal
         /// <param name="e"> Объект-событие. </param>
         private void FullNameTextBoxEnter(object sender, EventArgs e)
         {
-            for (int i = 1; i < 4; i++)
+            for (int i = 0; i < (controlsInTableLayoutPanel.Count - 4); i++)
             {
                 controlsInTableLayoutPanel[i].BackColor = SystemColors.Window;
             }
@@ -443,59 +436,65 @@ namespace E_Journal
         /// <param name="e"> Объект-событие. </param>
         private void AcademicPerformanceLabelClick(object sender, EventArgs e)
         {
+            controlsInTableLayoutPanel.Clear();
+
+            if (studentFormTableLayoutPanel.Controls.Count > 1)
+            {
+                studentFormTableLayoutPanel.Controls[1].Dispose();
+            }
+
             if (academicPerformanceLabel.ForeColor == SystemColors.WindowText)
             {
                 academicPerformanceLabel.ForeColor = Color.DeepSkyBlue;
-                academicPerformanceLabel.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
                 myProfileLabel.ForeColor = SystemColors.WindowText;
-                myProfileLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
                 scheduleLabel.ForeColor = SystemColors.WindowText;
-                scheduleLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-
-                if (studentFormTableLayoutPanel.Controls.Count > 1)
-                {
-                    studentFormTableLayoutPanel.Controls[1].Dispose();
-                }
-
-                controlsInTableLayoutPanel.Clear();
 
                 var academicPerformanceTitleTableLayoutPanel = new TableLayoutPanel();
                 studentFormTableLayoutPanel.Controls.Add(academicPerformanceTitleTableLayoutPanel, 1, 0);
                 academicPerformanceTitleTableLayoutPanel.Dock = DockStyle.Fill;
-                academicPerformanceTitleTableLayoutPanel.ColumnCount = 3;
                 academicPerformanceTitleTableLayoutPanel.RowCount = 4;
+                academicPerformanceTitleTableLayoutPanel.ColumnCount = 3;
                 academicPerformanceTitleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 18));
                 academicPerformanceTitleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10));
                 academicPerformanceTitleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 70));
                 academicPerformanceTitleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 5));
-                academicPerformanceTitleTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8));
-                academicPerformanceTitleTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 84));
-                academicPerformanceTitleTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8));
+                academicPerformanceTitleTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 6));
+                academicPerformanceTitleTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 88));
+                academicPerformanceTitleTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 6));
 
                 var academicPerformanceTitleLabel = new Label();
                 academicPerformanceTitleTableLayoutPanel.Controls.Add(academicPerformanceTitleLabel, 1, 0);
                 academicPerformanceTitleLabel.Text = "Успеваемость";
-                academicPerformanceTitleLabel.Font = new Font("Arial", 28F, FontStyle.Regular, GraphicsUnit.Point, 204);
+                academicPerformanceTitleLabel.Font = new Font("Arial", 30F, FontStyle.Regular, GraphicsUnit.Point, 204);
                 academicPerformanceTitleLabel.ForeColor = SystemColors.WindowText;
                 academicPerformanceTitleLabel.TextAlign = ContentAlignment.TopLeft;
                 academicPerformanceTitleLabel.Dock = DockStyle.Fill;
-                academicPerformanceTitleLabel.Margin = new Padding(8, 22, 0, 0);
+                academicPerformanceTitleLabel.Margin = new Padding(0, 22, 0, 0);
 
                 var selectSemesterTableLayoutPanel = new TableLayoutPanel();
                 academicPerformanceTitleTableLayoutPanel.Controls.Add(selectSemesterTableLayoutPanel, 1, 1);
                 selectSemesterTableLayoutPanel.Dock = DockStyle.Fill;
-                selectSemesterTableLayoutPanel.ColumnCount = 2;
-                selectSemesterTableLayoutPanel.RowCount = 0;
+                selectSemesterTableLayoutPanel.ColumnCount = 3;
+                selectSemesterTableLayoutPanel.RowCount = 1;
+                selectSemesterTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30));
                 selectSemesterTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35));
-                selectSemesterTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65));
+                selectSemesterTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35));
+
+                var semesterTitleLable = new Label();
+                selectSemesterTableLayoutPanel.Controls.Add(semesterTitleLable, 0, 0);
+                semesterTitleLable.Text = "Выберите семестр:";
+                semesterTitleLable.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+                semesterTitleLable.ForeColor = SystemColors.WindowText;
+                semesterTitleLable.TextAlign = ContentAlignment.TopLeft;
+                semesterTitleLable.Dock = DockStyle.Fill;
+                semesterTitleLable.Margin = new Padding(0, 6, 0, 0);
 
                 var semesterComboBox = new ComboBox();
-                selectSemesterTableLayoutPanel.Controls.Add(semesterComboBox, 0, 0);
+                selectSemesterTableLayoutPanel.Controls.Add(semesterComboBox, 1, 0);
                 semesterComboBox.Items.AddRange(ClassForWorkWithDatabase.LoadSemesters().ToArray());
                 semesterComboBox.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
                 semesterComboBox.ForeColor = SystemColors.WindowText;
                 semesterComboBox.Dock = DockStyle.Fill;
-                semesterComboBox.SelectedItem = String.Empty;
                 semesterComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
                 semesterComboBox.SelectedIndexChanged += SemesterComboBoxSelectedIndexChanged;
                 controlsInTableLayoutPanel.Add(semesterComboBox);
@@ -504,12 +503,13 @@ namespace E_Journal
                 academicPerformanceTitleTableLayoutPanel.Controls.Add(academicPerformanceContentTableLayoutPanel, 1, 2);
                 academicPerformanceContentTableLayoutPanel.BackColor = SystemColors.Window;
                 academicPerformanceContentTableLayoutPanel.Dock = DockStyle.Fill;
-                academicPerformanceContentTableLayoutPanel.ColumnCount = 3;
                 academicPerformanceContentTableLayoutPanel.RowCount = 2;
+                academicPerformanceContentTableLayoutPanel.ColumnCount = 3;
                 academicPerformanceContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 15));
-                academicPerformanceContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 37.5F));
-                academicPerformanceContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 37.5F));
-                academicPerformanceContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25));
+                academicPerformanceContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 85));
+                academicPerformanceContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 38));
+                academicPerformanceContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 41));
+                academicPerformanceContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20));
                 controlsInTableLayoutPanel.Add(academicPerformanceContentTableLayoutPanel);
 
                 var subjectNameTitleLabel = new Label();
@@ -532,14 +532,10 @@ namespace E_Journal
                 markTitleLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
                 markTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
                 markTitleLabel.Dock = DockStyle.Fill;
-
-                academicPerformanceContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 82));
             }
             else
             {
                 academicPerformanceLabel.ForeColor = SystemColors.WindowText;
-                academicPerformanceLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-                studentFormTableLayoutPanel.Controls[1].Dispose();
             }
         }
 
@@ -553,34 +549,15 @@ namespace E_Journal
             var semesterComboBox = controlsInTableLayoutPanel[0] as ComboBox;
             var academicPerformanceContentTableLayoutPanel = controlsInTableLayoutPanel[1] as TableLayoutPanel;
 
-            academicPerformanceContentTableLayoutPanel.Controls.Clear();
             academicPerformanceContentTableLayoutPanel.RowStyles.Clear();
-
-            var subjectNameTitleLabel = new Label();
-            academicPerformanceContentTableLayoutPanel.Controls.Add(subjectNameTitleLabel, 0, 0);
-            subjectNameTitleLabel.Text = "Дисциплина";
-            subjectNameTitleLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            subjectNameTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
-            subjectNameTitleLabel.Dock = DockStyle.Fill;
-
-            var typeOfPointsTitleLabel = new Label();
-            academicPerformanceContentTableLayoutPanel.Controls.Add(typeOfPointsTitleLabel, 1, 0);
-            typeOfPointsTitleLabel.Text = "Тип учебного мероприятия";
-            typeOfPointsTitleLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            typeOfPointsTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
-            typeOfPointsTitleLabel.Dock = DockStyle.Fill;
-
-            var markTitleLabel = new Label();
-            academicPerformanceContentTableLayoutPanel.Controls.Add(markTitleLabel, 2, 0);
-            markTitleLabel.Text = "Оценка";
-            markTitleLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            markTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
-            markTitleLabel.Dock = DockStyle.Fill;
-
-            int semesterIndex = semesterComboBox.SelectedIndex + 1;
-            var studentMarks = ClassForWorkWithDatabase.LoadStudentMarks(semesterIndex, int.Parse(studentId));
+            var studentMarks = ClassForWorkWithDatabase.LoadStudentMarks(semesterComboBox.SelectedIndex + 1, studentId);
             academicPerformanceContentTableLayoutPanel.RowCount = studentMarks.Count + 2;
-            academicPerformanceContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 18));
+            academicPerformanceContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 15));
+
+            for (int i = academicPerformanceContentTableLayoutPanel.Controls.Count - 1; i > 2; i--)
+            {
+                academicPerformanceContentTableLayoutPanel.Controls[i].Dispose();
+            }
 
             for (int i = 0; i < studentMarks.Count; i++)
             {
@@ -605,10 +582,10 @@ namespace E_Journal
                 markLabel.TextAlign = ContentAlignment.MiddleCenter;
                 markLabel.Dock = DockStyle.Fill;
 
-                academicPerformanceContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 82 / (academicPerformanceContentTableLayoutPanel.RowCount)));
+                academicPerformanceContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 85 / (academicPerformanceContentTableLayoutPanel.RowCount)));
             }
 
-            academicPerformanceContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 82 / (academicPerformanceContentTableLayoutPanel.RowCount)));
+            academicPerformanceContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 85 / (academicPerformanceContentTableLayoutPanel.RowCount)));
         }
         #endregion
 
@@ -620,45 +597,42 @@ namespace E_Journal
         /// <param name="e"> Объект-событие. </param>
         private void ScheduleLabelClick(object sender, EventArgs e)
         {
+            controlsInTableLayoutPanel.Clear();
+
+            if (studentFormTableLayoutPanel.Controls.Count > 1)
+            {
+                studentFormTableLayoutPanel.Controls[1].Dispose();
+            }
+
             if (scheduleLabel.ForeColor == SystemColors.WindowText)
             {
                 scheduleLabel.ForeColor = Color.DeepSkyBlue;
-                scheduleLabel.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
                 myProfileLabel.ForeColor = SystemColors.WindowText;
-                myProfileLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
                 academicPerformanceLabel.ForeColor = SystemColors.WindowText;
-                academicPerformanceLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-
-                if (studentFormTableLayoutPanel.Controls.Count > 1)
-                {
-                    studentFormTableLayoutPanel.Controls[1].Dispose();
-                }
-
-                controlsInTableLayoutPanel.Clear();
 
                 var scheduleTitleTableLayoutPanel = new TableLayoutPanel();
                 studentFormTableLayoutPanel.Controls.Add(scheduleTitleTableLayoutPanel, 1, 0);
                 scheduleTitleTableLayoutPanel.Dock = DockStyle.Fill;
-                scheduleTitleTableLayoutPanel.ColumnCount = 1;
                 scheduleTitleTableLayoutPanel.RowCount = 3;
-                scheduleTitleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 15));
+                scheduleTitleTableLayoutPanel.ColumnCount = 1;
+                scheduleTitleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 13));
                 scheduleTitleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 75));
-                scheduleTitleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10));
+                scheduleTitleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 12));
 
                 var scheduleTitleLabel = new Label();
                 scheduleTitleTableLayoutPanel.Controls.Add(scheduleTitleLabel, 0, 0);
                 scheduleTitleLabel.Text = "Расписание";
-                scheduleTitleLabel.Font = new Font("Arial", 28F, FontStyle.Regular, GraphicsUnit.Point, 204);
+                scheduleTitleLabel.Font = new Font("Arial", 30F, FontStyle.Regular, GraphicsUnit.Point, 204);
                 scheduleTitleLabel.ForeColor = SystemColors.WindowText;
                 scheduleTitleLabel.TextAlign = ContentAlignment.TopLeft;
                 scheduleTitleLabel.Dock = DockStyle.Fill;
-                scheduleTitleLabel.Margin = new Padding(20, 18, 0, 0);
+                scheduleTitleLabel.Margin = new Padding(20, 16, 0, 0);
 
                 var scheduleContentTableLayoutPanel = new TableLayoutPanel();
                 scheduleTitleTableLayoutPanel.Controls.Add(scheduleContentTableLayoutPanel, 0, 1);
                 scheduleContentTableLayoutPanel.Dock = DockStyle.Fill;
-                scheduleContentTableLayoutPanel.ColumnCount = 7;
                 scheduleContentTableLayoutPanel.RowCount = 3;
+                scheduleContentTableLayoutPanel.ColumnCount = 7;
                 scheduleContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 45));
                 scheduleContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10));
                 scheduleContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 45));
@@ -670,13 +644,44 @@ namespace E_Journal
                 scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 27.33F));
                 scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 3));
 
+                var weekSelectionTableLayoutPanel = new TableLayoutPanel();
+                scheduleTitleTableLayoutPanel.Controls.Add(weekSelectionTableLayoutPanel, 0, 2);
+                weekSelectionTableLayoutPanel.Dock = DockStyle.Fill;
+                weekSelectionTableLayoutPanel.ColumnCount = 4;
+                weekSelectionTableLayoutPanel.RowCount = 1;
+                weekSelectionTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 3));
+                weekSelectionTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30));
+                weekSelectionTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30));
+                weekSelectionTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 43));
+
+                var weekSelectionTitleLable = new Label();
+                weekSelectionTableLayoutPanel.Controls.Add(weekSelectionTitleLable, 1, 0);
+                weekSelectionTitleLable.Text = "Выберите неделю:";
+                weekSelectionTitleLable.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+                weekSelectionTitleLable.ForeColor = SystemColors.WindowText;
+                weekSelectionTitleLable.TextAlign = ContentAlignment.TopLeft;
+                weekSelectionTitleLable.Dock = DockStyle.Fill;
+                weekSelectionTitleLable.Margin = new Padding(0, 18, 0, 0);
+
+                var weekSelectionComboBox = new ComboBox();
+                weekSelectionTableLayoutPanel.Controls.Add(weekSelectionComboBox, 2, 0);
+                weekSelectionComboBox.Items.AddRange(ClassForWorkWithDatabase.LoadingTypesOfWeek().ToArray());
+                weekSelectionComboBox.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+                weekSelectionComboBox.ForeColor = SystemColors.WindowText;
+                weekSelectionComboBox.Dock = DockStyle.Fill;
+                weekSelectionComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+                weekSelectionComboBox.Margin = new Padding(0, 16, 0, 0);
+                weekSelectionComboBox.SelectedIndexChanged += WeekComboBoxSelectedIndexChanged;
+                controlsInTableLayoutPanel.Add(weekSelectionComboBox);
+
                 var scheduleMondayTableLayoutPanel = new TableLayoutPanel();
                 scheduleContentTableLayoutPanel.Controls.Add(scheduleMondayTableLayoutPanel, 1, 0);
                 scheduleMondayTableLayoutPanel.BackColor = Color.DeepSkyBlue;
                 scheduleMondayTableLayoutPanel.Dock = DockStyle.Fill;
                 scheduleMondayTableLayoutPanel.ColumnCount = 0;
-                scheduleMondayTableLayoutPanel.RowCount = studentSchedule[0].Count + 2;
+                scheduleMondayTableLayoutPanel.RowCount = 2;
                 scheduleMondayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 23));
+                scheduleMondayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 77));
                 scheduleMondayTableLayoutPanel.DoubleClick += ScheduleDayOfWeekDoubleClick;
                 controlsInTableLayoutPanel.Add(scheduleMondayTableLayoutPanel);
 
@@ -689,28 +694,16 @@ namespace E_Journal
                 scheduleMondayTitleLable.Dock = DockStyle.Fill;
                 scheduleMondayTitleLable.DoubleClick += ScheduleDayOfWeekDoubleClick;
 
-                for (int i = 0; i < studentSchedule[0].Count; i++)
-                {
-                    var sheduleMondayLable = new Label();
-                    scheduleMondayTableLayoutPanel.Controls.Add(sheduleMondayLable, 0, i + 1);
-                    sheduleMondayLable.Text = (studentSchedule[0][i].Length != 0) || (studentSchedule[0].Count != 1) ? $"{i + 1}. {studentSchedule[0][i]}" : String.Empty;
-                    sheduleMondayLable.ForeColor = Color.WhiteSmoke;
-                    sheduleMondayLable.Dock = DockStyle.Fill;
-                    sheduleMondayLable.DoubleClick += ScheduleDayOfWeekDoubleClick;
-                    scheduleMondayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 11));
-                }
-                scheduleMondayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, (77 - (11 * studentSchedule[0].Count))));
-
                 var scheduleTuesdayTableLayoutPanel = new TableLayoutPanel();
                 scheduleContentTableLayoutPanel.Controls.Add(scheduleTuesdayTableLayoutPanel, 3, 0);
                 scheduleTuesdayTableLayoutPanel.BackColor = Color.DeepSkyBlue;
                 scheduleTuesdayTableLayoutPanel.Dock = DockStyle.Fill;
                 scheduleTuesdayTableLayoutPanel.ColumnCount = 0;
-                scheduleTuesdayTableLayoutPanel.RowCount = studentSchedule[1].Count + 2;
+                scheduleTuesdayTableLayoutPanel.RowCount = 2;
                 scheduleTuesdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 23));
+                scheduleTuesdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 77));
                 scheduleTuesdayTableLayoutPanel.DoubleClick += ScheduleDayOfWeekDoubleClick;
                 controlsInTableLayoutPanel.Add(scheduleTuesdayTableLayoutPanel);
-
 
                 var scheduleTuesdayTitleLable = new Label();
                 scheduleTuesdayTableLayoutPanel.Controls.Add(scheduleTuesdayTitleLable, 0, 0);
@@ -721,26 +714,14 @@ namespace E_Journal
                 scheduleTuesdayTitleLable.Dock = DockStyle.Fill;
                 scheduleTuesdayTitleLable.DoubleClick += ScheduleDayOfWeekDoubleClick;
 
-                for (int i = 0; i < studentSchedule[1].Count; i++)
-                {
-                    var sheduleTuesdayLable = new Label();
-                    scheduleTuesdayTableLayoutPanel.Controls.Add(sheduleTuesdayLable, 0, i + 1);
-                    sheduleTuesdayLable.Text = (studentSchedule[1][i].Length != 0) || (studentSchedule[1].Count != 1) ? $"{i + 1}. {studentSchedule[1][i]}" : String.Empty;
-                    sheduleTuesdayLable.ForeColor = Color.WhiteSmoke;
-                    sheduleTuesdayLable.Dock = DockStyle.Fill;
-                    sheduleTuesdayLable.DoubleClick += ScheduleDayOfWeekDoubleClick;
-                    scheduleTuesdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 11));
-                }
-
-                scheduleTuesdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, (77 - (11 * studentSchedule[1].Count))));
-
                 var scheduleWednesdayTableLayoutPanel = new TableLayoutPanel();
                 scheduleContentTableLayoutPanel.Controls.Add(scheduleWednesdayTableLayoutPanel, 5, 0);
                 scheduleWednesdayTableLayoutPanel.BackColor = Color.DeepSkyBlue;
                 scheduleWednesdayTableLayoutPanel.Dock = DockStyle.Fill;
                 scheduleWednesdayTableLayoutPanel.ColumnCount = 0;
-                scheduleWednesdayTableLayoutPanel.RowCount = studentSchedule[2].Count + 2;
+                scheduleWednesdayTableLayoutPanel.RowCount = 2;
                 scheduleWednesdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 23));
+                scheduleWednesdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 77));
                 scheduleWednesdayTableLayoutPanel.DoubleClick += ScheduleDayOfWeekDoubleClick;
                 controlsInTableLayoutPanel.Add(scheduleWednesdayTableLayoutPanel);
 
@@ -753,26 +734,14 @@ namespace E_Journal
                 scheduleWednesdayTitleLable.Dock = DockStyle.Fill;
                 scheduleWednesdayTitleLable.DoubleClick += ScheduleDayOfWeekDoubleClick;
 
-                for (int i = 0; i < studentSchedule[2].Count; i++)
-                {
-                    var sheduleWednesdayLable = new Label();
-                    scheduleWednesdayTableLayoutPanel.Controls.Add(sheduleWednesdayLable, 0, i + 1);
-                    sheduleWednesdayLable.Text = (studentSchedule[2][i].Length != 0) || (studentSchedule[2].Count != 1) ? $"{i + 1}. {studentSchedule[2][i]}" : String.Empty;
-                    sheduleWednesdayLable.ForeColor = Color.WhiteSmoke;
-                    sheduleWednesdayLable.Dock = DockStyle.Fill;
-                    sheduleWednesdayLable.DoubleClick += ScheduleDayOfWeekDoubleClick;
-                    scheduleWednesdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 11));
-                }
-
-                scheduleWednesdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, (77 - (11 * studentSchedule[2].Count))));
-
                 var scheduleThursdayTableLayoutPanel = new TableLayoutPanel();
                 scheduleContentTableLayoutPanel.Controls.Add(scheduleThursdayTableLayoutPanel, 1, 2);
                 scheduleThursdayTableLayoutPanel.BackColor = Color.DeepSkyBlue;
                 scheduleThursdayTableLayoutPanel.Dock = DockStyle.Fill;
                 scheduleThursdayTableLayoutPanel.ColumnCount = 0;
-                scheduleThursdayTableLayoutPanel.RowCount = studentSchedule[3].Count + 2;
+                scheduleThursdayTableLayoutPanel.RowCount = 2;
                 scheduleThursdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 23));
+                scheduleThursdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 77));
                 scheduleThursdayTableLayoutPanel.DoubleClick += ScheduleDayOfWeekDoubleClick;
                 controlsInTableLayoutPanel.Add(scheduleThursdayTableLayoutPanel);
 
@@ -785,26 +754,14 @@ namespace E_Journal
                 scheduleThursdayTitleLable.Dock = DockStyle.Fill;
                 scheduleThursdayTitleLable.DoubleClick += ScheduleDayOfWeekDoubleClick;
 
-                for (int i = 0; i < studentSchedule[3].Count; i++)
-                {
-                    var sheduleThursdayLable = new Label();
-                    scheduleThursdayTableLayoutPanel.Controls.Add(sheduleThursdayLable, 0, i + 1);
-                    sheduleThursdayLable.Text = (studentSchedule[3][i].Length != 0) || (studentSchedule[3].Count != 1) ? $"{i + 1}. {studentSchedule[3][i]}" : String.Empty;
-                    sheduleThursdayLable.ForeColor = Color.WhiteSmoke;
-                    sheduleThursdayLable.Dock = DockStyle.Fill;
-                    sheduleThursdayLable.DoubleClick += ScheduleDayOfWeekDoubleClick;
-                    scheduleThursdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 11));
-                }
-
-                scheduleThursdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, (77 - (11 * studentSchedule[3].Count))));
-
                 var scheduleFridayTableLayoutPanel = new TableLayoutPanel();
                 scheduleContentTableLayoutPanel.Controls.Add(scheduleFridayTableLayoutPanel, 3, 2);
                 scheduleFridayTableLayoutPanel.BackColor = Color.DeepSkyBlue;
                 scheduleFridayTableLayoutPanel.Dock = DockStyle.Fill;
                 scheduleFridayTableLayoutPanel.ColumnCount = 0;
-                scheduleFridayTableLayoutPanel.RowCount = studentSchedule[4].Count + 2;
+                scheduleFridayTableLayoutPanel.RowCount = 2;
                 scheduleFridayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 23));
+                scheduleFridayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 77));
                 scheduleFridayTableLayoutPanel.DoubleClick += ScheduleDayOfWeekDoubleClick;
                 controlsInTableLayoutPanel.Add(scheduleFridayTableLayoutPanel);
 
@@ -817,26 +774,14 @@ namespace E_Journal
                 scheduleFridayTitleLable.Dock = DockStyle.Fill;
                 scheduleFridayTitleLable.DoubleClick += ScheduleDayOfWeekDoubleClick;
 
-                for (int i = 0; i < studentSchedule[4].Count; i++)
-                {
-                    var sheduleFridayLable = new Label();
-                    scheduleFridayTableLayoutPanel.Controls.Add(sheduleFridayLable, 0, i + 1);
-                    sheduleFridayLable.Text = (studentSchedule[4][i].Length != 0) || (studentSchedule[4].Count != 1) ? $"{i + 1}. {studentSchedule[4][i]}" : String.Empty;
-                    sheduleFridayLable.ForeColor = Color.WhiteSmoke;
-                    sheduleFridayLable.Dock = DockStyle.Fill;
-                    sheduleFridayLable.DoubleClick += ScheduleDayOfWeekDoubleClick;
-                    scheduleFridayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 11));
-                }
-
-                scheduleFridayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, (77 - (11 * studentSchedule[4].Count))));
-
                 var scheduleSaturdayTableLayoutPanel = new TableLayoutPanel();
                 scheduleContentTableLayoutPanel.Controls.Add(scheduleSaturdayTableLayoutPanel, 5, 2);
                 scheduleSaturdayTableLayoutPanel.BackColor = Color.DeepSkyBlue;
                 scheduleSaturdayTableLayoutPanel.Dock = DockStyle.Fill;
                 scheduleSaturdayTableLayoutPanel.ColumnCount = 0;
-                scheduleSaturdayTableLayoutPanel.RowCount = studentSchedule[5].Count + 2;
+                scheduleSaturdayTableLayoutPanel.RowCount = 2;
                 scheduleSaturdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 23));
+                scheduleSaturdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 77));
                 scheduleSaturdayTableLayoutPanel.DoubleClick += ScheduleDayOfWeekDoubleClick;
                 controlsInTableLayoutPanel.Add(scheduleSaturdayTableLayoutPanel);
 
@@ -848,52 +793,90 @@ namespace E_Journal
                 schedulуSaturdayTitleLable.TextAlign = ContentAlignment.MiddleCenter;
                 schedulуSaturdayTitleLable.Dock = DockStyle.Fill;
                 schedulуSaturdayTitleLable.DoubleClick += ScheduleDayOfWeekDoubleClick;
-
-                for (int i = 0; i < studentSchedule[5].Count; i++)
-                {
-                    var sheduleSaturdayLable = new Label();
-                    scheduleSaturdayTableLayoutPanel.Controls.Add(sheduleSaturdayLable, 0, i + 1);
-                    sheduleSaturdayLable.Text = (studentSchedule[5][i].Length != 0) || (studentSchedule[5].Count != 1) ? $"{i + 1}. {studentSchedule[5][i]}" : String.Empty;
-                    sheduleSaturdayLable.ForeColor = Color.WhiteSmoke;
-                    sheduleSaturdayLable.Dock = DockStyle.Fill;
-                    sheduleSaturdayLable.DoubleClick += ScheduleDayOfWeekDoubleClick;
-                    scheduleSaturdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 11));
-                }
-
-                scheduleSaturdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, (77 - (11 * studentSchedule[5].Count))));
             }
             else
             {
                 scheduleLabel.ForeColor = SystemColors.WindowText;
-                scheduleLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-                studentFormTableLayoutPanel.Controls[1].Dispose();
             }
         }
 
         /// <summary>
-        /// Метод, который обрабатывает нажатие на элементы дня недели в расписании.
+        /// Метод, который обрабатывает изменение в weekSelectionComboBox.
+        /// </summary>
+        /// <param name="sender"> Объект-инициатор. </param>
+        /// <param name="e"> Объект-событие. </param>
+        private void WeekComboBoxSelectedIndexChanged(object sender, EventArgs e)
+        {
+            var weekSelectionComboBox = sender as ComboBox;
+
+            for (int i = 1; i < controlsInTableLayoutPanel.Count; i++)
+            {
+                int numberOfLessons = ClassForWorkWithDatabase.LoadingNumberOfPairs(studentGroupId, i, weekSelectionComboBox.SelectedIndex + 1); 
+                var scheduleTableLayoutPanel = controlsInTableLayoutPanel[i] as TableLayoutPanel;
+                scheduleTableLayoutPanel.RowCount = numberOfLessons + 2;
+                scheduleTableLayoutPanel.RowStyles.Clear();
+                int controlsCount = scheduleTableLayoutPanel.Controls.Count - 1;
+                scheduleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 23));
+                scheduleTableLayoutPanel.Cursor = Cursors.Hand;
+
+                for (int j = controlsCount; j > 0; j--)
+                {
+                    scheduleTableLayoutPanel.Controls[j].Dispose();
+                }
+
+                for (int j = 0; j < numberOfLessons; j++)
+                {
+                    string scheduleName = ClassForWorkWithDatabase.LoadingScheduleData(studentGroupId, i, weekSelectionComboBox.SelectedIndex + 1, j + 1);
+
+                    if (scheduleName != null)
+                    {                       
+                        var sheduleNameLable = new Label();
+                        scheduleTableLayoutPanel.Controls.Add(sheduleNameLable, 0, j + 1);
+                        sheduleNameLable.Text = $"{j + 1}. {scheduleName}";
+                        sheduleNameLable.ForeColor = Color.WhiteSmoke;
+                        sheduleNameLable.Dock = DockStyle.Fill;
+                        sheduleNameLable.DoubleClick += ScheduleDayOfWeekDoubleClick;
+                        scheduleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 11));
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                scheduleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, (77 - (11 * numberOfLessons))));
+            }
+        }
+
+        /// <summary>
+        /// Метод, который обрабатывает двойное нажатие на элементы дня недели в расписании.
         /// </summary>
         /// <param name="sender"> Объект-инициатор. </param>
         /// <param name="e"> Объект-событие. </param>
         private void ScheduleDayOfWeekDoubleClick(object sender, EventArgs e)
         {
-            TableLayoutPanel dayOfWeekTableLayoutPanel;
+            var weekSelectionComboBox = controlsInTableLayoutPanel.First() as ComboBox;
 
-            if (sender is TableLayoutPanel)
+            if (weekSelectionComboBox.SelectedItem != null)
             {
-                dayOfWeekTableLayoutPanel = sender as TableLayoutPanel;
-            }
-            else
-            {
-                dayOfWeekTableLayoutPanel = (TableLayoutPanel)(sender as Control).Parent;
-            }
+                TableLayoutPanel dayOfWeekTableLayoutPanel;
 
-            int dayIndex = controlsInTableLayoutPanel.IndexOf(dayOfWeekTableLayoutPanel);
-            int todayDayOfWeek = (int)DateTime.Today.DayOfWeek;
-            string dateOfDay = DateTime.Today.AddDays(dayIndex - todayDayOfWeek + 1).ToShortDateString();
+                if (sender is TableLayoutPanel)
+                {
+                    dayOfWeekTableLayoutPanel = sender as TableLayoutPanel;
+                }
+                else
+                {
+                    dayOfWeekTableLayoutPanel = (TableLayoutPanel)(sender as Control).Parent;
+                }
 
-            var cardWithDailySchedule = new CardWithDailySchedule(dateOfDay, studentId, studentSchedule[dayIndex]);
-            cardWithDailySchedule.Show();
+                int dayIndex = controlsInTableLayoutPanel.IndexOf(dayOfWeekTableLayoutPanel);
+                int todayDayOfWeek = (int)DateTime.Today.DayOfWeek;
+                string dateOfDay = DateTime.Today.AddDays(dayIndex - todayDayOfWeek).ToShortDateString();
+
+                var cardWithDailySchedule = new CardWithDailySchedule(studentGroupId, studentId, weekSelectionComboBox.SelectedIndex + 1, dateOfDay);
+                cardWithDailySchedule.Show();
+            }
         }
         #endregion
 
@@ -917,16 +900,13 @@ namespace E_Journal
         {
             var informationAboutStudent = ClassForWorkWithDatabase.LoadingUserData(informationAboutAccount);
 
-            studentId = informationAboutStudent[0];
+            studentId = int.Parse(informationAboutStudent[0]);
             studentName = informationAboutStudent[1];
             studentSurname = informationAboutStudent[2];
             studentPatronymic = informationAboutStudent[3];
-            studentStudyGroup = informationAboutStudent[4];
+            studentGroupName = informationAboutStudent[4];
             studentBirthday = informationAboutStudent[5];
-
-            studentSchedule = ClassForWorkWithDatabase.LoadingScheduleData(studentStudyGroup);
-
-            studentSubjects = ClassForWorkWithDatabase.LoadStudentSubjects();
+            studentGroupId = ClassForWorkWithDatabase.LoadingStudyGroups().IndexOf(studentGroupName) + 1;
 
             InitializeComponent();
         }

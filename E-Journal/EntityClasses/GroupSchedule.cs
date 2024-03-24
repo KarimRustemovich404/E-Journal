@@ -5,19 +5,21 @@ namespace WorkWithDatabase;
 
 public partial class GroupSchedule
 {
-    public int StudyGroupId { get; set; }
+    public int ScheduleId { get; set; }
 
-    public string? Monday { get; set; }
+    public int GroupId { get; set; }
 
-    public string? Tuesday { get; set; }
+    public int SubjectId { get; set; }
 
-    public string? Wednesday { get; set; }
+    public int WeekTypeId { get; set; }
 
-    public string? Thursday { get; set; }
+    public int DayOfWeek { get; set; }
 
-    public string? Friday { get; set; }
+    public int LessonNumber { get; set; }
 
-    public string? Saturday { get; set; }
+    public virtual Group Group { get; set; } = null!;
 
-    public virtual Group StudyGroup { get; set; } = null!;
+    public virtual Subject Subject { get; set; } = null!;
+
+    public virtual WeekType WeekType { get; set; } = null!;
 }

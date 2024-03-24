@@ -15,6 +15,8 @@ public partial class DatabaseForElectronicDiaryContext : DbContext
     {
     }
 
+    public virtual DbSet<GroupSchedule> GroupsSchedule { get; set; }
+
     public virtual DbSet<Group> Groups { get; set; }
 
     public virtual DbSet<LessonTimeTable> LessonsTimes { get; set; }
@@ -27,13 +29,13 @@ public partial class DatabaseForElectronicDiaryContext : DbContext
 
     public virtual DbSet<Student> Students { get; set; }
 
-    public virtual DbSet<GroupSchedule> StudyGroupScheduleTables { get; set; }
-
-    public virtual DbSet<Subject> Subject { get; set; }
+    public virtual DbSet<Subject> Subjects { get; set; }
 
     public virtual DbSet<TypeOfMark> TypeOfMarks { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<WeekType> WeekTypes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlite("Data Source=../../../Database/DatabaseForElectronicDiary.db");
@@ -45,6 +47,25 @@ public partial class DatabaseForElectronicDiaryContext : DbContext
         modelBuilder.Entity<User>().Property("UserPassword").HasField("userPassword");
         modelBuilder.Entity<User>().Property("IsAccountActive").HasField("isAccountActive");
         modelBuilder.Entity<User>().Property("IsAdmin").HasField("isAdmin");
+
+        modelBuilder.Entity<GroupSchedule>(entity =>
+        {
+            entity.HasKey(e => e.ScheduleId);
+
+            entity.ToTable("GroupsScheduleTable");
+
+            entity.HasOne(d => d.Group).WithMany(p => p.GroupsScheduleTables)
+                .HasForeignKey(d => d.GroupId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.Subject).WithMany(p => p.GroupsScheduleTables)
+                .HasForeignKey(d => d.SubjectId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.WeekType).WithMany(p => p.GroupsScheduleTables)
+                .HasForeignKey(d => d.WeekTypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+        });
 
         modelBuilder.Entity<Group>(entity =>
         {
@@ -128,21 +149,6 @@ public partial class DatabaseForElectronicDiaryContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<GroupSchedule>(entity =>
-        {
-            entity.HasKey(e => e.StudyGroupId);
-
-            entity.ToTable("StudyGroupScheduleTable");
-
-            entity.Property(e => e.StudyGroupId)
-                .ValueGeneratedNever()
-                .HasColumnName("StudyGroupID");
-
-            entity.HasOne(d => d.StudyGroup).WithOne(p => p.StudyGroupScheduleTable)
-                .HasForeignKey<GroupSchedule>(d => d.StudyGroupId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
-        });
-
         modelBuilder.Entity<Subject>(entity =>
         {
             entity.HasKey(e => e.SubjectId);
@@ -168,6 +174,13 @@ public partial class DatabaseForElectronicDiaryContext : DbContext
             entity.ToTable("UsersTable");
 
             entity.HasIndex(e => e.UserLogin, "IX_UsersTable_UserLogin").IsUnique();
+        });
+
+        modelBuilder.Entity<WeekType>(entity =>
+        {
+            entity.HasKey(e => e.WeekTypeId);
+
+            entity.ToTable("WeekTypeTable");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System;
+using System.Reflection.Emit;
 
 namespace WorkWithDatabase
 {
@@ -55,44 +56,65 @@ namespace WorkWithDatabase
             }
         }
 
-        public static List<List<string>> LoadingScheduleData(string groupName)
+        public static string LoadingScheduleData(int groupId, int dayOfWeek, int WeekTypeId, int lessonNumber)
         {
             using (var database = new DatabaseForElectronicDiaryContext())
             {
-                var groupId = (from studyGroup in database.Groups where studyGroup.GroupName == groupName select studyGroup.GroupId).ToList()[0];
-                var groupSchedule = (from schedule in database.StudyGroupScheduleTables where schedule.StudyGroupId == groupId select schedule).ToList()[0];
-                var classes = (from cl in database.Subject select cl).ToList();
-                classes.OrderBy(p => p.SubjectId);
+                var daySchedule = (from schedule in database.GroupsSchedule.Include(p => p.Subject) where schedule.GroupId == groupId where schedule.DayOfWeek == dayOfWeek where schedule.WeekTypeId == WeekTypeId select schedule).ToList();
 
-                var scheduleWithFullName = new List<List<string>>() { groupSchedule.Monday.Split('/').ToList(), groupSchedule.Tuesday.Split('/').ToList(), groupSchedule.Wednesday.Split('/').ToList(),
-                                                  groupSchedule.Thursday.Split('/').ToList(), groupSchedule.Friday.Split('/').ToList(), groupSchedule.Saturday.Split('/').ToList() };
-
-                foreach(List<string> scheduleData in scheduleWithFullName) 
+                if (daySchedule.Count != 0)
                 {
-                    for (int i = 0; i < scheduleData.Count; i++) 
+                    var f = (from s in daySchedule where s.LessonNumber == lessonNumber select s.Subject.SubjectName).ToList();
+
+                    if (f.Count == 0)
                     {
-                        if (scheduleData[i] != string.Empty)
-                        {
-                            int classIndex = int.Parse(scheduleData[i]);
-                            scheduleData[i] = classes[classIndex - 1].SubjectName;
-                        }
-                        else
-                        {
-                            scheduleData[i] = String.Empty;
-                        }
+                        return String.Empty;
+                    }
+                    else
+                    {
+                        return f[0];
                     }
                 }
-
-                return scheduleWithFullName;
+                else
+                {
+                    return null;
+                }
             }
         }
 
-        public static string[] LoadingStudyGroups()
+        public static int LoadingNumberOfPairs(int groupId, int dayOfWeek, int weekTypeId)
         {
             using (var database = new DatabaseForElectronicDiaryContext())
             {
-                var studyGroups = (from studyGroup in database.Groups select studyGroup.GroupName).ToArray();
-                return studyGroups;
+                var a = (from s in database.GroupsSchedule where s.GroupId == groupId where s.DayOfWeek == dayOfWeek where s.WeekTypeId == weekTypeId select s).ToList();
+
+                int maxNumber = 0;
+
+                foreach(var s in a)
+                {
+                    if (s.LessonNumber > maxNumber)
+                    {
+                        maxNumber = s.LessonNumber;
+                    }
+                }
+
+                return maxNumber;
+            }
+        }
+
+        public static string[] LoadingTypesOfWeek()
+        {
+            using (var database = new DatabaseForElectronicDiaryContext())
+            {
+                return (from typeOfWeek in database.WeekTypes select typeOfWeek.WeekTypeName).ToArray();
+            }
+        }
+
+        public static List<string> LoadingStudyGroups()
+        {
+            using (var database = new DatabaseForElectronicDiaryContext())
+            {
+                return (from studyGroup in database.Groups select studyGroup.GroupName).ToList();
             }
         }
 
@@ -116,7 +138,7 @@ namespace WorkWithDatabase
         {
             using (var database = new DatabaseForElectronicDiaryContext())
             {
-                return (from cl in database.Subject select cl.SubjectName).ToArray();
+                return (from cl in database.Subjects select cl.SubjectName).ToArray();
             }
         }
 
@@ -141,11 +163,11 @@ namespace WorkWithDatabase
 
         
 
-        public static void ChangeStudentData(string studentId, string studentName, string studentSurname, string studentPatronymic, string studentBirthday, string studentGroupName)
+        public static void ChangeStudentData(int studentId, string studentName, string studentSurname, string studentPatronymic, string studentBirthday, string studentGroupName)
         {
             using (var database = new DatabaseForElectronicDiaryContext())
             {
-                var student = (from stud in database.Students where stud.StudentId == int.Parse(studentId) select stud).ToList()[0];
+                var student = (from stud in database.Students where stud.StudentId == studentId select stud).ToList()[0];
                 var studyGroup = (from gr in database.Groups where gr.GroupName == studentGroupName select gr).ToList()[0];
 
                 student.StudentName = studentName;
@@ -198,7 +220,7 @@ namespace WorkWithDatabase
                 else
                 {
                     var newNote = new StudentNote(studentId, subjectId, noteText);
-                    var noteSubject = (from subject in database.Subject where subject.SubjectId == subjectId select subject).ToList()[0];
+                    var noteSubject = (from subject in database.Subjects where subject.SubjectId == subjectId select subject).ToList()[0];
                     var noteStudent = (from student in database.Students where student.StudentId == studentId select student).ToList()[0];
 
                     newNote.Student = noteStudent;

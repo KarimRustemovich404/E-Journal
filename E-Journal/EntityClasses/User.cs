@@ -2,7 +2,6 @@
 
 namespace WorkWithDatabase;
 
-[Table("UsersTable")]
 public partial class User
 {
     private int userId;

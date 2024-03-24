@@ -1,15 +1,16 @@
 using System.Windows.Forms;
 using WorkWithDatabase;
 
-namespace E_Journal
+namespace ElectronicDiary
 {
     public partial class ElectronicDiaryLoginForm : Form
     {
-        public ElectronicDiaryLoginForm()
-        {
-            InitializeComponent();
-        }
-
+        #region События
+        /// <summary>
+        /// Метод, который обрабатывает нажатие на кнопку "Вход".
+        /// </summary>
+        /// <param name="sender"> Объект-инициатор. </param>
+        /// <param name="e"> Объект-событие. </param>
         private void EnteryButtonClick(object sender, EventArgs e)
         {
             if ((passwordFieldTextBox.Text != String.Empty) && (passwordFieldTextBox.Text != String.Empty))
@@ -18,7 +19,7 @@ namespace E_Journal
 
                 if (loginResult.Item1)
                 {
-                    Program.informationAboutAccount = loginResult.Item2;
+                    Program.SettingAccountInformationValue(loginResult.Item2);
                     Close();
                 }
 
@@ -44,16 +45,47 @@ namespace E_Journal
             }
         }
 
+        /// <summary>
+        /// Метод, который обрабатывает нажатие на кнопку Enter.
+        /// </summary>
+        /// <param name="sender"> Объект-инициатор. </param>
+        /// <param name="e"> Объект-событие. </param>
+        private void FormKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                EnteryButtonClick(sender, e);
+            }
+        }
+
+        /// <summary>
+        /// Метод, который обрабатывает нажатие на все элементы формы.
+        /// </summary>
+        /// <param name="sender"> Объект-инициатор. </param>
+        /// <param name="e"> Объект-событие. </param>
         private void EnteryFormElementsOnClick(object sender, EventArgs e)
         {
             ActiveControl = null;
         }
 
+        /// <summary>
+        /// Метод, который обрабатывает событие, когда TextBox с данными становится активным.
+        /// </summary>
+        /// <param name="sender"> Объект-инициатор. </param>
+        /// <param name="e"> Объект-событие. </param>
         private void DataFieldsTextBoxEnter(object sender, EventArgs e)
         {
-            loginFieldTextBox.BackColor = SystemColors.Window;
-            passwordFieldTextBox.BackColor = SystemColors.Window;
+            loginFieldTextBox.BackColor = SystemColors.ControlLightLight;
+            passwordFieldTextBox.BackColor = SystemColors.ControlLightLight;
             errorMessagesLabel.Text = "Вход в систему";
         }
+        #endregion
+
+        #region Конструкторы
+        public ElectronicDiaryLoginForm()
+        {
+            InitializeComponent();
+        }
+        #endregion
     }
 }

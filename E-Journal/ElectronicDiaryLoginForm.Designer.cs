@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
 
-namespace E_Journal
+namespace ElectronicDiary
 {
     partial class ElectronicDiaryLoginForm
     {
@@ -46,10 +46,10 @@ namespace E_Journal
             // 
             entryFormPictureBox.Dock = DockStyle.Fill;
             entryFormPictureBox.Image = (Image)resources.GetObject("entryFormPictureBox.Image");
-            entryFormPictureBox.Location = new Point(200, 4);
+            entryFormPictureBox.Location = new Point(199, 4);
             entryFormPictureBox.Margin = new Padding(4);
             entryFormPictureBox.Name = "entryFormPictureBox";
-            entryFormPictureBox.Size = new Size(384, 297);
+            entryFormPictureBox.Size = new Size(383, 296);
             entryFormPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             entryFormPictureBox.TabIndex = 0;
             entryFormPictureBox.TabStop = false;
@@ -57,35 +57,36 @@ namespace E_Journal
             // 
             // loginFieldTextBox
             // 
-            loginFieldTextBox.BackColor = SystemColors.Window;
+            loginFieldTextBox.BackColor = SystemColors.ControlLightLight;
             loginFieldTextBox.BorderStyle = BorderStyle.FixedSingle;
             loginFieldTextBox.Cursor = Cursors.IBeam;
             loginFieldTextBox.Dock = DockStyle.Fill;
-            loginFieldTextBox.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            loginFieldTextBox.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
             loginFieldTextBox.ForeColor = SystemColors.WindowText;
-            loginFieldTextBox.Location = new Point(211, 375);
+            loginFieldTextBox.Location = new Point(210, 374);
             loginFieldTextBox.Margin = new Padding(15, 15, 15, 8);
             loginFieldTextBox.MaxLength = 50;
             loginFieldTextBox.Name = "loginFieldTextBox";
             loginFieldTextBox.PlaceholderText = "Введите логин";
-            loginFieldTextBox.Size = new Size(362, 26);
+            loginFieldTextBox.Size = new Size(361, 34);
             loginFieldTextBox.TabIndex = 1;
             loginFieldTextBox.TabStop = false;
             loginFieldTextBox.Enter += DataFieldsTextBoxEnter;
             // 
             // passwordFieldTextBox
             // 
+            passwordFieldTextBox.BackColor = SystemColors.ControlLightLight;
             passwordFieldTextBox.BorderStyle = BorderStyle.FixedSingle;
             passwordFieldTextBox.Cursor = Cursors.IBeam;
             passwordFieldTextBox.Dock = DockStyle.Fill;
-            passwordFieldTextBox.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            passwordFieldTextBox.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
             passwordFieldTextBox.ForeColor = SystemColors.WindowText;
-            passwordFieldTextBox.Location = new Point(211, 436);
-            passwordFieldTextBox.Margin = new Padding(15, 15, 15, 8);
+            passwordFieldTextBox.Location = new Point(210, 429);
+            passwordFieldTextBox.Margin = new Padding(15, 10, 15, 5);
             passwordFieldTextBox.MaxLength = 20;
             passwordFieldTextBox.Name = "passwordFieldTextBox";
             passwordFieldTextBox.PlaceholderText = "Введите пароль";
-            passwordFieldTextBox.Size = new Size(362, 26);
+            passwordFieldTextBox.Size = new Size(361, 34);
             passwordFieldTextBox.TabIndex = 1;
             passwordFieldTextBox.TabStop = false;
             passwordFieldTextBox.UseSystemPasswordChar = true;
@@ -111,7 +112,7 @@ namespace E_Journal
             enteryFormTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10.9997931F));
             enteryFormTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10.9997931F));
             enteryFormTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 13.0000677F));
-            enteryFormTableLayoutPanel.Size = new Size(784, 556);
+            enteryFormTableLayoutPanel.Size = new Size(782, 553);
             enteryFormTableLayoutPanel.TabIndex = 4;
             enteryFormTableLayoutPanel.Click += EnteryFormElementsOnClick;
             // 
@@ -119,11 +120,11 @@ namespace E_Journal
             // 
             errorMessagesLabel.AutoSize = true;
             errorMessagesLabel.Dock = DockStyle.Fill;
-            errorMessagesLabel.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            errorMessagesLabel.Location = new Point(211, 313);
+            errorMessagesLabel.Font = new Font("Arial", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            errorMessagesLabel.Location = new Point(210, 312);
             errorMessagesLabel.Margin = new Padding(15, 8, 15, 8);
             errorMessagesLabel.Name = "errorMessagesLabel";
-            errorMessagesLabel.Size = new Size(362, 39);
+            errorMessagesLabel.Size = new Size(361, 39);
             errorMessagesLabel.TabIndex = 3;
             errorMessagesLabel.Text = "Вход в систему";
             errorMessagesLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -131,15 +132,17 @@ namespace E_Journal
             // 
             // enteryFormButton
             // 
-            enteryFormButton.BackColor = Color.LightGray;
+            enteryFormButton.BackColor = Color.DeepSkyBlue;
             enteryFormButton.Dock = DockStyle.Fill;
+            enteryFormButton.FlatAppearance.BorderColor = SystemColors.ControlLight;
             enteryFormButton.FlatAppearance.BorderSize = 0;
             enteryFormButton.FlatStyle = FlatStyle.Flat;
-            enteryFormButton.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            enteryFormButton.Location = new Point(296, 497);
+            enteryFormButton.Font = new Font("Arial", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            enteryFormButton.ForeColor = SystemColors.Window;
+            enteryFormButton.Location = new Point(295, 494);
             enteryFormButton.Margin = new Padding(100, 15, 100, 15);
             enteryFormButton.Name = "enteryFormButton";
-            enteryFormButton.Size = new Size(192, 44);
+            enteryFormButton.Size = new Size(191, 44);
             enteryFormButton.TabIndex = 4;
             enteryFormButton.Text = "Вход";
             enteryFormButton.UseVisualStyleBackColor = false;
@@ -148,11 +151,11 @@ namespace E_Journal
             // ElectronicDiaryLoginForm
             // 
             AcceptButton = enteryFormButton;
-            AutoScaleDimensions = new SizeF(8F, 16F);
+            AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoValidate = AutoValidate.EnablePreventFocusChange;
-            BackColor = SystemColors.Window;
-            ClientSize = new Size(784, 556);
+            BackColor = SystemColors.ControlLight;
+            ClientSize = new Size(782, 553);
             Controls.Add(enteryFormTableLayoutPanel);
             Font = new Font("Arial", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
             ForeColor = SystemColors.WindowText;
@@ -160,12 +163,11 @@ namespace E_Journal
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4);
             MaximizeBox = false;
-            MaximumSize = new Size(800, 595);
-            MinimumSize = new Size(800, 595);
             Name = "ElectronicDiaryLoginForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Электронный дневник студента";
             Click += EnteryFormElementsOnClick;
+            KeyDown += FormKeyDown;
             ((System.ComponentModel.ISupportInitialize)entryFormPictureBox).EndInit();
             enteryFormTableLayoutPanel.ResumeLayout(false);
             enteryFormTableLayoutPanel.PerformLayout();

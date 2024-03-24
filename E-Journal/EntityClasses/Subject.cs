@@ -12,4 +12,7 @@ public partial class Subject
     public virtual ICollection<StudentNote> StudentNotesTables { get; set; } = new List<StudentNote>();
 
     public virtual ICollection<StudentMark> StudentsMarksTables { get; set; } = new List<StudentMark>();
+
+    public virtual ICollection<GroupSchedule> GroupsScheduleTables { get; set; } = new List<GroupSchedule>();
+
 }

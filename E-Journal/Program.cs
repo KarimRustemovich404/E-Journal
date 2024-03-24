@@ -1,11 +1,18 @@
 using System.Windows.Forms;
 using System;
+using Microsoft.VisualBasic;
+using System.Runtime.CompilerServices;
 
-namespace E_Journal
+namespace ElectronicDiary
 {
     internal static class Program
     {
-        public static string informationAboutAccount = String.Empty;
+        private static string accountInformation = String.Empty;
+
+        public static void SettingAccountInformationValue(string accountInformation)
+        {
+            Program.accountInformation = accountInformation;
+        }
 
         /// <summary>
         ///  The main entry point for the application.
@@ -19,16 +26,16 @@ namespace E_Journal
 
             Application.Run(new ElectronicDiaryLoginForm());
 
-            if (informationAboutAccount != String.Empty)
+            if (accountInformation != String.Empty)
             {
-                if (informationAboutAccount.Contains("Admin"))
+                if (accountInformation.Contains("Admin"))
                 {
                     Application.Run(new AdministratorFormOfElectronicDiary());
                 }
 
                 else
                 {
-                    Application.Run(new StudentFormOfElectronicDiary(informationAboutAccount));
+                    Application.Run(new StudentFormOfElectronicDiary(accountInformation));
                 }
             }
 

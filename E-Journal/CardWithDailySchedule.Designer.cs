@@ -1,4 +1,4 @@
-﻿namespace E_Journal
+﻿namespace ElectronicDiary
 {
     partial class CardWithDailySchedule
     {
@@ -40,14 +40,14 @@
             dayScheduleTitleTableLayoutPanel.Location = new Point(0, 0);
             dayScheduleTitleTableLayoutPanel.Name = "dayScheduleTitleTableLayoutPanel";
             dayScheduleTitleTableLayoutPanel.RowCount = 2;
-            dayScheduleTitleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            dayScheduleTitleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 80F));
+            dayScheduleTitleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 22F));
+            dayScheduleTitleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 78F));
             dayScheduleTitleTableLayoutPanel.Size = new Size(682, 453);
             dayScheduleTitleTableLayoutPanel.TabIndex = 0;
             // 
             // CardWithDailySchedule
             // 
-            AutoScaleDimensions = new SizeF(9F, 18F);
+            AutoScaleDimensions = new SizeF(11F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLight;
             ClientSize = new Size(682, 453);
@@ -59,7 +59,7 @@
             MaximizeBox = false;
             Name = "CardWithDailySchedule";
             StartPosition = FormStartPosition.CenterScreen;
-            FormClosing += CardWithDailySchedule_FormClosing;
+            FormClosing += CardWithDailyScheduleFormClosing;
             ResumeLayout(false);
         }
 
