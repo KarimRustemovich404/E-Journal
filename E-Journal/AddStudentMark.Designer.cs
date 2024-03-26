@@ -261,7 +261,6 @@
             // 
             // AddStudentMark
             // 
-            AcceptButton = addStudentMarkButton;
             AutoScaleDimensions = new SizeF(9F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLight;
