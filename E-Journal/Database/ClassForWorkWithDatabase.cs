@@ -56,6 +56,24 @@ namespace WorkWithDatabase
             }
         }
 
+        public static List<Student> LoadingStudentsFullNameInGroup(int groupId)
+        {
+            using (var database = new DatabaseForElectronicDiaryContext())
+            {
+                return (from student in database.Students where student.StudentGroupNumber == groupId select student).ToList();
+                
+            }
+        }
+
+        public static List<Student> LoadingStudentsFromOtherGroups(int groupId)
+        {
+            using (var database = new DatabaseForElectronicDiaryContext())
+            {
+                return (from student in database.Students where student.StudentGroupNumber != groupId select student).ToList();
+
+            }
+        }
+
         public static string LoadingScheduleData(int groupId, int dayOfWeek, int WeekTypeId, int lessonNumber)
         {
             using (var database = new DatabaseForElectronicDiaryContext())
@@ -110,6 +128,14 @@ namespace WorkWithDatabase
             }
         }
 
+        public static string[] LoadingTypesOfMarks()
+        {
+            using (var database = new DatabaseForElectronicDiaryContext())
+            {
+                return (from typeOfMark in database.TypeOfMarks select typeOfMark.TypeOfMarkName).ToArray();
+            }
+        }
+
         public static List<string> LoadingStudyGroups()
         {
             using (var database = new DatabaseForElectronicDiaryContext())
@@ -142,6 +168,14 @@ namespace WorkWithDatabase
             }
         }
 
+        public static Student[] LoadStudentsFromGroup(int groupId)
+        {
+            using (var database = new DatabaseForElectronicDiaryContext())
+            {
+                return (from student in database.Students where student.StudentGroupNumber == groupId select student).ToArray();
+            }
+        }
+
         public static bool AddingNewStudyGroup(string groupName)
         {
             using (var database = new DatabaseForElectronicDiaryContext()) 
@@ -160,6 +194,22 @@ namespace WorkWithDatabase
                 return false;
             }
         }
+
+        public static void AddingStudentToGroup(int studentId, int groupId)
+        {
+            using (var database = new DatabaseForElectronicDiaryContext())
+            {
+                var studyGroup = (from gr in database.Groups where gr.GroupId == groupId select gr).ToList()[0];
+                var student = (from st in database.Students where st.StudentId == studentId select st).ToList()[0];
+
+                studyGroup.StudentsTables.Add(student);
+                student.StudentGroupNumber = groupId;
+
+                database.SaveChanges();
+            }
+        }
+
+        
 
         
 
@@ -227,6 +277,70 @@ namespace WorkWithDatabase
                     newNote.Subject = noteSubject;
 
                     database.StudentsNotes.Add(newNote);
+                }
+
+                database.SaveChanges();
+            }
+        }
+
+        public static void AddingStudentMark(int studentId, int subjectId, int markTypeId, int semesterId, int subjectMark)
+        {
+            using (var database = new DatabaseForElectronicDiaryContext())
+            {
+                var studentMark = (from mark in database.StudentsMarks where mark.StudentId == studentId where mark.SubjectId == subjectId where mark.TypeOfMarkId == markTypeId where mark.SemesterId == semesterId select mark).ToList();
+
+                if (studentMark.Count != 0)
+                {
+                    studentMark[0].Mark += subjectMark;
+                }
+                else
+                {
+                    var newStudentMark = new StudentMark(semesterId, markTypeId, subjectId, studentId, subjectMark);
+
+                    var markSemester = (from semester in database.Semesters where semester.SemesterId == semesterId select semester).ToList()[0];
+                    var typeOfMark = (from type in database.TypeOfMarks where type.TypeOfMarkId == markTypeId select type).ToList()[0];
+                    var markSubject = (from subject in database.Subjects where subject.SubjectId == subjectId select subject).ToList()[0];
+                    var student = (from st in database.Students where st.StudentId == studentId select st).ToList()[0];
+
+                    newStudentMark.Semester = markSemester;
+                    newStudentMark.TypeOfMark = typeOfMark;
+                    newStudentMark.Subject = markSubject;
+                    newStudentMark.Student = student;
+
+                    database.StudentsMarks.Add(newStudentMark);
+                }
+
+                database.SaveChanges();
+            }
+        }
+
+        public static void SaveScedule(int groupId, int subjectId, int weekTypeId, int dayOfWeek, int lessonNumber)
+        {
+            using (var database = new DatabaseForElectronicDiaryContext())
+            {
+                var schedule = (from sc in database.GroupsSchedule where sc.GroupId == groupId where sc.WeekTypeId == weekTypeId where sc.DayOfWeek == dayOfWeek where sc.LessonNumber == lessonNumber select sc).ToList();
+
+                if (schedule.Count != 0) 
+                {
+                    var subject = (from sb in database.Subjects where sb.SubjectId == subjectId select sb).ToList()[0];
+                    schedule[0].SubjectId = subjectId;
+                    schedule[0].Subject = subject;
+                }
+                else
+                {
+                    if (subjectId != 0)
+                    {
+                        var newGroupSchedule = new GroupSchedule(groupId, subjectId, weekTypeId, dayOfWeek, lessonNumber);
+                        var subject = (from sb in database.Subjects where sb.SubjectId == subjectId select sb).ToList()[0];
+                        var typeOfWeek = (from tw in database.WeekTypes where tw.WeekTypeId == weekTypeId select tw).ToList()[0];
+                        var group = (from gr in database.Groups where gr.GroupId == groupId select gr).ToList()[0];
+
+                        newGroupSchedule.Subject = subject;
+                        newGroupSchedule.WeekType = typeOfWeek;
+                        newGroupSchedule.Group = group;
+
+                        database.GroupsSchedule.Add(newGroupSchedule);
+                    }
                 }
 
                 database.SaveChanges();

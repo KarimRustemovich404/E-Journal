@@ -577,7 +577,7 @@ namespace ElectronicDiary
 
                 var markLabel = new Label();
                 academicPerformanceContentTableLayoutPanel.Controls.Add(markLabel, 2, i + 1);
-                markLabel.Text = studentMarks[i].Mark;
+                markLabel.Text = studentMarks[i].Mark.ToString();
                 markLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
                 markLabel.TextAlign = ContentAlignment.MiddleCenter;
                 markLabel.Dock = DockStyle.Fill;

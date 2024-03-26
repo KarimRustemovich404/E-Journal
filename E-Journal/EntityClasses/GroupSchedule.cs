@@ -22,4 +22,13 @@ public partial class GroupSchedule
     public virtual Subject Subject { get; set; } = null!;
 
     public virtual WeekType WeekType { get; set; } = null!;
+
+    public GroupSchedule(int groupId, int subjectId, int weekTypeId, int dayOfWeek, int lessonNumber)
+    {
+        GroupId = groupId;
+        SubjectId = subjectId;
+        WeekTypeId = weekTypeId;
+        DayOfWeek = dayOfWeek;
+        LessonNumber = lessonNumber;
+    }
 }

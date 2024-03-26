@@ -511,6 +511,7 @@ C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\obj\Debug\net8.0-windows7.0\
 C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\obj\Debug\net8.0-windows7.0\ElectronicDiary.ElectronicDiaryLoginForm.resources
 C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\obj\Debug\net8.0-windows7.0\ElectronicDiary.StudentFormOfElectronicDiary.resources
 C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\obj\Debug\net8.0-windows7.0\ElectronicDiary.AdministratorFormOfElectronicDiary.resources
-C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\obj\Debug\net8.0-windows7.0\ElectronicDiary.CreatingOfGroupForm.resources
-C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\obj\Debug\net8.0-windows7.0\ElectronicDiary.MarkAddingForm.resources
-C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\obj\Debug\net8.0-windows7.0\ElectronicDiary.StudentIDForm.resources
+C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\obj\Debug\net8.0-windows7.0\E_Journal.ScheduleSelectionForm.resources
+C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\obj\Debug\net8.0-windows7.0\ElectronicDiary.AddNewStudyGroup.resources
+C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\obj\Debug\net8.0-windows7.0\ElectronicDiary.AddStudentMark.resources
+C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\obj\Debug\net8.0-windows7.0\ElectronicDiary.AddStudentToGroup.resources
