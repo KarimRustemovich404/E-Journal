@@ -281,7 +281,7 @@ namespace ElectronicDiary
                 scheduleTitleLabel.ForeColor = SystemColors.WindowText;
                 scheduleTitleLabel.TextAlign = ContentAlignment.TopLeft;
                 scheduleTitleLabel.Dock = DockStyle.Fill;
-                scheduleTitleLabel.Margin = new Padding(20, 16, 0, 0);
+                scheduleTitleLabel.Margin = new Padding(9, 12, 0, 0);
 
                 var scheduleContentTableLayoutPanel = new TableLayoutPanel();
                 scheduleTitleTableLayoutPanel.Controls.Add(scheduleContentTableLayoutPanel, 0, 1);
@@ -291,13 +291,13 @@ namespace ElectronicDiary
                 scheduleContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 45));
                 scheduleContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10));
                 scheduleContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 45));
-                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 3));
-                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 27.33F));
-                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 3));
-                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 27.33F));
-                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 3));
-                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 27.33F));
-                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 3));
+                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 2));
+                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.66F));
+                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 2));
+                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.66F));
+                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 2));
+                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.66F));
+                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 2));
 
                 var scheduleButtonsTableLayoutPanel = new TableLayoutPanel();
                 scheduleTitleTableLayoutPanel.Controls.Add(scheduleButtonsTableLayoutPanel, 0, 2);
@@ -316,7 +316,7 @@ namespace ElectronicDiary
                 scheduleSelectionButton.Dock = DockStyle.Fill;
                 scheduleSelectionButton.BackColor = Color.DeepSkyBlue;
                 scheduleSelectionButton.FlatStyle = FlatStyle.Flat;
-                scheduleSelectionButton.Margin = new Padding(85, 20, 85, 10);
+                scheduleSelectionButton.Margin = new Padding(95, 12, 75, 15);
                 scheduleSelectionButton.FlatAppearance.BorderSize = 0;
                 scheduleSelectionButton.Click += ScheduleSelectionButtonClick;
 
@@ -329,7 +329,7 @@ namespace ElectronicDiary
                 scheduleSaveButton.Dock = DockStyle.Fill;
                 scheduleSaveButton.BackColor = Color.DeepSkyBlue;
                 scheduleSaveButton.FlatStyle = FlatStyle.Flat;
-                scheduleSaveButton.Margin = new Padding(105, 20, 105, 10);
+                scheduleSaveButton.Margin = new Padding(105, 12, 105, 15);
                 scheduleSaveButton.FlatAppearance.BorderSize = 0;
                 scheduleSaveButton.Click += ScheduleSaveButtonClick;
 
@@ -339,8 +339,8 @@ namespace ElectronicDiary
                 scheduleMondayTableLayoutPanel.Dock = DockStyle.Fill;
                 scheduleMondayTableLayoutPanel.ColumnCount = 0;
                 scheduleMondayTableLayoutPanel.RowCount = 2;
-                scheduleMondayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 23));
-                scheduleMondayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 77));
+                scheduleMondayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 18));
+                scheduleMondayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 82));
                 controlsInTableLayoutPanel.Add(scheduleMondayTableLayoutPanel);
 
                 var scheduleMondayTitleLable = new Label();
@@ -357,8 +357,8 @@ namespace ElectronicDiary
                 scheduleTuesdayTableLayoutPanel.Dock = DockStyle.Fill;
                 scheduleTuesdayTableLayoutPanel.ColumnCount = 0;
                 scheduleTuesdayTableLayoutPanel.RowCount = 2;
-                scheduleTuesdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 23));
-                scheduleTuesdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 77));
+                scheduleTuesdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 18));
+                scheduleTuesdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 82));
                 controlsInTableLayoutPanel.Add(scheduleTuesdayTableLayoutPanel);
 
                 var scheduleTuesdayTitleLable = new Label();
@@ -375,8 +375,8 @@ namespace ElectronicDiary
                 scheduleWednesdayTableLayoutPanel.Dock = DockStyle.Fill;
                 scheduleWednesdayTableLayoutPanel.ColumnCount = 0;
                 scheduleWednesdayTableLayoutPanel.RowCount = 2;
-                scheduleWednesdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 23));
-                scheduleWednesdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 77));
+                scheduleWednesdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 18));
+                scheduleWednesdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 82));
                 controlsInTableLayoutPanel.Add(scheduleWednesdayTableLayoutPanel);
 
                 var scheduleWednesdayTitleLable = new Label();
@@ -393,8 +393,8 @@ namespace ElectronicDiary
                 scheduleThursdayTableLayoutPanel.Dock = DockStyle.Fill;
                 scheduleThursdayTableLayoutPanel.ColumnCount = 0;
                 scheduleThursdayTableLayoutPanel.RowCount = 2;
-                scheduleThursdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 23));
-                scheduleThursdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 77));
+                scheduleThursdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 18));
+                scheduleThursdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 82));
                 controlsInTableLayoutPanel.Add(scheduleThursdayTableLayoutPanel);
 
                 var scheduleThursdayTitleLable = new Label();
@@ -411,8 +411,8 @@ namespace ElectronicDiary
                 scheduleFridayTableLayoutPanel.Dock = DockStyle.Fill;
                 scheduleFridayTableLayoutPanel.ColumnCount = 0;
                 scheduleFridayTableLayoutPanel.RowCount = 2;
-                scheduleFridayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 23));
-                scheduleFridayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 77));
+                scheduleFridayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 18));
+                scheduleFridayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 82));
                 controlsInTableLayoutPanel.Add(scheduleFridayTableLayoutPanel);
 
                 var scheduleFridayTitleLable = new Label();
@@ -429,8 +429,8 @@ namespace ElectronicDiary
                 scheduleSaturdayTableLayoutPanel.Dock = DockStyle.Fill;
                 scheduleSaturdayTableLayoutPanel.ColumnCount = 0;
                 scheduleSaturdayTableLayoutPanel.RowCount = 2;
-                scheduleSaturdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 23));
-                scheduleSaturdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 77));
+                scheduleSaturdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 18));
+                scheduleSaturdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 82));
                 controlsInTableLayoutPanel.Add(scheduleSaturdayTableLayoutPanel);
 
                 var schedulуSaturdayTitleLable = new Label();
@@ -447,30 +447,46 @@ namespace ElectronicDiary
             }
         }
 
+        /// <summary>
+        /// Метод, который обрабатывает нажатие на кнопку "Выбрать расписание".
+        /// </summary>
+        /// <param name="sender"> Объект-инициатор. </param>
+        /// <param name="e"> Объект-событие. </param>
         private void ScheduleSelectionButtonClick(object sender, EventArgs e)
         {
             ScheduleSelectionForm scheduleSelectionForm = new ScheduleSelectionForm(controlsInTableLayoutPanel);
             scheduleSelectionForm.Owner = this;
-            scheduleSelectionForm.ShowDialog();
+            scheduleSelectionForm.Show();
         }
 
-        public void DownloadScheduleData(int typeOfWeekId, int groupId, List<List<ComboBox>> weeklySchedule)
-        {
-            this.typeOfWeekId = typeOfWeekId;
-            this.groupId = groupId;
-            this.weeklySchedule = weeklySchedule;
-        }
-
+        /// <summary>
+        /// Метод, который обрабатывает нажатие на кнопку "Сохранить".
+        /// </summary>
+        /// <param name="sender"> Объект-инициатор. </param>
+        /// <param name="e"> Объект-событие. </param>
         private void ScheduleSaveButtonClick(object sender, EventArgs e)
         {
             for (int i = 0; i < weeklySchedule.Count; i++)
             {
-                for (int j = 0; j < weeklySchedule[i].Count; j++) 
+                for (int j = 0; j < weeklySchedule[i].Count; j++)
                 {
                     var subjectComboBox = weeklySchedule[i][j] as ComboBox;
                     ClassForWorkWithDatabase.SaveScedule(groupId, subjectComboBox.SelectedIndex + 1, typeOfWeekId, i + 1, j + 1);
                 }
             }
+        }
+
+        /// <summary>
+        /// Метод, который возвращает данные из формы ScheduleSelectionForm.
+        /// </summary>
+        /// <param name="typeOfWeekId"> Id типа недели. </param>
+        /// <param name="groupId"> Id группы. </param>
+        /// <param name="weeklySchedule"> Расписание группы. </param>
+        public void DownloadScheduleData(int typeOfWeekId, int groupId, List<List<ComboBox>> weeklySchedule)
+        {
+            this.typeOfWeekId = typeOfWeekId;
+            this.groupId = groupId;
+            this.weeklySchedule = weeklySchedule;
         }
         #endregion   
 

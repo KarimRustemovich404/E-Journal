@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Егор\\Desktop\\Новая папка\\E-Journal\\E-Journal.csproj": {}
+    "C:\\Users\\Егор\\Desktop\\ElectronicDiary\\E-Journal\\E-Journal.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Егор\\Desktop\\Новая папка\\E-Journal\\E-Journal.csproj": {
+    "C:\\Users\\Егор\\Desktop\\ElectronicDiary\\E-Journal\\E-Journal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Егор\\Desktop\\Новая папка\\E-Journal\\E-Journal.csproj",
+        "projectUniqueName": "C:\\Users\\Егор\\Desktop\\ElectronicDiary\\E-Journal\\E-Journal.csproj",
         "projectName": "E-Journal",
-        "projectPath": "C:\\Users\\Егор\\Desktop\\Новая папка\\E-Journal\\E-Journal.csproj",
+        "projectPath": "C:\\Users\\Егор\\Desktop\\ElectronicDiary\\E-Journal\\E-Journal.csproj",
         "packagesPath": "C:\\Users\\Егор\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Егор\\Desktop\\Новая папка\\E-Journal\\obj\\",
+        "outputPath": "C:\\Users\\Егор\\Desktop\\ElectronicDiary\\E-Journal\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
