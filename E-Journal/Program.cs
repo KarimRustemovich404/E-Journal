@@ -22,22 +22,22 @@ namespace ElectronicDiary
         {
             ApplicationConfiguration.Initialize();
 
-            //Application.Run(new AdministratorFormOfElectronicDiary());
+            Application.Run(new StudentFormOfElectronicDiary("Student1"));
 
-            Application.Run(new ElectronicDiaryLoginForm());
+            //Application.Run(new ElectronicDiaryLoginForm());
 
-            if (accountInformation != String.Empty)
-            {
-                if (accountInformation.Contains("Admin"))
-                {
-                    Application.Run(new AdministratorFormOfElectronicDiary());
-                }
+            //if (accountInformation != String.Empty)
+            //{
+            //    if (accountInformation.Contains("Admin"))
+            //    {
+            //        Application.Run(new AdministratorFormOfElectronicDiary());
+            //    }
 
-                else
-                {
-                    Application.Run(new StudentFormOfElectronicDiary(accountInformation));
-                }
-            }
+            //    else
+            //    {
+            //        Application.Run(new StudentFormOfElectronicDiary(accountInformation));
+            //    }
+            //}
 
         }
     }

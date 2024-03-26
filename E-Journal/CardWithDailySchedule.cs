@@ -51,14 +51,13 @@ namespace ElectronicDiary
         #endregion
 
         #region Конструкторы
-        public CardWithDailySchedule(int studentGroupId, int studentId, int typeOfWeek, string dateOfDay)
+        public CardWithDailySchedule(int studentGroupId, int studentId, int typeOfWeek, int dayIndex)
         {
             InitializeComponent();
 
             this.studentId = studentId;
-            int dayOfWeek = (int)DateTime.ParseExact(dateOfDay, "dd.MM.yyyy", null).DayOfWeek;
-            Text = $"Расписание {CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(DateTime.ParseExact(dateOfDay, "dd.MM.yyyy", null).DayOfWeek)}";
-            controlsOfTableLayoutPanel = new Control[ClassForWorkWithDatabase.LoadingNumberOfPairs(studentGroupId, dayOfWeek, typeOfWeek)];
+            Text = "Расписание";
+            controlsOfTableLayoutPanel = new Control[ClassForWorkWithDatabase.LoadingNumberOfPairs(studentGroupId, dayIndex, typeOfWeek)];
 
             var dayScheduleTitleLabel = new Label();
             dayScheduleTitleTableLayoutPanel.Controls.Add(dayScheduleTitleLabel, 0, 0);
@@ -82,7 +81,7 @@ namespace ElectronicDiary
 
             for (int i = 0; i < controlsOfTableLayoutPanel.Length; i++)
             {
-                string scheduleName = ClassForWorkWithDatabase.LoadingScheduleData(studentGroupId, dayOfWeek, typeOfWeek, i + 1);
+                string scheduleName = ClassForWorkWithDatabase.LoadingScheduleData(studentGroupId, dayIndex, typeOfWeek, i + 1);
 
                 if (scheduleName != null)
                 {

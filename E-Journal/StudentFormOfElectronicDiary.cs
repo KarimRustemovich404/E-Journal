@@ -636,13 +636,13 @@ namespace ElectronicDiary
                 scheduleContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 45));
                 scheduleContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10));
                 scheduleContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 45));
-                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 3));
-                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 27.33F));
-                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 3));
-                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 27.33F));
-                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 3));
-                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 27.33F));
-                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 3));
+                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 2));
+                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.66F));
+                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 2));
+                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.66F));
+                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 2));
+                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.66F));
+                scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 2));
 
                 var weekSelectionTableLayoutPanel = new TableLayoutPanel();
                 scheduleTitleTableLayoutPanel.Controls.Add(weekSelectionTableLayoutPanel, 0, 2);
@@ -832,6 +832,7 @@ namespace ElectronicDiary
                     {                       
                         var sheduleNameLable = new Label();
                         scheduleTableLayoutPanel.Controls.Add(sheduleNameLable, 0, j + 1);
+                        sheduleNameLable.Font = new Font("Arial", 10F, FontStyle.Regular, GraphicsUnit.Point, 204);
                         sheduleNameLable.Text = $"{j + 1}. {scheduleName}";
                         sheduleNameLable.ForeColor = Color.WhiteSmoke;
                         sheduleNameLable.Dock = DockStyle.Fill;
@@ -871,10 +872,8 @@ namespace ElectronicDiary
                 }
 
                 int dayIndex = controlsInTableLayoutPanel.IndexOf(dayOfWeekTableLayoutPanel);
-                int todayDayOfWeek = (int)DateTime.Today.DayOfWeek;
-                string dateOfDay = DateTime.Today.AddDays(dayIndex - todayDayOfWeek).ToShortDateString();
 
-                var cardWithDailySchedule = new CardWithDailySchedule(studentGroupId, studentId, weekSelectionComboBox.SelectedIndex + 1, dateOfDay);
+                var cardWithDailySchedule = new CardWithDailySchedule(studentGroupId, studentId, weekSelectionComboBox.SelectedIndex + 1, dayIndex);
                 cardWithDailySchedule.Show();
             }
         }

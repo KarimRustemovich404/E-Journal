@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ASUS ROG\\Source\\Repos\\E-Journal\\E-Journal\\E-Journal.csproj": {}
+    "C:\\Users\\Егор\\Desktop\\Новая папка\\E-Journal\\E-Journal.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ASUS ROG\\Source\\Repos\\E-Journal\\E-Journal\\E-Journal.csproj": {
+    "C:\\Users\\Егор\\Desktop\\Новая папка\\E-Journal\\E-Journal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ASUS ROG\\Source\\Repos\\E-Journal\\E-Journal\\E-Journal.csproj",
+        "projectUniqueName": "C:\\Users\\Егор\\Desktop\\Новая папка\\E-Journal\\E-Journal.csproj",
         "projectName": "E-Journal",
-        "projectPath": "C:\\Users\\ASUS ROG\\Source\\Repos\\E-Journal\\E-Journal\\E-Journal.csproj",
-        "packagesPath": "C:\\Users\\ASUS ROG\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ASUS ROG\\Source\\Repos\\E-Journal\\E-Journal\\obj\\",
+        "projectPath": "C:\\Users\\Егор\\Desktop\\Новая папка\\E-Journal\\E-Journal.csproj",
+        "packagesPath": "C:\\Users\\Егор\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Егор\\Desktop\\Новая папка\\E-Journal\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ASUS ROG\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Егор\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

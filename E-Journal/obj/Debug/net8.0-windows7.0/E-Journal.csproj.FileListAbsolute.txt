@@ -4,10 +4,7 @@ C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\bin\Debug\net8.0-windows7.0\
 C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\bin\Debug\net8.0-windows7.0\E-Journal.dll
 C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\bin\Debug\net8.0-windows7.0\E-Journal.pdb
 C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E-Journal.csproj.AssemblyReference.cache
-C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E_Journal.AdministratorFormOfElectronicDiary.resources
-C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E_Journal.ElectronicDiaryLoginForm.resources
 C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E_Journal.Properties.Resources.resources
-C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E_Journal.StudentFormOfElectronicDiary.resources
 C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E-Journal.csproj.GenerateResource.cache
 C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E-Journal.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E-Journal.AssemblyInfoInputs.cache
@@ -516,3 +513,11 @@ C:\Users\ASUS ROG\Source\Repos\E-Journal\E-Journal\obj\Debug\net8.0-windows7.0\E
 C:\Users\ASUS ROG\Source\Repos\E-Journal\E-Journal\obj\Debug\net8.0-windows7.0\ElectronicDiary.ElectronicDiaryLoginForm.resources
 C:\Users\ASUS ROG\Source\Repos\E-Journal\E-Journal\obj\Debug\net8.0-windows7.0\E_Journal.ScheduleSelectionForm.resources
 C:\Users\ASUS ROG\Source\Repos\E-Journal\E-Journal\obj\Debug\net8.0-windows7.0\ElectronicDiary.StudentFormOfElectronicDiary.resources
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\ElectronicDiary.AddNewStudyGroup.resources
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\ElectronicDiary.AddStudentMark.resources
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\ElectronicDiary.AddStudentToGroup.resources
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\ElectronicDiary.AdministratorFormOfElectronicDiary.resources
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\ElectronicDiary.CardWithDailySchedule.resources
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\ElectronicDiary.ElectronicDiaryLoginForm.resources
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\E_Journal.ScheduleSelectionForm.resources
+C:\Users\Егор\Desktop\Новая папка\E-Journal\obj\Debug\net8.0-windows7.0\ElectronicDiary.StudentFormOfElectronicDiary.resources
