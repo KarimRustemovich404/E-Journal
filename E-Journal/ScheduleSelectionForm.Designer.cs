@@ -83,7 +83,7 @@
             weekTypeSelectionComboBox.Location = new Point(253, 113);
             weekTypeSelectionComboBox.Margin = new Padding(15, 26, 15, 3);
             weekTypeSelectionComboBox.Name = "weekTypeSelectionComboBox";
-            weekTypeSelectionComboBox.Size = new Size(208, 34);
+            weekTypeSelectionComboBox.Size = new Size(208, 29);
             weekTypeSelectionComboBox.TabIndex = 14;
             // 
             // weekTypeTitleLabel
@@ -94,7 +94,7 @@
             weekTypeTitleLabel.Location = new Point(3, 118);
             weekTypeTitleLabel.Margin = new Padding(3, 31, 3, 0);
             weekTypeTitleLabel.Name = "weekTypeTitleLabel";
-            weekTypeTitleLabel.Size = new Size(232, 26);
+            weekTypeTitleLabel.Size = new Size(232, 22);
             weekTypeTitleLabel.TabIndex = 10;
             weekTypeTitleLabel.Text = "Тип недели";
             weekTypeTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -107,7 +107,7 @@
             groupNameTitleLabel.Location = new Point(3, 31);
             groupNameTitleLabel.Margin = new Padding(3, 31, 3, 0);
             groupNameTitleLabel.Name = "groupNameTitleLabel";
-            groupNameTitleLabel.Size = new Size(232, 26);
+            groupNameTitleLabel.Size = new Size(232, 22);
             groupNameTitleLabel.TabIndex = 0;
             groupNameTitleLabel.Text = "Номер группы";
             groupNameTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -121,7 +121,7 @@
             groupSelectionComboBox.Location = new Point(253, 26);
             groupSelectionComboBox.Margin = new Padding(15, 26, 15, 3);
             groupSelectionComboBox.Name = "groupSelectionComboBox";
-            groupSelectionComboBox.Size = new Size(208, 34);
+            groupSelectionComboBox.Size = new Size(208, 29);
             groupSelectionComboBox.TabIndex = 5;
             // 
             // scheduleLoadButton
@@ -143,7 +143,8 @@
             // 
             // ScheduleSelectionForm
             // 
-            AutoScaleDimensions = new SizeF(11F, 23F);
+            AcceptButton = scheduleLoadButton;
+            AutoScaleDimensions = new SizeF(9F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLight;
             ClientSize = new Size(482, 303);
@@ -153,7 +154,8 @@
             Margin = new Padding(4, 3, 4, 3);
             MaximizeBox = false;
             Name = "ScheduleSelectionForm";
-            Text = "ScheduleSelectionForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Выбор расписания";
             scheduleSelectionTableLayoutPanel.ResumeLayout(false);
             scheduleSelectionDataTableLayoutPanel.ResumeLayout(false);
             scheduleSelectionDataTableLayoutPanel.PerformLayout();

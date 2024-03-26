@@ -102,7 +102,7 @@
             markTypeSelectionComboBox.Location = new Point(196, 178);
             markTypeSelectionComboBox.Margin = new Padding(6, 13, 20, 3);
             markTypeSelectionComboBox.Name = "markTypeSelectionComboBox";
-            markTypeSelectionComboBox.Size = new Size(260, 31);
+            markTypeSelectionComboBox.Size = new Size(260, 26);
             markTypeSelectionComboBox.TabIndex = 16;
             markTypeSelectionComboBox.TabStop = false;
             markTypeSelectionComboBox.Enter += ControlsWithDataEnter;
@@ -118,7 +118,7 @@
             subjectSelectionComboBox.Location = new Point(196, 123);
             subjectSelectionComboBox.Margin = new Padding(6, 13, 20, 3);
             subjectSelectionComboBox.Name = "subjectSelectionComboBox";
-            subjectSelectionComboBox.Size = new Size(260, 31);
+            subjectSelectionComboBox.Size = new Size(260, 26);
             subjectSelectionComboBox.TabIndex = 15;
             subjectSelectionComboBox.TabStop = false;
             subjectSelectionComboBox.Enter += ControlsWithDataEnter;
@@ -134,7 +134,7 @@
             semesterSelectionComboBox.Location = new Point(196, 68);
             semesterSelectionComboBox.Margin = new Padding(6, 13, 20, 3);
             semesterSelectionComboBox.Name = "semesterSelectionComboBox";
-            semesterSelectionComboBox.Size = new Size(260, 31);
+            semesterSelectionComboBox.Size = new Size(260, 26);
             semesterSelectionComboBox.TabIndex = 14;
             semesterSelectionComboBox.TabStop = false;
             semesterSelectionComboBox.Enter += ControlsWithDataEnter;
@@ -147,7 +147,7 @@
             markTitleLabel.Location = new Point(3, 235);
             markTitleLabel.Margin = new Padding(3, 15, 3, 0);
             markTitleLabel.Name = "markTitleLabel";
-            markTitleLabel.Size = new Size(184, 26);
+            markTitleLabel.Size = new Size(184, 22);
             markTitleLabel.TabIndex = 13;
             markTitleLabel.Text = "Балл";
             markTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -161,7 +161,7 @@
             markTypeTitleLabel.Location = new Point(3, 180);
             markTypeTitleLabel.Margin = new Padding(3, 15, 3, 0);
             markTypeTitleLabel.Name = "markTypeTitleLabel";
-            markTypeTitleLabel.Size = new Size(184, 26);
+            markTypeTitleLabel.Size = new Size(184, 22);
             markTypeTitleLabel.TabIndex = 12;
             markTypeTitleLabel.Text = "Тип оценки";
             markTypeTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -175,7 +175,7 @@
             subjectTitleLabel.Location = new Point(3, 125);
             subjectTitleLabel.Margin = new Padding(3, 15, 3, 0);
             subjectTitleLabel.Name = "subjectTitleLabel";
-            subjectTitleLabel.Size = new Size(184, 26);
+            subjectTitleLabel.Size = new Size(184, 22);
             subjectTitleLabel.TabIndex = 11;
             subjectTitleLabel.Text = "Дисциплина";
             subjectTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -189,7 +189,7 @@
             academicSemesterTitleLabel.Location = new Point(3, 70);
             academicSemesterTitleLabel.Margin = new Padding(3, 15, 3, 0);
             academicSemesterTitleLabel.Name = "academicSemesterTitleLabel";
-            academicSemesterTitleLabel.Size = new Size(184, 26);
+            academicSemesterTitleLabel.Size = new Size(184, 22);
             academicSemesterTitleLabel.TabIndex = 10;
             academicSemesterTitleLabel.Text = "Семестр";
             academicSemesterTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -203,7 +203,7 @@
             studentFullNameTitleLabel.Location = new Point(3, 15);
             studentFullNameTitleLabel.Margin = new Padding(3, 15, 3, 0);
             studentFullNameTitleLabel.Name = "studentFullNameTitleLabel";
-            studentFullNameTitleLabel.Size = new Size(184, 26);
+            studentFullNameTitleLabel.Size = new Size(184, 22);
             studentFullNameTitleLabel.TabIndex = 0;
             studentFullNameTitleLabel.Text = "ФИО студента";
             studentFullNameTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -220,7 +220,7 @@
             studentFullNameComboBox.Location = new Point(196, 13);
             studentFullNameComboBox.Margin = new Padding(6, 13, 20, 3);
             studentFullNameComboBox.Name = "studentFullNameComboBox";
-            studentFullNameComboBox.Size = new Size(260, 31);
+            studentFullNameComboBox.Size = new Size(260, 26);
             studentFullNameComboBox.TabIndex = 5;
             studentFullNameComboBox.TabStop = false;
             studentFullNameComboBox.Enter += ControlsWithDataEnter;
@@ -234,7 +234,7 @@
             markTextBox.Margin = new Padding(6, 13, 20, 3);
             markTextBox.MaxLength = 2;
             markTextBox.Name = "markTextBox";
-            markTextBox.Size = new Size(260, 30);
+            markTextBox.Size = new Size(260, 26);
             markTextBox.TabIndex = 17;
             markTextBox.TabStop = false;
             markTextBox.TextAlign = HorizontalAlignment.Center;
@@ -261,7 +261,8 @@
             // 
             // AddStudentMark
             // 
-            AutoScaleDimensions = new SizeF(11F, 23F);
+            AcceptButton = addStudentMarkButton;
+            AutoScaleDimensions = new SizeF(9F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLight;
             ClientSize = new Size(482, 403);

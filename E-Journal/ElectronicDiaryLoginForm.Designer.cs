@@ -68,7 +68,7 @@ namespace ElectronicDiary
             loginFieldTextBox.MaxLength = 50;
             loginFieldTextBox.Name = "loginFieldTextBox";
             loginFieldTextBox.PlaceholderText = "Введите логин";
-            loginFieldTextBox.Size = new Size(361, 34);
+            loginFieldTextBox.Size = new Size(361, 29);
             loginFieldTextBox.TabIndex = 1;
             loginFieldTextBox.TabStop = false;
             loginFieldTextBox.Enter += DataFieldsTextBoxEnter;
@@ -86,7 +86,7 @@ namespace ElectronicDiary
             passwordFieldTextBox.MaxLength = 20;
             passwordFieldTextBox.Name = "passwordFieldTextBox";
             passwordFieldTextBox.PlaceholderText = "Введите пароль";
-            passwordFieldTextBox.Size = new Size(361, 34);
+            passwordFieldTextBox.Size = new Size(361, 29);
             passwordFieldTextBox.TabIndex = 1;
             passwordFieldTextBox.TabStop = false;
             passwordFieldTextBox.UseSystemPasswordChar = true;
@@ -151,7 +151,7 @@ namespace ElectronicDiary
             // ElectronicDiaryLoginForm
             // 
             AcceptButton = enteryFormButton;
-            AutoScaleDimensions = new SizeF(10F, 21F);
+            AutoScaleDimensions = new SizeF(8F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoValidate = AutoValidate.EnablePreventFocusChange;
             BackColor = SystemColors.ControlLight;

@@ -79,7 +79,7 @@
             addNewStudyGroupTitleLabel.Location = new Point(0, 57);
             addNewStudyGroupTitleLabel.Margin = new Padding(0, 6, 0, 0);
             addNewStudyGroupTitleLabel.Name = "addNewStudyGroupTitleLabel";
-            addNewStudyGroupTitleLabel.Size = new Size(176, 26);
+            addNewStudyGroupTitleLabel.Size = new Size(176, 22);
             addNewStudyGroupTitleLabel.TabIndex = 0;
             addNewStudyGroupTitleLabel.Text = "Номер группы";
             addNewStudyGroupTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -96,7 +96,7 @@
             addNewStudyGroupTextBox.MaxLength = 6;
             addNewStudyGroupTextBox.Name = "addNewStudyGroupTextBox";
             addNewStudyGroupTextBox.PlaceholderText = "00-000";
-            addNewStudyGroupTextBox.Size = new Size(182, 34);
+            addNewStudyGroupTextBox.Size = new Size(182, 29);
             addNewStudyGroupTextBox.TabIndex = 1;
             addNewStudyGroupTextBox.TabStop = false;
             addNewStudyGroupTextBox.TextAlign = HorizontalAlignment.Center;
@@ -123,7 +123,8 @@
             // 
             // AddNewStudyGroup
             // 
-            AutoScaleDimensions = new SizeF(11F, 23F);
+            AcceptButton = addNewStudyGroupButton;
+            AutoScaleDimensions = new SizeF(9F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLight;
             ClientSize = new Size(382, 203);

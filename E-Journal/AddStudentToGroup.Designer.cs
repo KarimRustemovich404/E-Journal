@@ -79,7 +79,7 @@
             addStudentToGroupTitleLabel.Location = new Point(0, 48);
             addStudentToGroupTitleLabel.Margin = new Padding(0, 8, 0, 0);
             addStudentToGroupTitleLabel.Name = "addStudentToGroupTitleLabel";
-            addStudentToGroupTitleLabel.Size = new Size(170, 52);
+            addStudentToGroupTitleLabel.Size = new Size(170, 44);
             addStudentToGroupTitleLabel.TabIndex = 0;
             addStudentToGroupTitleLabel.Text = "Выберите студента";
             addStudentToGroupTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -96,7 +96,7 @@
             addStudentToGroupComboBox.Location = new Point(173, 58);
             addStudentToGroupComboBox.Margin = new Padding(3, 18, 10, 0);
             addStudentToGroupComboBox.Name = "addStudentToGroupComboBox";
-            addStudentToGroupComboBox.Size = new Size(243, 31);
+            addStudentToGroupComboBox.Size = new Size(243, 26);
             addStudentToGroupComboBox.TabIndex = 1;
             addStudentToGroupComboBox.TabStop = false;
             addStudentToGroupComboBox.Enter += AddStudentToGroupComboBoxEnter;
@@ -121,7 +121,8 @@
             // 
             // AddStudentToGroup
             // 
-            AutoScaleDimensions = new SizeF(11F, 23F);
+            AcceptButton = addStudentToGroupButton;
+            AutoScaleDimensions = new SizeF(9F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLight;
             ClientSize = new Size(432, 203);
