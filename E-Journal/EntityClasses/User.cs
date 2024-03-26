@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WorkWithDatabase;
+namespace ElectronicDiary.Database;
 
 public partial class User
 {

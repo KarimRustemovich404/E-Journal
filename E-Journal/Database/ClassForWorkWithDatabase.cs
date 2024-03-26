@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System;
-using System.Reflection.Emit;
 
-namespace WorkWithDatabase
+namespace ElectronicDiary.Database
 {
     static class ClassForWorkWithDatabase
     {

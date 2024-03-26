@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace WorkWithDatabase;
+namespace ElectronicDiary.Database;
 
 public partial class DatabaseForElectronicDiaryContext : DbContext
 {

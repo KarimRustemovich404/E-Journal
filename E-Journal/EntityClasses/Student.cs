@@ -1,4 +1,6 @@
-﻿namespace WorkWithDatabase;
+﻿using System.Collections.Generic;
+
+namespace ElectronicDiary.Database;
 
 public partial class Student
 {

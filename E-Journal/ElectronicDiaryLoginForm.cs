@@ -1,5 +1,7 @@
 using System.Windows.Forms;
-using WorkWithDatabase;
+using ElectronicDiary.Database;
+using System.Drawing;
+using System;
 
 namespace ElectronicDiary
 {

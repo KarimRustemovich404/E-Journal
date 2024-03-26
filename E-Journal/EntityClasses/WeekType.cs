@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WorkWithDatabase;
+namespace ElectronicDiary.Database;
 
 public partial class WeekType
 {

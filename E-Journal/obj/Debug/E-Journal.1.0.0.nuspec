@@ -5,7 +5,7 @@
     <version>1.0.0</version>
     <authors>E-Journal</authors>
     <description>Package Description</description>
-    <repository type="git" commit="5e98f9e0c94830580dfcd759cd90d7188326ef40" />
+    <repository type="git" commit="d7d10b857784082c4935d162f2811f6361d85b14" />
     <dependencies>
       <group targetFramework="net8.0-windows7.0">
         <dependency id="Microsoft.EntityFrameworkCore.Sqlite" version="9.0.0-preview.2.24128.4" exclude="Build,Analyzers" />
@@ -16,9 +16,14 @@
         <frameworkReference name="Microsoft.WindowsDesktop.App.WindowsForms" />
       </group>
     </frameworkReferences>
+    <contentFiles>
+      <files include="any/net8.0-windows7.0/Images/ElectonicDiaryIcon.ico" buildAction="Content" />
+    </contentFiles>
   </metadata>
   <files>
     <file src="C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\bin\Debug\net8.0-windows7.0\E-Journal.runtimeconfig.json" target="lib\net8.0-windows7.0\E-Journal.runtimeconfig.json" />
     <file src="C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\bin\Debug\net8.0-windows7.0\E-Journal.dll" target="lib\net8.0-windows7.0\E-Journal.dll" />
+    <file src="C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\Images\ElectonicDiaryIcon.ico" target="content\Images\ElectonicDiaryIcon.ico" />
+    <file src="C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\Images\ElectonicDiaryIcon.ico" target="contentFiles\any\net8.0-windows7.0\Images\ElectonicDiaryIcon.ico" />
   </files>
 </package>

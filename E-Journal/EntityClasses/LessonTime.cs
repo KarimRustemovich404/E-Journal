@@ -1,4 +1,4 @@
-﻿namespace WorkWithDatabase;
+﻿namespace ElectronicDiary.Database;
 
 public partial class LessonTimeTable
 {

@@ -1,28 +1,31 @@
 using System.Windows.Forms;
 using System;
-using Microsoft.VisualBasic;
-using System.Runtime.CompilerServices;
 
 namespace ElectronicDiary
 {
     internal static class Program
     {
+        #region Поля
         private static string accountInformation = String.Empty;
+        #endregion
 
+        #region Методы
+        /// <summary>
+        /// Метод, который передает данные из формы ElectronicDiaryLoginForm.
+        /// </summary>
+        /// <param name="accountInformation"></param>
         public static void SettingAccountInformationValue(string accountInformation)
         {
             Program.accountInformation = accountInformation;
         }
 
         /// <summary>
-        ///  The main entry point for the application.
+        /// Метод, который является точкой входа в программу.
         /// </summary>
         [STAThread]
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-
-            //Application.Run(new AdministratorFormOfElectronicDiary());
 
             Application.Run(new ElectronicDiaryLoginForm());
 
@@ -32,7 +35,6 @@ namespace ElectronicDiary
                 {
                     Application.Run(new AdministratorFormOfElectronicDiary());
                 }
-
                 else
                 {
                     Application.Run(new StudentFormOfElectronicDiary(accountInformation));
@@ -40,5 +42,6 @@ namespace ElectronicDiary
             }
 
         }
+        #endregion
     }
 }

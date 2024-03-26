@@ -1,4 +1,7 @@
-﻿namespace ElectronicDiary
+﻿using System.Windows.Forms;
+using System.Drawing;
+
+namespace ElectronicDiary
 {
     partial class AdministratorFormOfElectronicDiary
     {
