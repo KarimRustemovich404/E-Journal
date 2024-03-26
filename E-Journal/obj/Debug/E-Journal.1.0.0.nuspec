@@ -5,7 +5,7 @@
     <version>1.0.0</version>
     <authors>E-Journal</authors>
     <description>Package Description</description>
-    <repository type="git" commit="7db0ef6b1352f874dba4a33d962978368712d8cf" />
+    <repository type="git" commit="a34f5f5d513e8b0f1ddbab354a8e71ff7490c469" />
     <dependencies>
       <group targetFramework="net8.0-windows7.0">
         <dependency id="Microsoft.EntityFrameworkCore.Sqlite" version="9.0.0-preview.2.24128.4" exclude="Build,Analyzers" />
