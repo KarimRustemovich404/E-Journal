@@ -47,6 +47,7 @@ namespace ElectronicDiary
                         var sheduleNameComboBox = new ComboBox();
                         scheduleTableLayoutPanel.Controls.Add(sheduleNameComboBox, 0, j + 1);
                         sheduleNameComboBox.Items.AddRange(ClassForWorkWithDatabase.LoadStudentSubjects());
+                        sheduleNameComboBox.Items.Add(String.Empty);
                         sheduleNameComboBox.FlatStyle = FlatStyle.Popup;
                         sheduleNameComboBox.BackColor = SystemColors.ControlLight;
                         sheduleNameComboBox.TabStop = false;

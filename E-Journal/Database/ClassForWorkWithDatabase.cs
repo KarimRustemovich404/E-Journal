@@ -5,8 +5,17 @@ using System;
 
 namespace ElectronicDiary.Database
 {
+    /// <summary>
+    /// Класс для работы с базой данных.
+    /// </summary>
     static class ClassForWorkWithDatabase
     {
+        /// <summary>
+        /// Метод, который проверяет введенный логин и пароль.
+        /// </summary>
+        /// <param name="login"> Логин. </param>
+        /// <param name="password"> Пароль. </param>
+        /// <returns> (Разрешен ли вход, сообщение). </returns>
         public static (bool, string) CheckingLoginToDiary(string login, string password)
         {
             using (var database = new DatabaseForElectronicDiaryContext())
@@ -45,6 +54,11 @@ namespace ElectronicDiary.Database
             }
         }
 
+        /// <summary>
+        /// Метод, который загружает информацию об аккаунте студента.
+        /// </summary>
+        /// <param name="informationAboutAccount"> Информация об аккаунте. </param>
+        /// <returns> Список данных студента. </returns>
         public static List<string> LoadingUserData(string informationAboutAccount)
         {
             using (var database = new DatabaseForElectronicDiaryContext())
@@ -56,7 +70,12 @@ namespace ElectronicDiary.Database
             }
         }
 
-        public static List<Student> LoadingStudentsFullNameInGroup(int groupId)
+        /// <summary>
+        /// Метод, который загружает всех студентов из группы.
+        /// </summary>
+        /// <param name="groupId"> Id группы. </param>
+        /// <returns> Список студентов. </returns>
+        public static List<Student> LoadingStudentsInGroup(int groupId)
         {
             using (var database = new DatabaseForElectronicDiaryContext())
             {
@@ -65,6 +84,11 @@ namespace ElectronicDiary.Database
             }
         }
 
+        /// <summary>
+        /// Метод, который загружает студентов из других групп.
+        /// </summary>
+        /// <param name="groupId"> Id группы. </param>
+        /// <returns> Список студентов. </returns>
         public static List<Student> LoadingStudentsFromOtherGroups(int groupId)
         {
             using (var database = new DatabaseForElectronicDiaryContext())
@@ -74,6 +98,11 @@ namespace ElectronicDiary.Database
             }
         }
 
+        /// <summary>
+        /// Метод, который загружает студентов из других групп.
+        /// </summary>
+        /// <param name="groupId"> Id группы. </param>
+        /// <returns> Список студентов. </returns>
         public static string LoadingScheduleData(int groupId, int dayOfWeek, int WeekTypeId, int lessonNumber)
         {
             using (var database = new DatabaseForElectronicDiaryContext())
@@ -99,7 +128,11 @@ namespace ElectronicDiary.Database
                 }
             }
         }
-
+        /// <summary>
+        /// Метод, который загружает студентов из других групп.
+        /// </summary>
+        /// <param name="groupId"> Id группы. </param>
+        /// <returns> Список студентов. </returns>
         public static int LoadingNumberOfPairs(int groupId, int dayOfWeek, int weekTypeId)
         {
             using (var database = new DatabaseForElectronicDiaryContext())
@@ -119,7 +152,11 @@ namespace ElectronicDiary.Database
                 return maxNumber;
             }
         }
-
+        /// <summary>
+        /// Метод, который загружает студентов из других групп.
+        /// </summary>
+        /// <param name="groupId"> Id группы. </param>
+        /// <returns> Список студентов. </returns>
         public static string[] LoadingTypesOfWeek()
         {
             using (var database = new DatabaseForElectronicDiaryContext())
@@ -127,7 +164,11 @@ namespace ElectronicDiary.Database
                 return (from typeOfWeek in database.WeekTypes select typeOfWeek.WeekTypeName).ToArray();
             }
         }
-
+        /// <summary>
+        /// Метод, который загружает студентов из других групп.
+        /// </summary>
+        /// <param name="groupId"> Id группы. </param>
+        /// <returns> Список студентов. </returns>
         public static string[] LoadingTypesOfMarks()
         {
             using (var database = new DatabaseForElectronicDiaryContext())
@@ -135,7 +176,11 @@ namespace ElectronicDiary.Database
                 return (from typeOfMark in database.TypeOfMarks select typeOfMark.TypeOfMarkName).ToArray();
             }
         }
-
+        /// <summary>
+        /// Метод, который загружает студентов из других групп.
+        /// </summary>
+        /// <param name="groupId"> Id группы. </param>
+        /// <returns> Список студентов. </returns>
         public static List<string> LoadingStudyGroups()
         {
             using (var database = new DatabaseForElectronicDiaryContext())
@@ -143,7 +188,11 @@ namespace ElectronicDiary.Database
                 return (from studyGroup in database.Groups select studyGroup.GroupName).ToList();
             }
         }
-
+        /// <summary>
+        /// Метод, который загружает студентов из других групп.
+        /// </summary>
+        /// <param name="groupId"> Id группы. </param>
+        /// <returns> Список студентов. </returns>
         public static List<StudentMark> LoadStudentMarks(int semesterId, int studentId)
         {
             using (var database = new DatabaseForElectronicDiaryContext())
@@ -151,7 +200,11 @@ namespace ElectronicDiary.Database
                 return (from mark in database.StudentsMarks.Include(p => p.Subject).Include(p => p.TypeOfMark) where mark.SemesterId == semesterId where mark.StudentId == studentId select mark).ToList();
             }
         }
-
+        /// <summary>
+        /// Метод, который загружает студентов из других групп.
+        /// </summary>
+        /// <param name="groupId"> Id группы. </param>
+        /// <returns> Список студентов. </returns>
         public static List<string> LoadSemesters()
         {
             using (var database = new DatabaseForElectronicDiaryContext())
@@ -159,7 +212,11 @@ namespace ElectronicDiary.Database
                 return (from semester in database.Semesters select semester.SemesterName).ToList();
             }
         }
-
+        /// <summary>
+        /// Метод, который загружает студентов из других групп.
+        /// </summary>
+        /// <param name="groupId"> Id группы. </param>
+        /// <returns> Список студентов. </returns>
         public static string[] LoadStudentSubjects()
         {
             using (var database = new DatabaseForElectronicDiaryContext())
@@ -167,7 +224,11 @@ namespace ElectronicDiary.Database
                 return (from cl in database.Subjects select cl.SubjectName).ToArray();
             }
         }
-
+        /// <summary>
+        /// Метод, который загружает студентов из других групп.
+        /// </summary>
+        /// <param name="groupId"> Id группы. </param>
+        /// <returns> Список студентов. </returns>
         public static Student[] LoadStudentsFromGroup(int groupId)
         {
             using (var database = new DatabaseForElectronicDiaryContext())
@@ -175,7 +236,11 @@ namespace ElectronicDiary.Database
                 return (from student in database.Students where student.StudentGroupNumber == groupId select student).ToArray();
             }
         }
-
+        /// <summary>
+        /// Метод, который загружает студентов из других групп.
+        /// </summary>
+        /// <param name="groupId"> Id группы. </param>
+        /// <returns> Список студентов. </returns>
         public static bool AddingNewStudyGroup(string groupName)
         {
             using (var database = new DatabaseForElectronicDiaryContext()) 
@@ -194,7 +259,11 @@ namespace ElectronicDiary.Database
                 return false;
             }
         }
-
+        /// <summary>
+        /// Метод, который загружает студентов из других групп.
+        /// </summary>
+        /// <param name="groupId"> Id группы. </param>
+        /// <returns> Список студентов. </returns>
         public static void AddingStudentToGroup(int studentId, int groupId)
         {
             using (var database = new DatabaseForElectronicDiaryContext())
@@ -208,30 +277,11 @@ namespace ElectronicDiary.Database
                 database.SaveChanges();
             }
         }
-
-        
-
-        
-
-        public static void ChangeStudentData(int studentId, string studentName, string studentSurname, string studentPatronymic, string studentBirthday, string studentGroupName)
-        {
-            using (var database = new DatabaseForElectronicDiaryContext())
-            {
-                var student = (from stud in database.Students where stud.StudentId == studentId select stud).ToList()[0];
-                var studyGroup = (from gr in database.Groups where gr.GroupName == studentGroupName select gr).ToList()[0];
-
-                student.StudentName = studentName;
-                student.StudentSurname = studentSurname;
-                student.StudentPatronymic = studentPatronymic;
-                student.StudentGroupNumber = studyGroup.GroupId;
-                student.studentBirthday = studentBirthday;
-
-                student.StudentGroupNumberNavigation = studyGroup;
-
-                database.SaveChanges();
-            }        
-        }
-
+        /// <summary>
+        /// Метод, который загружает студентов из других групп.
+        /// </summary>
+        /// <param name="groupId"> Id группы. </param>
+        /// <returns> Список студентов. </returns>
         public static string LoadStudentNote(int studentId, int subjectId)
         {
             using (var database = new DatabaseForElectronicDiaryContext())
@@ -248,7 +298,11 @@ namespace ElectronicDiary.Database
                 }
             }
         }
-
+        /// <summary>
+        /// Метод, который загружает студентов из других групп.
+        /// </summary>
+        /// <param name="groupId"> Id группы. </param>
+        /// <returns> Список студентов. </returns>
         public static string LoadLessonsTime(int numberOfLesson)
         {
             using (var database = new DatabaseForElectronicDiaryContext())
@@ -256,7 +310,11 @@ namespace ElectronicDiary.Database
                 return (from lesson in database.LessonsTimes where lesson.LessonId == numberOfLesson select lesson.LessonTime).ToList()[0];
             }
         }
-
+        /// <summary>
+        /// Метод, который загружает студентов из других групп.
+        /// </summary>
+        /// <param name="groupId"> Id группы. </param>
+        /// <returns> Список студентов. </returns>
         public static void SaveStudentNote(int studentId, int subjectId, string noteText)
         {
             using (var database = new DatabaseForElectronicDiaryContext())
@@ -282,7 +340,11 @@ namespace ElectronicDiary.Database
                 database.SaveChanges();
             }
         }
-
+        /// <summary>
+        /// Метод, который загружает студентов из других групп.
+        /// </summary>
+        /// <param name="groupId"> Id группы. </param>
+        /// <returns> Список студентов. </returns>
         public static void AddingStudentMark(int studentId, int subjectId, int markTypeId, int semesterId, int subjectMark)
         {
             using (var database = new DatabaseForElectronicDiaryContext())
@@ -313,7 +375,11 @@ namespace ElectronicDiary.Database
                 database.SaveChanges();
             }
         }
-
+        /// <summary>
+        /// Метод, который загружает студентов из других групп.
+        /// </summary>
+        /// <param name="groupId"> Id группы. </param>
+        /// <returns> Список студентов. </returns>
         public static void SaveScedule(int groupId, int subjectId, int weekTypeId, int dayOfWeek, int lessonNumber)
         {
             using (var database = new DatabaseForElectronicDiaryContext())
@@ -322,9 +388,16 @@ namespace ElectronicDiary.Database
 
                 if (schedule.Count != 0) 
                 {
-                    var subject = (from sb in database.Subjects where sb.SubjectId == subjectId select sb).ToList()[0];
-                    schedule[0].SubjectId = subjectId;
-                    schedule[0].Subject = subject;
+                    if (subjectId != 0)
+                    {
+                        var subject = (from sb in database.Subjects where sb.SubjectId == subjectId select sb).ToList()[0];
+                        schedule[0].SubjectId = subjectId;
+                        schedule[0].Subject = subject;
+                    }
+                    else
+                    {
+                        database.GroupsSchedule.Remove(schedule[0]);
+                    }
                 }
                 else
                 {

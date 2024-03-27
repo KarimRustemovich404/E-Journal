@@ -465,7 +465,8 @@ namespace ElectronicDiary
                 for (int j = 0; j < weeklySchedule[i].Count; j++)
                 {
                     var subjectComboBox = weeklySchedule[i][j] as ComboBox;
-                    ClassForWorkWithDatabase.SaveScedule(groupId, subjectComboBox.SelectedIndex + 1, typeOfWeekId, i + 1, j + 1);
+
+                    ClassForWorkWithDatabase.SaveScedule(groupId, subjectComboBox.SelectedIndex != subjectComboBox.Items.Count - 1 ? subjectComboBox.SelectedIndex + 1 : 0, typeOfWeekId, i + 1, j + 1);
                 }
             }
         }

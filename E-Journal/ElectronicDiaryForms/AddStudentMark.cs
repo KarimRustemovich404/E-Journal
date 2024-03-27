@@ -87,7 +87,7 @@ namespace ElectronicDiary
         {
             InitializeComponent();
 
-            listOfStudents = ClassForWorkWithDatabase.LoadingStudentsFullNameInGroup(groupId);
+            listOfStudents = ClassForWorkWithDatabase.LoadingStudentsInGroup(groupId);
             var studentsFullName = new List<string>();
 
             foreach (Student student in listOfStudents)
