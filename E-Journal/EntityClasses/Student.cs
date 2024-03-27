@@ -2,6 +2,9 @@
 
 namespace ElectronicDiary.Database;
 
+/// <summary>
+/// Класс, описывающий студента в базе данных.
+/// </summary>
 public partial class Student
 {
     public int StudentId { get; set; }
@@ -22,7 +25,7 @@ public partial class Student
 
     public virtual Group StudentGroupNumberNavigation { get; set; } = null!;
 
-    public virtual ICollection<StudentNote> StudentNotesTables { get; set; } = new List<StudentNote>();
+    public virtual ICollection<StudentNote> StudentNotesTable { get; set; } = new List<StudentNote>();
 
-    public virtual ICollection<StudentMark> StudentsMarksTables { get; set; } = new List<StudentMark>();
+    public virtual ICollection<StudentMark> StudentsMarksTable { get; set; } = new List<StudentMark>();
 }

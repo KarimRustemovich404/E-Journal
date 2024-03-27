@@ -1,6 +1,9 @@
 ﻿namespace ElectronicDiary.Database;
 
-public partial class LessonTimeTable
+/// <summary>
+/// Класс, описывающий время проведения пары в базе данных.
+/// </summary>
+public partial class LessonTimetable
 {
     public int LessonId { get; set; }
 

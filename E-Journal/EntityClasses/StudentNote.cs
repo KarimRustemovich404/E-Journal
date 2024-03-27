@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace ElectronicDiary.Database;
 
-namespace ElectronicDiary.Database;
-
+/// <summary>
+/// Класс, описывающий заметку студента в базе данных.
+/// </summary>
 public partial class StudentNote
 {
     public int NoteId { get; set; }
@@ -11,7 +11,7 @@ public partial class StudentNote
 
     public int SubjectId { get; set; }
 
-    public string? NoteText { get; set; }
+    public string NoteText { get; set; } = null!;
 
     public virtual Student Student { get; set; } = null!;
 

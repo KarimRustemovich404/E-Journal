@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace ElectronicDiary.Database;
 
-namespace ElectronicDiary.Database;
-
+/// <summary>
+/// Класс, описывающий оценку студента в базе данных.
+/// </summary>
 public partial class StudentMark
 {
     public int MarkId { get; set; }
@@ -23,7 +23,7 @@ public partial class StudentMark
 
     public virtual Subject Subject { get; set; } = null!;
 
-    public virtual TypeOfMark TypeOfMark { get; set; } = null!;
+    public virtual MarkType TypeOfMark { get; set; } = null!;
 
     public StudentMark(int semesterId, int typeOfMarkId, int subjectId, int studentId, int mark)
     {

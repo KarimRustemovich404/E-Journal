@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace ElectronicDiary.Database;
 
-namespace ElectronicDiary.Database;
-
+/// <summary>
+/// Класс, описывающий расписание учебной группы в базе данных.
+/// </summary>
 public partial class GroupSchedule
 {
     public int ScheduleId { get; set; }

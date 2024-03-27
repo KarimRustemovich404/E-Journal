@@ -1,25 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace ElectronicDiary.Database;
 
-public partial class DatabaseForElectronicDiaryContext : DbContext
+public partial class ElectronicDiaryDataBaseContext : DbContext
 {
-    public DatabaseForElectronicDiaryContext()
-    {
-    }
-
-    public DatabaseForElectronicDiaryContext(DbContextOptions<DatabaseForElectronicDiaryContext> options)
-        : base(options)
-    {
-    }
-
     public virtual DbSet<GroupSchedule> GroupsSchedule { get; set; }
 
     public virtual DbSet<Group> Groups { get; set; }
 
-    public virtual DbSet<LessonTimeTable> LessonsTimes { get; set; }
+    public virtual DbSet<LessonTimetable> LessonsTimes { get; set; }
 
     public virtual DbSet<Semester> Semesters { get; set; }
 
@@ -31,38 +20,32 @@ public partial class DatabaseForElectronicDiaryContext : DbContext
 
     public virtual DbSet<Subject> Subjects { get; set; }
 
-    public virtual DbSet<TypeOfMark> TypeOfMarks { get; set; }
+    public virtual DbSet<MarkType> MarksTypes { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<WeekType> WeekTypes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlite("Data Source=../../../Database/DatabaseForElectronicDiary.db");
+    => optionsBuilder.UseSqlite("Data Source=../../../Database/DatabaseForElectronicDiary.db");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>().Property("UserId").HasField("userId");
-        modelBuilder.Entity<User>().Property("UserLogin").HasField("userLogin");
-        modelBuilder.Entity<User>().Property("UserPassword").HasField("userPassword");
-        modelBuilder.Entity<User>().Property("IsAccountActive").HasField("isAccountActive");
-        modelBuilder.Entity<User>().Property("IsAdmin").HasField("isAdmin");
-
         modelBuilder.Entity<GroupSchedule>(entity =>
         {
             entity.HasKey(e => e.ScheduleId);
 
-            entity.ToTable("GroupsScheduleTable");
+            entity.ToTable("GroupsSchedulesTable");
 
-            entity.HasOne(d => d.Group).WithMany(p => p.GroupsScheduleTables)
+            entity.HasOne(d => d.Group).WithMany(p => p.GroupsScheduleTable)
                 .HasForeignKey(d => d.GroupId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
-            entity.HasOne(d => d.Subject).WithMany(p => p.GroupsScheduleTables)
+            entity.HasOne(d => d.Subject).WithMany(p => p.GroupsScheduleTable)
                 .HasForeignKey(d => d.SubjectId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
-            entity.HasOne(d => d.WeekType).WithMany(p => p.GroupsScheduleTables)
+            entity.HasOne(d => d.WeekType).WithMany(p => p.GroupsScheduleTable)
                 .HasForeignKey(d => d.WeekTypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
@@ -76,7 +59,7 @@ public partial class DatabaseForElectronicDiaryContext : DbContext
             entity.HasIndex(e => e.GroupName, "IX_GroupsTable_GroupName").IsUnique();
         });
 
-        modelBuilder.Entity<LessonTimeTable>(entity =>
+        modelBuilder.Entity<LessonTimetable>(entity =>
         {
             entity.HasKey(e => e.LessonId);
 
@@ -98,13 +81,13 @@ public partial class DatabaseForElectronicDiaryContext : DbContext
         {
             entity.HasKey(e => e.NoteId);
 
-            entity.ToTable("StudentNotesTable");
+            entity.ToTable("StudentsNotesTable");
 
-            entity.HasOne(d => d.Student).WithMany(p => p.StudentNotesTables)
+            entity.HasOne(d => d.Student).WithMany(p => p.StudentNotesTable)
                 .HasForeignKey(d => d.StudentId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
-            entity.HasOne(d => d.Subject).WithMany(p => p.StudentNotesTables)
+            entity.HasOne(d => d.Subject).WithMany(p => p.StudentNotesTable)
                 .HasForeignKey(d => d.SubjectId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
@@ -119,15 +102,15 @@ public partial class DatabaseForElectronicDiaryContext : DbContext
                 .HasForeignKey(d => d.SemesterId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
-            entity.HasOne(d => d.Student).WithMany(p => p.StudentsMarksTables)
+            entity.HasOne(d => d.Student).WithMany(p => p.StudentsMarksTable)
                 .HasForeignKey(d => d.StudentId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
-            entity.HasOne(d => d.Subject).WithMany(p => p.StudentsMarksTables)
+            entity.HasOne(d => d.Subject).WithMany(p => p.StudentsMarksTable)
                 .HasForeignKey(d => d.SubjectId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
-            entity.HasOne(d => d.TypeOfMark).WithMany(p => p.StudentsMarksTables)
+            entity.HasOne(d => d.TypeOfMark).WithMany(p => p.StudentsMarksTable)
                 .HasForeignKey(d => d.TypeOfMarkId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
@@ -144,7 +127,7 @@ public partial class DatabaseForElectronicDiaryContext : DbContext
                 .HasForeignKey<Student>(d => d.NumberInUserTable)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
-            entity.HasOne(d => d.StudentGroupNumberNavigation).WithMany(p => p.StudentsTables)
+            entity.HasOne(d => d.StudentGroupNumberNavigation).WithMany(p => p.StudentsTable)
                 .HasForeignKey(d => d.StudentGroupNumber)
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
@@ -158,11 +141,11 @@ public partial class DatabaseForElectronicDiaryContext : DbContext
             entity.HasIndex(e => e.SubjectName, "IX_SubjectsTable_SubjectName").IsUnique();
         });
 
-        modelBuilder.Entity<TypeOfMark>(entity =>
+        modelBuilder.Entity<MarkType>(entity =>
         {
             entity.HasKey(e => e.TypeOfMarkId);
 
-            entity.ToTable("TypeOfMarksTable");
+            entity.ToTable("MarksTypesTable");
 
             entity.HasIndex(e => e.TypeOfMarkName, "IX_TypeOfMarksTable_TypeOfMarkName").IsUnique();
         });
@@ -180,7 +163,7 @@ public partial class DatabaseForElectronicDiaryContext : DbContext
         {
             entity.HasKey(e => e.WeekTypeId);
 
-            entity.ToTable("WeekTypeTable");
+            entity.ToTable("WeeksTypesTable");
         });
 
         OnModelCreatingPartial(modelBuilder);
