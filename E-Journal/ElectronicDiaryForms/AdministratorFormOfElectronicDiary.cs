@@ -300,7 +300,7 @@ namespace ElectronicDiary
                 scheduleSelectionButton.Dock = DockStyle.Fill;
                 scheduleSelectionButton.BackColor = Color.DeepSkyBlue;
                 scheduleSelectionButton.FlatStyle = FlatStyle.Standard;
-                scheduleSelectionButton.Margin = new Padding(85, 7, 70, 13);
+                scheduleSelectionButton.Margin = new Padding(67, 7, 67, 13);
                 scheduleSelectionButton.Cursor = Cursors.Hand;
                 scheduleSelectionButton.Click += ScheduleSelectionButtonClick;
 
