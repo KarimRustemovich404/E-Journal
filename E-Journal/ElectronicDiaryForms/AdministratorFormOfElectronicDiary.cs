@@ -300,7 +300,7 @@ namespace ElectronicDiary
                 scheduleSelectionButton.Dock = DockStyle.Fill;
                 scheduleSelectionButton.BackColor = Color.DeepSkyBlue;
                 scheduleSelectionButton.FlatStyle = FlatStyle.Standard;
-                scheduleSelectionButton.Margin = new Padding(95, 7, 75, 13);
+                scheduleSelectionButton.Margin = new Padding(85, 7, 70, 13);
                 scheduleSelectionButton.Cursor = Cursors.Hand;
                 scheduleSelectionButton.Click += ScheduleSelectionButtonClick;
 
@@ -446,8 +446,9 @@ namespace ElectronicDiary
                 {
                     var subjectComboBox = weeklySchedule[i][j];
 
-                    DatabaseInteraction.SaveStudyGroupSchedule(groupId, subjectComboBox.SelectedIndex != subjectComboBox.Items.Count - 1 ? 
-                                                                        subjectComboBox.SelectedIndex + 1 : 0, typeOfWeekId, i + 1, j + 1);
+                    DatabaseInteraction.SaveStudyGroupSchedule(groupId, 
+                    subjectComboBox.SelectedIndex != subjectComboBox.Items.Count - 1 ? subjectComboBox.SelectedIndex + 1 : 0,
+                    typeOfWeekId, i + 1, j + 1);
 
                 }
             }

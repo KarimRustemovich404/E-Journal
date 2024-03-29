@@ -45,8 +45,6 @@ namespace ElectronicDiary
                             var scheduleName = DatabaseInteraction.LoadScheduleData(groupSelectionComboBox.SelectedIndex + 1,
                                                                     weekTypeSelectionComboBox.SelectedIndex + 1, i + 1, j + 1);
 
-                            if (scheduleName != null)
-                            {
                                 var scheduleNameComboBox = new ComboBox();
                                 scheduleTableLayoutPanel.Controls.Add(scheduleNameComboBox, 0, j + 1);
                                 scheduleNameComboBox.Items.AddRange(DatabaseInteraction.LoadSubjects());
@@ -62,7 +60,6 @@ namespace ElectronicDiary
                                 scheduleNameComboBox.Margin = new Padding(10, 11, 10, 11);
                                 scheduleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 14));
                                 daySchedule.Add(scheduleNameComboBox);
-                            }
                         }
 
                         weeklySchedule.Add(daySchedule);

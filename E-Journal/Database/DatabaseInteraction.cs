@@ -389,8 +389,10 @@ namespace ElectronicDiary.Database
                             scheduleAtSpecificNumber.Subject = scheduleSubject;
                         }
                     }
-
-                    database.GroupsSchedule.Remove(scheduleAtSpecificNumber);
+                    else
+                    {
+                        database.GroupsSchedule.Remove(scheduleAtSpecificNumber);
+                    }
                 }
                 else
                 {

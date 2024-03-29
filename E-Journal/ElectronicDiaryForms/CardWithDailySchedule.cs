@@ -42,8 +42,9 @@ namespace ElectronicDiary
                     DatabaseInteraction.SaveStudentNote(studentId, subjectIndex, controlsOfTableLayoutPanel[i].Text);
                 }
             }
-
+            
             isNotesUpdate = false;
+            Close();
         }
 
         private void TextBoxesTextChanged(object sender, EventArgs e)
