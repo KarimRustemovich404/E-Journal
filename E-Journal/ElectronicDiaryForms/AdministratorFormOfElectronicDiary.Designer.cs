@@ -63,15 +63,15 @@ namespace ElectronicDiary
             // 
             exitLabel.Cursor = Cursors.Hand;
             exitLabel.Dock = DockStyle.Bottom;
-            exitLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            exitLabel.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
             exitLabel.ForeColor = Color.Brown;
-            exitLabel.Location = new Point(3, 588);
-            exitLabel.Margin = new Padding(3, 0, 3, 30);
+            exitLabel.Location = new Point(25, 588);
+            exitLabel.Margin = new Padding(25, 0, 3, 30);
             exitLabel.Name = "exitLabel";
-            exitLabel.Size = new Size(179, 23);
+            exitLabel.Size = new Size(157, 23);
             exitLabel.TabIndex = 2;
             exitLabel.Text = "Выйти";
-            exitLabel.TextAlign = ContentAlignment.MiddleCenter;
+            exitLabel.TextAlign = ContentAlignment.MiddleLeft;
             exitLabel.Click += ExitLabelClick;
             // 
             // listOfGroupsLabel
@@ -80,13 +80,13 @@ namespace ElectronicDiary
             listOfGroupsLabel.Dock = DockStyle.Top;
             listOfGroupsLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             listOfGroupsLabel.ForeColor = SystemColors.WindowText;
-            listOfGroupsLabel.Location = new Point(3, 30);
-            listOfGroupsLabel.Margin = new Padding(3, 30, 3, 0);
+            listOfGroupsLabel.Location = new Point(25, 30);
+            listOfGroupsLabel.Margin = new Padding(25, 30, 3, 0);
             listOfGroupsLabel.Name = "listOfGroupsLabel";
-            listOfGroupsLabel.Size = new Size(179, 23);
+            listOfGroupsLabel.Size = new Size(157, 23);
             listOfGroupsLabel.TabIndex = 0;
             listOfGroupsLabel.Text = "Список групп";
-            listOfGroupsLabel.TextAlign = ContentAlignment.MiddleCenter;
+            listOfGroupsLabel.TextAlign = ContentAlignment.MiddleLeft;
             listOfGroupsLabel.Click += ListOfGroupsLabelClick;
             // 
             // scheduleLabel
@@ -95,13 +95,13 @@ namespace ElectronicDiary
             scheduleLabel.Dock = DockStyle.Top;
             scheduleLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             scheduleLabel.ForeColor = SystemColors.WindowText;
-            scheduleLabel.Location = new Point(3, 106);
-            scheduleLabel.Margin = new Padding(3, 30, 3, 0);
+            scheduleLabel.Location = new Point(25, 106);
+            scheduleLabel.Margin = new Padding(25, 30, 3, 0);
             scheduleLabel.Name = "scheduleLabel";
-            scheduleLabel.Size = new Size(179, 23);
+            scheduleLabel.Size = new Size(157, 23);
             scheduleLabel.TabIndex = 1;
             scheduleLabel.Text = "Расписание";
-            scheduleLabel.TextAlign = ContentAlignment.MiddleCenter;
+            scheduleLabel.TextAlign = ContentAlignment.MiddleLeft;
             scheduleLabel.Click += ScheduleLabelClick;
             // 
             // administratorFormTableLayoutPanel

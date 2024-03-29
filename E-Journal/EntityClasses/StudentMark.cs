@@ -9,7 +9,7 @@ public partial class StudentMark
 
     public int SemesterId { get; set; }
 
-    public int TypeOfMarkId { get; set; }
+    public int MarkTypeId { get; set; }
 
     public int SubjectId { get; set; }
 
@@ -23,12 +23,12 @@ public partial class StudentMark
 
     public virtual Subject Subject { get; set; } = null!;
 
-    public virtual MarkType TypeOfMark { get; set; } = null!;
+    public virtual MarkType MarkType { get; set; } = null!;
 
-    public StudentMark(int semesterId, int typeOfMarkId, int subjectId, int studentId, int mark)
+    public StudentMark(int semesterId, int markTypeId, int subjectId, int studentId, int mark)
     {
         SemesterId = semesterId;
-        TypeOfMarkId = typeOfMarkId;
+        MarkTypeId = markTypeId;
         SubjectId = subjectId;
         StudentId = studentId;
         Mark = mark;

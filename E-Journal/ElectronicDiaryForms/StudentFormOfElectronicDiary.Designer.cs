@@ -83,13 +83,13 @@ namespace ElectronicDiary
             myProfileLabel.Dock = DockStyle.Top;
             myProfileLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             myProfileLabel.ForeColor = SystemColors.WindowText;
-            myProfileLabel.Location = new Point(3, 30);
-            myProfileLabel.Margin = new Padding(3, 30, 3, 0);
+            myProfileLabel.Location = new Point(25, 30);
+            myProfileLabel.Margin = new Padding(25, 30, 3, 0);
             myProfileLabel.Name = "myProfileLabel";
-            myProfileLabel.Size = new Size(183, 23);
+            myProfileLabel.Size = new Size(161, 23);
             myProfileLabel.TabIndex = 0;
             myProfileLabel.Text = "Мой профиль";
-            myProfileLabel.TextAlign = ContentAlignment.MiddleCenter;
+            myProfileLabel.TextAlign = ContentAlignment.MiddleLeft;
             myProfileLabel.Click += MyProfileLabelClick;
             // 
             // academicPerformanceLabel
@@ -98,13 +98,13 @@ namespace ElectronicDiary
             academicPerformanceLabel.Cursor = Cursors.Hand;
             academicPerformanceLabel.Dock = DockStyle.Top;
             academicPerformanceLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            academicPerformanceLabel.Location = new Point(3, 107);
-            academicPerformanceLabel.Margin = new Padding(3, 30, 3, 0);
+            academicPerformanceLabel.Location = new Point(25, 107);
+            academicPerformanceLabel.Margin = new Padding(25, 30, 3, 0);
             academicPerformanceLabel.Name = "academicPerformanceLabel";
-            academicPerformanceLabel.Size = new Size(183, 23);
+            academicPerformanceLabel.Size = new Size(161, 23);
             academicPerformanceLabel.TabIndex = 1;
             academicPerformanceLabel.Text = "Успеваемость";
-            academicPerformanceLabel.TextAlign = ContentAlignment.MiddleCenter;
+            academicPerformanceLabel.TextAlign = ContentAlignment.MiddleLeft;
             academicPerformanceLabel.Click += AcademicPerformanceLabelClick;
             // 
             // scheduleLabel
@@ -114,13 +114,13 @@ namespace ElectronicDiary
             scheduleLabel.Cursor = Cursors.Hand;
             scheduleLabel.Dock = DockStyle.Top;
             scheduleLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            scheduleLabel.Location = new Point(3, 184);
-            scheduleLabel.Margin = new Padding(3, 30, 3, 0);
+            scheduleLabel.Location = new Point(25, 184);
+            scheduleLabel.Margin = new Padding(25, 30, 3, 0);
             scheduleLabel.Name = "scheduleLabel";
-            scheduleLabel.Size = new Size(183, 23);
+            scheduleLabel.Size = new Size(161, 23);
             scheduleLabel.TabIndex = 2;
             scheduleLabel.Text = "Расписание";
-            scheduleLabel.TextAlign = ContentAlignment.MiddleCenter;
+            scheduleLabel.TextAlign = ContentAlignment.MiddleLeft;
             scheduleLabel.Click += ScheduleLabelClick;
             // 
             // exitLabel
@@ -130,13 +130,13 @@ namespace ElectronicDiary
             exitLabel.Dock = DockStyle.Bottom;
             exitLabel.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
             exitLabel.ForeColor = Color.Brown;
-            exitLabel.Location = new Point(3, 589);
-            exitLabel.Margin = new Padding(3, 0, 3, 30);
+            exitLabel.Location = new Point(25, 589);
+            exitLabel.Margin = new Padding(25, 0, 3, 30);
             exitLabel.Name = "exitLabel";
-            exitLabel.Size = new Size(183, 26);
+            exitLabel.Size = new Size(161, 26);
             exitLabel.TabIndex = 3;
             exitLabel.Text = "Выйти";
-            exitLabel.TextAlign = ContentAlignment.MiddleCenter;
+            exitLabel.TextAlign = ContentAlignment.MiddleLeft;
             exitLabel.Click += ExitLabelClick;
             // 
             // StudentFormOfElectronicDiary

@@ -6,41 +6,50 @@ namespace ElectronicDiary
     internal static class Program
     {
         #region Поля
-        private static string accountInformation = String.Empty;
+        static bool isEntryAllowed;
+        static bool isAdmin;
+        static int userId;
         #endregion
 
         #region Методы
         /// <summary>
-        /// Метод, который передает данные из формы ElectronicDiaryLoginForm.
+        /// Метод, который передает данные о входе в аккаунт.
         /// </summary>
-        /// <param name="accountInformation"></param>
-        public static void SettingAccountInformationValue(string accountInformation)
+        /// <param name="isEntryAllowed"> Разрешен ли вход. </param>
+        /// <param name="isAdmin"> Является ли пользователь администратором. </param>
+        /// <param name="userId"> Идентификатор пользователя. </param>
+        public static void SetLoginInformation(bool isEntryAllowed, bool isAdmin = false, int userId = -1)
         {
-            Program.accountInformation = accountInformation;
+            Program.isEntryAllowed = isEntryAllowed;
+            Program.isAdmin = isAdmin;
+            Program.userId = userId;
         }
 
-        /// <summary>
-        /// Метод, который является точкой входа в программу.
-        /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             ApplicationConfiguration.Initialize();
 
-            Application.Run(new ElectronicDiaryLoginForm());
-
-            if (accountInformation != String.Empty)
+            do
             {
-                if (accountInformation.Contains("Admin"))
+                isEntryAllowed = false;
+                Application.Run(new ElectronicDiaryLoginForm());
+
+                if (isEntryAllowed)
                 {
-                    Application.Run(new AdministratorFormOfElectronicDiary());
-                }
-                else
-                {
-                    Application.Run(new StudentFormOfElectronicDiary(accountInformation));
+                    isEntryAllowed = false;
+
+                    if (isAdmin)
+                    {
+                        Application.Run(new AdministratorFormOfElectronicDiary());
+                    }
+                    else
+                    {
+                        Application.Run(new StudentFormOfElectronicDiary(userId));
+                    }
                 }
             }
-
+            while (isEntryAllowed);
         }
         #endregion
     }

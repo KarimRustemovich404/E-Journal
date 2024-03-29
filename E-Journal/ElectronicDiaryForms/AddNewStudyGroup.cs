@@ -1,27 +1,24 @@
-﻿using System;
-using System.Drawing;
+﻿using ElectronicDiary.Database;
 using System.Windows.Forms;
-using ElectronicDiary.Database;
+using System.Drawing.Text;
+using System.Drawing;
+using System;
 
 namespace ElectronicDiary
 {
     public partial class AddNewStudyGroup : Form
     {
         #region Поля
-        private ComboBox groupSelectionComboBox;
+        ComboBox groupSelectionComboBox;
+        PrivateFontCollection fontCollection = new PrivateFontCollection();
         #endregion
 
         #region События
-        /// <summary>
-        /// Метод, который обрабатывает нажатие кнопку "Сохранить".
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
         private void AddNewStudyGroupButtonClick(object sender, EventArgs e)
         {
             if (addNewStudyGroupTextBox.Text.Length != 0)
             {
-                if (ClassForWorkWithDatabase.AddingNewStudyGroup(addNewStudyGroupTextBox.Text))
+                if (DatabaseInteraction.AddNewStudyGroup(addNewStudyGroupTextBox.Text))
                 {
                     groupSelectionComboBox.Items.Add(addNewStudyGroupTextBox.Text);
                     Close();
@@ -37,32 +34,17 @@ namespace ElectronicDiary
             }
         }
 
-        /// <summary>
-        /// Метод, который обрабатывает вход в addNewStudyGroupTextBox.
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
         private void AddNewStudyGroupTextBoxEnter(object sender, EventArgs e)
         {
             addNewStudyGroupTextBox.BackColor = SystemColors.Window;
         }
 
-        /// <summary>
-        /// Метод, который обрабатывает нажатие на все элементы формы.
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
         private void FormElementsOnClick(object sender, EventArgs e)
         {
             ActiveControl = null;
             addNewStudyGroupTextBox.BackColor = SystemColors.Window;
         }
 
-        /// <summary>
-        /// Метод, который обрабатывает ввод символов в addNewStudyGroupTextBox.
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
         private void AddNewStudyGroupTextBoxKeyPress(object sender, KeyPressEventArgs e)
         {
             if (((e.KeyChar >= '0') && (e.KeyChar <= '9')) || (e.KeyChar == '-') || (e.KeyChar == '\b'))
@@ -77,10 +59,16 @@ namespace ElectronicDiary
         #region Конструкторы
         public AddNewStudyGroup(ComboBox groupSelectionComboBox)
         {
+            fontCollection.AddFontFile("../../../Font/SFProDisplayRegular.otf");
+
             InitializeComponent();
 
             ActiveControl = null;
             this.groupSelectionComboBox = groupSelectionComboBox;
+
+            addNewStudyGroupTitleLabel.Font = new Font(fontCollection.Families[0], 14);
+            addNewStudyGroupTextBox.Font = new Font(fontCollection.Families[0], 14);
+            addNewStudyGroupButton.Font = new Font(fontCollection.Families[0], 14);
         }
         #endregion
     }

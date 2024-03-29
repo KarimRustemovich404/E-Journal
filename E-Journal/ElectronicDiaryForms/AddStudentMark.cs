@@ -1,30 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using ElectronicDiary.Database;
 using System.Windows.Forms;
-using ElectronicDiary.Database;
+using System.Drawing.Text;
+using System.Drawing;
+using System;
 
 namespace ElectronicDiary
 {
     public partial class AddStudentMark : Form
     {
         #region Поля
-        private List<Student> listOfStudents;
+        Student[] arrayOfStudents;
+        PrivateFontCollection fontCollection = new PrivateFontCollection();
         #endregion
 
         #region События
-        /// <summary>
-        /// Метод, который обрабатывает нажатие кнопку "Сохранить".
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
         private void AddStudentMarkButtonClick(object sender, EventArgs e)
         {
-            if ((studentFullNameComboBox.SelectedItem != null) && (semesterSelectionComboBox.SelectedItem != null) && (subjectSelectionComboBox.SelectedItem != null) && 
-                (markTypeSelectionComboBox.SelectedItem != null) && (markTextBox.Text.Length != 0))
+            if ((studentFullNameComboBox.SelectedItem != null) && (semesterSelectionComboBox.SelectedItem != null)
+                && (subjectSelectionComboBox.SelectedItem != null) && (markTypeSelectionComboBox.SelectedItem != null)
+                && (markTextBox.Text.Length != 0))
             {
-                ClassForWorkWithDatabase.AddingStudentMark(listOfStudents[studentFullNameComboBox.SelectedIndex].StudentId, subjectSelectionComboBox.SelectedIndex + 1, 
-                                                           markTypeSelectionComboBox.SelectedIndex + 1, semesterSelectionComboBox.SelectedIndex + 1, int.Parse(markTextBox.Text));
+                DatabaseInteraction.AddStudentMark(arrayOfStudents[studentFullNameComboBox.SelectedIndex].StudentId,
+                                     subjectSelectionComboBox.SelectedIndex + 1, markTypeSelectionComboBox.SelectedIndex + 1,
+                                     semesterSelectionComboBox.SelectedIndex + 1, int.Parse(markTextBox.Text));
                 Close();
             }
             else
@@ -37,11 +35,6 @@ namespace ElectronicDiary
             }
         }
 
-        /// <summary>
-        /// Метод, который обрабатывает вход в элементы управления с данными.
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
         private void ControlsWithDataEnter(object sender, EventArgs e)
         {
             studentFullNameComboBox.BackColor = SystemColors.Window;
@@ -51,11 +44,6 @@ namespace ElectronicDiary
             markTextBox.BackColor = SystemColors.Window;
         }
 
-        /// <summary>
-        /// Метод, который обрабатывает нажатие на все элементы формы.
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
         private void FormElementsOnClick(object sender, EventArgs e)
         {
             ActiveControl = null;
@@ -66,11 +54,6 @@ namespace ElectronicDiary
             markTextBox.BackColor = SystemColors.Window;
         }
 
-        /// <summary>
-        /// Метод, который обрабатывает ввод символов в markTextBox.
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
         private void MarkTextBoxKeyPress(object sender, KeyPressEventArgs e)
         {
             if (((e.KeyChar >= '0') && (e.KeyChar <= '9')) || (e.KeyChar == '\b'))
@@ -85,20 +68,35 @@ namespace ElectronicDiary
         #region Конструкторы
         public AddStudentMark(int groupId)
         {
+            fontCollection.AddFontFile("../../../Font/SFProDisplayRegular.otf");
+
             InitializeComponent();
 
-            listOfStudents = ClassForWorkWithDatabase.LoadingStudentsInGroup(groupId);
-            var studentsFullName = new List<string>();
+            arrayOfStudents = DatabaseInteraction.LoadStudentsFromGroups(groupId, true);
+            var studentsFullName = new string[arrayOfStudents.Length];
 
-            foreach (Student student in listOfStudents)
+            for (int i = 0; i < arrayOfStudents.Length; i++)
             {
-                studentsFullName.Add($"{student.StudentSurname} {student.StudentName} {student.StudentPatronymic}");
+                studentsFullName[i] = ($"{arrayOfStudents[i].StudentSurname} {arrayOfStudents[i].StudentName} " +
+                                       $"{arrayOfStudents[i].StudentPatronymic}");
             }
 
-            studentFullNameComboBox.Items.AddRange(studentsFullName.ToArray());
-            semesterSelectionComboBox.Items.AddRange(ClassForWorkWithDatabase.LoadSemesters().ToArray());
-            subjectSelectionComboBox.Items.AddRange(ClassForWorkWithDatabase.LoadStudentSubjects());
-            markTypeSelectionComboBox.Items.AddRange(ClassForWorkWithDatabase.LoadingTypesOfMarks());
+            studentFullNameComboBox.Items.AddRange(studentsFullName);
+            semesterSelectionComboBox.Items.AddRange(DatabaseInteraction.LoadSemesters());
+            subjectSelectionComboBox.Items.AddRange(DatabaseInteraction.LoadSubjects());
+            markTypeSelectionComboBox.Items.AddRange(DatabaseInteraction.LoadMarksTypes());
+
+            studentFullNameTitleLabel.Font = new Font(fontCollection.Families[0], 14);
+            academicSemesterTitleLabel.Font = new Font(fontCollection.Families[0], 14);
+            subjectTitleLabel.Font = new Font(fontCollection.Families[0], 14);
+            markTypeTitleLabel.Font = new Font(fontCollection.Families[0], 14);
+            markTitleLabel.Font = new Font(fontCollection.Families[0], 14);
+            studentFullNameComboBox.Font = new Font(fontCollection.Families[0], 12);
+            semesterSelectionComboBox.Font = new Font(fontCollection.Families[0], 12);
+            subjectSelectionComboBox.Font = new Font(fontCollection.Families[0], 12);
+            markTypeSelectionComboBox.Font = new Font(fontCollection.Families[0], 12);
+            markTextBox.Font = new Font(fontCollection.Families[0], 12);
+            addStudentMarkButton.Font = new Font(fontCollection.Families[0], 14);
         }
         #endregion
     }

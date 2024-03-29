@@ -2,7 +2,7 @@
 
 namespace ElectronicDiary.Database;
 
-public partial class ElectronicDiaryDataBaseContext : DbContext
+public partial class ElectronicDiaryDatabaseContext : DbContext
 {
     public virtual DbSet<GroupSchedule> GroupsSchedule { get; set; }
 
@@ -110,8 +110,8 @@ public partial class ElectronicDiaryDataBaseContext : DbContext
                 .HasForeignKey(d => d.SubjectId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
-            entity.HasOne(d => d.TypeOfMark).WithMany(p => p.StudentsMarksTable)
-                .HasForeignKey(d => d.TypeOfMarkId)
+            entity.HasOne(d => d.MarkType).WithMany(p => p.StudentsMarksTable)
+                .HasForeignKey(d => d.MarkTypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
@@ -143,11 +143,11 @@ public partial class ElectronicDiaryDataBaseContext : DbContext
 
         modelBuilder.Entity<MarkType>(entity =>
         {
-            entity.HasKey(e => e.TypeOfMarkId);
+            entity.HasKey(e => e.MarkTypeId);
 
             entity.ToTable("MarksTypesTable");
 
-            entity.HasIndex(e => e.TypeOfMarkName, "IX_TypeOfMarksTable_TypeOfMarkName").IsUnique();
+            entity.HasIndex(e => e.MarkTypeName, "IX_TypeOfMarksTable_TypeOfMarkName").IsUnique();
         });
 
         modelBuilder.Entity<User>(entity =>
@@ -167,6 +167,15 @@ public partial class ElectronicDiaryDataBaseContext : DbContext
         });
 
         OnModelCreatingPartial(modelBuilder);
+
+        modelBuilder.Entity<University>(entity =>
+        {
+            entity.HasKey(e => e.UniversityId);
+
+            entity.ToTable("UniversitiesTable");
+
+            entity.HasIndex(e => e.UniversityName, "IX_UniversitiesTable_UniversityName").IsUnique();
+        });
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

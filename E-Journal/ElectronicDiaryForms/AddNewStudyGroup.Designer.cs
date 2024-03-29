@@ -53,7 +53,7 @@ namespace ElectronicDiary
             addNewStudyGroupTableLayoutPanel.RowCount = 2;
             addNewStudyGroupTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 60F));
             addNewStudyGroupTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 40F));
-            addNewStudyGroupTableLayoutPanel.Size = new Size(382, 203);
+            addNewStudyGroupTableLayoutPanel.Size = new Size(432, 203);
             addNewStudyGroupTableLayoutPanel.TabIndex = 0;
             addNewStudyGroupTableLayoutPanel.Click += FormElementsOnClick;
             // 
@@ -70,7 +70,7 @@ namespace ElectronicDiary
             addNewStudyGroupDataTableLayoutPanel.RowCount = 2;
             addNewStudyGroupDataTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 45F));
             addNewStudyGroupDataTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 55F));
-            addNewStudyGroupDataTableLayoutPanel.Size = new Size(376, 115);
+            addNewStudyGroupDataTableLayoutPanel.Size = new Size(426, 115);
             addNewStudyGroupDataTableLayoutPanel.TabIndex = 0;
             addNewStudyGroupDataTableLayoutPanel.Click += FormElementsOnClick;
             // 
@@ -79,13 +79,13 @@ namespace ElectronicDiary
             addNewStudyGroupTitleLabel.AutoSize = true;
             addNewStudyGroupTitleLabel.Dock = DockStyle.Top;
             addNewStudyGroupTitleLabel.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            addNewStudyGroupTitleLabel.Location = new Point(0, 57);
-            addNewStudyGroupTitleLabel.Margin = new Padding(0, 6, 0, 0);
+            addNewStudyGroupTitleLabel.Location = new Point(15, 57);
+            addNewStudyGroupTitleLabel.Margin = new Padding(15, 6, 0, 0);
             addNewStudyGroupTitleLabel.Name = "addNewStudyGroupTitleLabel";
-            addNewStudyGroupTitleLabel.Size = new Size(176, 22);
+            addNewStudyGroupTitleLabel.Size = new Size(185, 26);
             addNewStudyGroupTitleLabel.TabIndex = 0;
             addNewStudyGroupTitleLabel.Text = "Номер группы";
-            addNewStudyGroupTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
+            addNewStudyGroupTitleLabel.TextAlign = ContentAlignment.TopCenter;
             addNewStudyGroupTitleLabel.Click += FormElementsOnClick;
             // 
             // addNewStudyGroupTextBox
@@ -94,12 +94,12 @@ namespace ElectronicDiary
             addNewStudyGroupTextBox.Dock = DockStyle.Top;
             addNewStudyGroupTextBox.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
             addNewStudyGroupTextBox.ImeMode = ImeMode.NoControl;
-            addNewStudyGroupTextBox.Location = new Point(179, 54);
-            addNewStudyGroupTextBox.Margin = new Padding(3, 3, 15, 3);
+            addNewStudyGroupTextBox.Location = new Point(203, 56);
+            addNewStudyGroupTextBox.Margin = new Padding(3, 5, 20, 3);
             addNewStudyGroupTextBox.MaxLength = 6;
             addNewStudyGroupTextBox.Name = "addNewStudyGroupTextBox";
             addNewStudyGroupTextBox.PlaceholderText = "00-000";
-            addNewStudyGroupTextBox.Size = new Size(182, 29);
+            addNewStudyGroupTextBox.Size = new Size(203, 34);
             addNewStudyGroupTextBox.TabIndex = 1;
             addNewStudyGroupTextBox.TabStop = false;
             addNewStudyGroupTextBox.TextAlign = HorizontalAlignment.Center;
@@ -113,12 +113,11 @@ namespace ElectronicDiary
             addNewStudyGroupButton.Dock = DockStyle.Fill;
             addNewStudyGroupButton.FlatAppearance.BorderColor = SystemColors.ControlLight;
             addNewStudyGroupButton.FlatAppearance.BorderSize = 0;
-            addNewStudyGroupButton.FlatStyle = FlatStyle.Flat;
             addNewStudyGroupButton.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            addNewStudyGroupButton.Location = new Point(115, 136);
-            addNewStudyGroupButton.Margin = new Padding(115, 15, 115, 27);
+            addNewStudyGroupButton.Location = new Point(120, 136);
+            addNewStudyGroupButton.Margin = new Padding(120, 15, 120, 18);
             addNewStudyGroupButton.Name = "addNewStudyGroupButton";
-            addNewStudyGroupButton.Size = new Size(152, 40);
+            addNewStudyGroupButton.Size = new Size(192, 49);
             addNewStudyGroupButton.TabIndex = 1;
             addNewStudyGroupButton.Text = "Сохранить";
             addNewStudyGroupButton.UseVisualStyleBackColor = false;
@@ -126,10 +125,10 @@ namespace ElectronicDiary
             // 
             // AddNewStudyGroup
             // 
-            AutoScaleDimensions = new SizeF(9F, 18F);
+            AutoScaleDimensions = new SizeF(11F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLight;
-            ClientSize = new Size(382, 203);
+            ClientSize = new Size(432, 203);
             Controls.Add(addNewStudyGroupTableLayoutPanel);
             Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             FormBorderStyle = FormBorderStyle.FixedDialog;

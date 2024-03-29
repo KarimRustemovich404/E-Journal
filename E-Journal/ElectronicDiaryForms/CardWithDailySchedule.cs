@@ -1,44 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+﻿using ElectronicDiary.Database;
 using System.Windows.Forms;
-using ElectronicDiary.Database;
+using System.Drawing.Text;
+using System.Drawing;
+using System;
 
 namespace ElectronicDiary
 {
     public partial class CardWithDailySchedule : Form
     {
         #region Поля
-        private int studentId;
-        private List<string> studentDaySchedule = new List<string>();
-        private Control[] controlsOfTableLayoutPanel;
+        int studentId;
+        bool isNotesUpdate = false;
+        string[] studentDaySchedule = null!;
+        Control[] controlsOfTableLayoutPanel = null!;
+        PrivateFontCollection fontCollection = new PrivateFontCollection();
         #endregion
 
         #region События
-        /// <summary>
-        /// Метод, который обрабатывает закрытие формы.
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
         private void CardWithDailyScheduleFormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (isNotesUpdate)
+            {
+                if (MessageBox.Show("Вы хотите сохранить изменения?", "Выход из карточки дня", MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    SaveNoteButtonClick(sender, e);
+                }
+            }
+
+            e.Cancel = false;
+        }
+
+        private void SaveNoteButtonClick(object sender, EventArgs e)
         {
             for (int i = 0; i < controlsOfTableLayoutPanel.Length; i++)
             {
                 if (controlsOfTableLayoutPanel[i] != null)
                 {
-                    var studentSubjects = ClassForWorkWithDatabase.LoadStudentSubjects().ToList();
-                    int subjectIndex = studentSubjects.IndexOf(studentDaySchedule[i]) + 1;
-                    ClassForWorkWithDatabase.SaveStudentNote(studentId, subjectIndex, controlsOfTableLayoutPanel[i].Text);
+                    var studentSubjects = DatabaseInteraction.LoadSubjects();
+                    var subjectIndex = Array.IndexOf(studentSubjects, studentDaySchedule[i]) + 1;
+                    DatabaseInteraction.SaveStudentNote(studentId, subjectIndex, controlsOfTableLayoutPanel[i].Text);
                 }
             }
+
+            isNotesUpdate = false;
         }
 
-        /// <summary>
-        /// Метод, который обрабатывает нажатие на все элементы формы.
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
+        private void TextBoxesTextChanged(object sender, EventArgs e)
+        {
+            isNotesUpdate = true;
+        }
+
         private void FormElementsOnClick(object sender, EventArgs e)
         {
             ActiveControl = null;
@@ -48,69 +60,75 @@ namespace ElectronicDiary
         #region Конструкторы
         public CardWithDailySchedule(int studentGroupId, int studentId, int typeOfWeek, int dayIndex)
         {
+            fontCollection.AddFontFile("../../../Font/SFProDisplayRegular.otf");
+
             InitializeComponent();
 
             this.studentId = studentId;
-            Text = "Расписание";
-            controlsOfTableLayoutPanel = new Control[ClassForWorkWithDatabase.LoadingNumberOfPairs(studentGroupId, dayIndex, typeOfWeek)];
-
-            var dayScheduleTitleLabel = new Label();
-            dayScheduleTitleTableLayoutPanel.Controls.Add(dayScheduleTitleLabel, 0, 0);
-            dayScheduleTitleLabel.Text = "Карточка учебного дня";
-            dayScheduleTitleLabel.Font = new Font("Arial", 20F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            dayScheduleTitleLabel.ForeColor = SystemColors.WindowText;
-            dayScheduleTitleLabel.TextAlign = ContentAlignment.TopLeft;
-            dayScheduleTitleLabel.Margin = new Padding(18, 20, 0, 0);
-            dayScheduleTitleLabel.Dock = DockStyle.Fill;
-            dayScheduleTitleLabel.Click += FormElementsOnClick;
+            saveNoteButton.Font = new Font(fontCollection.Families[0], 14);
+            dayScheduleTitleLabel.Font = new Font(fontCollection.Families[0], 20);
+            controlsOfTableLayoutPanel = new Control[DatabaseInteraction
+                                        .LoadNumberOfSubjects(studentGroupId, typeOfWeek, dayIndex)];
+            studentDaySchedule = new string[controlsOfTableLayoutPanel.Length];
 
             var dayScheduleTableLayoutPanel = new TableLayoutPanel();
             dayScheduleTitleTableLayoutPanel.Controls.Add(dayScheduleTableLayoutPanel, 0, 1);
             dayScheduleTableLayoutPanel.Dock = DockStyle.Fill;
-            dayScheduleTableLayoutPanel.ColumnCount = 3;
+            dayScheduleTableLayoutPanel.ColumnCount = 4;
             dayScheduleTableLayoutPanel.RowCount = controlsOfTableLayoutPanel.Length + 1;
-            dayScheduleTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 26));
-            dayScheduleTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 38));
+            dayScheduleTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 6));
+            dayScheduleTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 21));
+            dayScheduleTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 37));
             dayScheduleTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 36));
             dayScheduleTableLayoutPanel.Click += FormElementsOnClick;
 
             for (int i = 0; i < controlsOfTableLayoutPanel.Length; i++)
             {
-                string scheduleName = ClassForWorkWithDatabase.LoadingScheduleData(studentGroupId, dayIndex, typeOfWeek, i + 1);
+                var scheduleName = DatabaseInteraction.LoadScheduleData(studentGroupId, typeOfWeek, dayIndex, i + 1);
 
                 if (scheduleName != null)
                 {
-                    dayScheduleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 13));
-                    studentDaySchedule.Add(scheduleName);
+                    dayScheduleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 14));
+                    studentDaySchedule[i] = scheduleName;
+
+                    var lessonNumberLabel = new Label();
+                    dayScheduleTableLayoutPanel.Controls.Add(lessonNumberLabel, 0, i);
+                    lessonNumberLabel.Text = $"{i + 1}.";
+                    lessonNumberLabel.Font = new Font(fontCollection.Families[0], 12);
+                    lessonNumberLabel.Dock = DockStyle.Fill;
+                    lessonNumberLabel.Margin = new Padding(12, 0, 0, 0);
+                    lessonNumberLabel.Click += FormElementsOnClick;
 
                     var lessonTimeLabel = new Label();
-                    dayScheduleTableLayoutPanel.Controls.Add(lessonTimeLabel, 0, i);
-                    lessonTimeLabel.Text = $"{i + 1}. {ClassForWorkWithDatabase.LoadLessonsTime(i + 1)}";
-                    lessonTimeLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+                    dayScheduleTableLayoutPanel.Controls.Add(lessonTimeLabel, 1, i);
+                    lessonTimeLabel.Text = $"{DatabaseInteraction.LoadLessonsTime(i + 1)}";
+                    lessonTimeLabel.Font = new Font(fontCollection.Families[0], 12);
                     lessonTimeLabel.Dock = DockStyle.Fill;
-                    lessonTimeLabel.Margin = new Padding(12, 0, 0, 0);
+                    lessonTimeLabel.TextAlign = ContentAlignment.TopLeft;
                     lessonTimeLabel.Click += FormElementsOnClick;
 
                     var subjectNameLabel = new Label();
-                    dayScheduleTableLayoutPanel.Controls.Add(subjectNameLabel, 1, i);
+                    dayScheduleTableLayoutPanel.Controls.Add(subjectNameLabel, 2, i);
                     subjectNameLabel.Text = scheduleName;
-                    subjectNameLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+                    subjectNameLabel.Font = new Font(fontCollection.Families[0], 12);
                     subjectNameLabel.Dock = DockStyle.Fill;
                     subjectNameLabel.TextAlign = ContentAlignment.TopCenter;
                     subjectNameLabel.Click += FormElementsOnClick;
 
                     if (scheduleName != String.Empty)
                     {
-                        var studentSubjects = ClassForWorkWithDatabase.LoadStudentSubjects().ToList();
+                        var studentSubjects = DatabaseInteraction.LoadSubjects();
 
                         var studentNote = new TextBox();
-                        dayScheduleTableLayoutPanel.Controls.Add(studentNote, 2, i);
-                        studentNote.Text = ClassForWorkWithDatabase.LoadStudentNote(studentId, studentSubjects.IndexOf(scheduleName) + 1);
-                        studentNote.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+                        dayScheduleTableLayoutPanel.Controls.Add(studentNote, 3, i);
+                        studentNote.Text = DatabaseInteraction.LoadStudentNote(studentId,
+                                            Array.IndexOf(studentSubjects, scheduleName) + 1);
+                        studentNote.Font = new Font(fontCollection.Families[0], 12);
                         studentNote.TabStop = false;
                         studentNote.Dock = DockStyle.Fill;
                         studentNote.PlaceholderText = "Добавить заметку";
                         studentNote.Margin = new Padding(0, 0, 15, 0);
+                        studentNote.TextChanged += TextBoxesTextChanged;
                         controlsOfTableLayoutPanel[i] = studentNote;
                     }
                 }
@@ -120,7 +138,8 @@ namespace ElectronicDiary
                 }
             }
 
-            dayScheduleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, (100 - 13 * (dayScheduleTableLayoutPanel.RowCount - 1))));
+            dayScheduleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 
+                                (100 - 14 * (dayScheduleTableLayoutPanel.RowCount - 1))));
         }
         #endregion
     }

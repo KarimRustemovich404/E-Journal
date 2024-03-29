@@ -1,44 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using ElectronicDiary.Database;
 using System.Windows.Forms;
-using ElectronicDiary.Database;
+using System.Drawing.Text;
+using System.Drawing;
+using System;
 
 namespace ElectronicDiary
 {
     public partial class AddStudentToGroup : Form
     {
         #region Поля
-        private List<Student> listOfStudents;
-        private TableLayoutPanel listOfStudyingGroupsContentTableLayoutPanel;
-        private int groupId;
+        int groupId;
+        Student[] arrayOfStudents;
+        TableLayoutPanel listOfStudyingGroupsContentTableLayoutPanel;
+        PrivateFontCollection fontCollection = new PrivateFontCollection();
         #endregion
 
         #region События
-        /// <summary>
-        /// Метод, который обрабатывает нажатие на кнопку "Сохранить".
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
         private void AddStudentToGroupButtonClick(object sender, EventArgs e)
         {
             if (addStudentToGroupComboBox.SelectedItem != null)
             {
-                var studentInNewGroup = listOfStudents[addStudentToGroupComboBox.SelectedIndex];
-                ClassForWorkWithDatabase.AddingStudentToGroup(studentInNewGroup.StudentId, groupId);
+                var studentInNewGroup = arrayOfStudents[addStudentToGroupComboBox.SelectedIndex];
+                DatabaseInteraction.AddStudentToGroup(studentInNewGroup.StudentId, groupId);
 
                 var studentFullNameLabel = new Label();
-                listOfStudyingGroupsContentTableLayoutPanel.RowStyles[listOfStudyingGroupsContentTableLayoutPanel.RowStyles.Count - 1] = (new RowStyle(SizeType.Percent, 8));
-                listOfStudyingGroupsContentTableLayoutPanel.Controls.Add(studentFullNameLabel, 0, listOfStudyingGroupsContentTableLayoutPanel.RowCount - 1);
+                listOfStudyingGroupsContentTableLayoutPanel.RowStyles[listOfStudyingGroupsContentTableLayoutPanel
+                                                       .RowStyles.Count - 1] = (new RowStyle(SizeType.Percent, 8));
+                listOfStudyingGroupsContentTableLayoutPanel.Controls.Add(studentFullNameLabel, 0, 
+                                                          listOfStudyingGroupsContentTableLayoutPanel.RowCount - 1);
 
-                studentFullNameLabel.Text = $"{studentInNewGroup.StudentSurname} {studentInNewGroup.StudentName} {studentInNewGroup.StudentPatronymic}";
-                studentFullNameLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+                studentFullNameLabel.Text = $"{studentInNewGroup.StudentSurname} {studentInNewGroup.StudentName} " +
+                                            $"{studentInNewGroup.StudentPatronymic}";
+                studentFullNameLabel.Font = new Font(fontCollection.Families[0], 12);
                 studentFullNameLabel.ForeColor = SystemColors.WindowText;
                 studentFullNameLabel.TextAlign = ContentAlignment.MiddleCenter;
                 studentFullNameLabel.Dock = DockStyle.Fill;
 
                 listOfStudyingGroupsContentTableLayoutPanel.RowCount += 1;
-                listOfStudyingGroupsContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 85 - (8 * listOfStudyingGroupsContentTableLayoutPanel.RowCount - 2)));
+                listOfStudyingGroupsContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 85 - 
+                                                (8 * listOfStudyingGroupsContentTableLayoutPanel.RowCount - 2)));
                 Close();
             }
             else
@@ -47,44 +47,48 @@ namespace ElectronicDiary
             }
         }
 
-        /// <summary>
-        /// Метод, который обрабатывает вход в addStudentToGroupComboBox.
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
         private void AddStudentToGroupComboBoxEnter(object sender, EventArgs e)
         {
             addStudentToGroupComboBox.BackColor = SystemColors.Window;
         }
 
-        /// <summary>
-        /// Метод, который обрабатывает нажатие на все элементы формы.
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
         private void FormElementsOnClick(object sender, EventArgs e)
         {
             ActiveControl = null;
             addStudentToGroupComboBox.BackColor = SystemColors.Window;
+        }
+
+        private void AddStudentToGroupKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                AddStudentToGroupButtonClick(sender, e);
+            }
         }
         #endregion
 
         #region Конструторы
         public AddStudentToGroup(int groupId, TableLayoutPanel listOfStudyingGroupsContentTableLayoutPanel)
         {
+            fontCollection.AddFontFile("../../../Font/SFProDisplayRegular.otf");
+
             InitializeComponent();
 
             this.groupId = groupId;
             this.listOfStudyingGroupsContentTableLayoutPanel = listOfStudyingGroupsContentTableLayoutPanel;
-            listOfStudents = ClassForWorkWithDatabase.LoadingStudentsFromOtherGroups(groupId);
-            var studentsFullName = new List<string>();
+            arrayOfStudents = DatabaseInteraction.LoadStudentsFromGroups(groupId, false);
+            var studentsFullName = new string[arrayOfStudents.Length];
 
-            foreach (Student student in listOfStudents)
+            for (int i = 0; i < arrayOfStudents.Length; i++)
             {
-                studentsFullName.Add($"{student.StudentSurname} {student.StudentName} {student.StudentPatronymic}");
+                studentsFullName[i] = ($"{arrayOfStudents[i].StudentSurname} {arrayOfStudents[i].StudentName} " +
+                                       $"{arrayOfStudents[i].StudentPatronymic}");
             }
 
-            addStudentToGroupComboBox.Items.AddRange(studentsFullName.ToArray());
+            addStudentToGroupComboBox.Items.AddRange(studentsFullName);
+            addStudentToGroupTitleLabel.Font = new Font(fontCollection.Families[0], 14);
+            addStudentToGroupComboBox.Font = new Font(fontCollection.Families[0], 12);
+            addStudentToGroupButton.Font = new Font(fontCollection.Families[0], 14);
         }
         #endregion
     }

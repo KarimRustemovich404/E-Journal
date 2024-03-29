@@ -82,7 +82,7 @@ namespace ElectronicDiary
             addStudentToGroupTitleLabel.Location = new Point(0, 48);
             addStudentToGroupTitleLabel.Margin = new Padding(0, 8, 0, 0);
             addStudentToGroupTitleLabel.Name = "addStudentToGroupTitleLabel";
-            addStudentToGroupTitleLabel.Size = new Size(170, 44);
+            addStudentToGroupTitleLabel.Size = new Size(170, 52);
             addStudentToGroupTitleLabel.TabIndex = 0;
             addStudentToGroupTitleLabel.Text = "Выберите студента";
             addStudentToGroupTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -97,9 +97,9 @@ namespace ElectronicDiary
             addStudentToGroupComboBox.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             addStudentToGroupComboBox.FormattingEnabled = true;
             addStudentToGroupComboBox.Location = new Point(173, 58);
-            addStudentToGroupComboBox.Margin = new Padding(3, 18, 10, 0);
+            addStudentToGroupComboBox.Margin = new Padding(3, 18, 15, 0);
             addStudentToGroupComboBox.Name = "addStudentToGroupComboBox";
-            addStudentToGroupComboBox.Size = new Size(243, 26);
+            addStudentToGroupComboBox.Size = new Size(238, 31);
             addStudentToGroupComboBox.TabIndex = 1;
             addStudentToGroupComboBox.TabStop = false;
             addStudentToGroupComboBox.Enter += AddStudentToGroupComboBoxEnter;
@@ -111,12 +111,11 @@ namespace ElectronicDiary
             addStudentToGroupButton.Dock = DockStyle.Fill;
             addStudentToGroupButton.FlatAppearance.BorderColor = SystemColors.ControlLight;
             addStudentToGroupButton.FlatAppearance.BorderSize = 0;
-            addStudentToGroupButton.FlatStyle = FlatStyle.Flat;
             addStudentToGroupButton.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            addStudentToGroupButton.Location = new Point(140, 136);
-            addStudentToGroupButton.Margin = new Padding(140, 15, 140, 27);
+            addStudentToGroupButton.Location = new Point(140, 134);
+            addStudentToGroupButton.Margin = new Padding(140, 13, 140, 13);
             addStudentToGroupButton.Name = "addStudentToGroupButton";
-            addStudentToGroupButton.Size = new Size(152, 40);
+            addStudentToGroupButton.Size = new Size(152, 56);
             addStudentToGroupButton.TabIndex = 1;
             addStudentToGroupButton.Text = "Сохранить";
             addStudentToGroupButton.UseVisualStyleBackColor = false;
@@ -124,7 +123,7 @@ namespace ElectronicDiary
             // 
             // AddStudentToGroup
             // 
-            AutoScaleDimensions = new SizeF(9F, 18F);
+            AutoScaleDimensions = new SizeF(11F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLight;
             ClientSize = new Size(432, 203);
@@ -137,6 +136,7 @@ namespace ElectronicDiary
             Name = "AddStudentToGroup";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Добавление студента в группу ";
+            KeyDown += AddStudentToGroupKeyDown;
             addStudentToGroupTableLayoutPanel.ResumeLayout(false);
             addStudentToGroupDataTableLayoutPanel.ResumeLayout(false);
             addStudentToGroupDataTableLayoutPanel.PerformLayout();

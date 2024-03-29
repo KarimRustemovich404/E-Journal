@@ -10,16 +10,16 @@ namespace ElectronicDiary.Database
         {
             MD5 mD5 = MD5.Create();
 
-            byte[] b = Encoding.ASCII.GetBytes(dataString);
-            byte[] nash = mD5.ComputeHash(b);
+            byte[] dataInBytesArray = Encoding.ASCII.GetBytes(dataString);
+            byte[] hashedDataArray = mD5.ComputeHash(dataInBytesArray);
+            StringBuilder hashedDataString = new StringBuilder();
 
-            StringBuilder sb = new StringBuilder();
-            foreach (var a in nash)
+            foreach (var element in hashedDataArray)
             {
-                sb.Append(a.ToString("X2"));
+                hashedDataString.Append(element.ToString("X2"));
             }
 
-            return Convert.ToString(sb);
+            return Convert.ToString(hashedDataString) ?? String.Empty;
         }
     }
 }

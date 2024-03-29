@@ -1,28 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
+﻿using System.Collections.Generic;
 using ElectronicDiary.Database;
+using System.Windows.Forms;
+using System.Drawing.Text;
+using System.Drawing;
+using System.Linq;
+using System;
 
 namespace ElectronicDiary
 {
     public partial class AdministratorFormOfElectronicDiary : Form
     {
         #region Поля
-        private int typeOfWeekId;
-        private int groupId;
-        private List<List<ComboBox>> weeklySchedule;
-        private List<Control> controlsInTableLayoutPanel = new List<Control>();
-
+        int groupId;
+        int typeOfWeekId;
+        List<List<ComboBox>> weeklySchedule = new List<List<ComboBox>>();
+        List<Control> controlsInTableLayoutPanel = new List<Control>();
+        PrivateFontCollection fontCollection = new PrivateFontCollection();
         #endregion
 
-        #region Раздел "Список групп"
-        /// <summary>
-        /// Метод, который обрабатывает нажатие на элемент listOfGroupsLabel.
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
-        private void ListOfGroupsLabelClick(object sender, EventArgs e)
+        private void CleanAdministratorFormTableLayoutPanel()
         {
             controlsInTableLayoutPanel.Clear();
 
@@ -30,6 +26,12 @@ namespace ElectronicDiary
             {
                 administratorFormTableLayoutPanel.Controls[1].Dispose();
             }
+        }
+
+        #region Раздел "Список групп"
+        private void ListOfGroupsLabelClick(object sender, EventArgs e)
+        {
+            CleanAdministratorFormTableLayoutPanel();
 
             if (listOfGroupsLabel.ForeColor == SystemColors.WindowText)
             {
@@ -52,11 +54,11 @@ namespace ElectronicDiary
                 var listOfStudyingGroupsTitleLabel = new Label();
                 listOfStudyingGroupsTitleTableLayoutPanel.Controls.Add(listOfStudyingGroupsTitleLabel, 1, 0);
                 listOfStudyingGroupsTitleLabel.Text = "Список учебных групп";
-                listOfStudyingGroupsTitleLabel.Font = new Font("Arial", 30F, FontStyle.Regular, GraphicsUnit.Point, 204);
+                listOfStudyingGroupsTitleLabel.Font = new Font(fontCollection.Families[0], 30);
                 listOfStudyingGroupsTitleLabel.ForeColor = SystemColors.WindowText;
                 listOfStudyingGroupsTitleLabel.TextAlign = ContentAlignment.TopLeft;
                 listOfStudyingGroupsTitleLabel.Dock = DockStyle.Fill;
-                listOfStudyingGroupsTitleLabel.Margin = new Padding(0, 13, 0, 0);
+                listOfStudyingGroupsTitleLabel.Margin = new Padding(0, 10, 0, 0);
 
                 var groupSelectionTableLayoutPanel = new TableLayoutPanel();
                 listOfStudyingGroupsTitleTableLayoutPanel.Controls.Add(groupSelectionTableLayoutPanel, 1, 1);
@@ -70,16 +72,16 @@ namespace ElectronicDiary
                 var groupSelectionTitleLabel = new Label();
                 groupSelectionTableLayoutPanel.Controls.Add(groupSelectionTitleLabel, 0, 0);
                 groupSelectionTitleLabel.Text = "Выберите учебную группу:";
-                groupSelectionTitleLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+                groupSelectionTitleLabel.Font = new Font(fontCollection.Families[0], 12);
                 groupSelectionTitleLabel.ForeColor = SystemColors.WindowText;
                 groupSelectionTitleLabel.TextAlign = ContentAlignment.TopLeft;
                 groupSelectionTitleLabel.Dock = DockStyle.Fill;
-                groupSelectionTitleLabel.Margin = new Padding(12, 14, 0, 0);
+                groupSelectionTitleLabel.Margin = new Padding(8, 14, 0, 0);
 
                 var groupSelectionComboBox = new ComboBox();
                 groupSelectionTableLayoutPanel.Controls.Add(groupSelectionComboBox, 1, 0);
-                groupSelectionComboBox.Items.AddRange(ClassForWorkWithDatabase.LoadingStudyGroups().ToArray());
-                groupSelectionComboBox.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+                groupSelectionComboBox.Items.AddRange(DatabaseInteraction.LoadStudyGroups());
+                groupSelectionComboBox.Font = new Font(fontCollection.Families[0], 12);
                 groupSelectionComboBox.ForeColor = SystemColors.WindowText;
                 groupSelectionComboBox.Dock = DockStyle.Fill;
                 groupSelectionComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -101,7 +103,7 @@ namespace ElectronicDiary
                 var listOfStudyingGroupsContentTitleLabel = new Label();
                 listOfStudyingGroupsContentTableLayoutPanel.Controls.Add(listOfStudyingGroupsContentTitleLabel, 0, 0);
                 listOfStudyingGroupsContentTitleLabel.Text = "ФИО студента";
-                listOfStudyingGroupsContentTitleLabel.Font = new Font("Arial", 16F, FontStyle.Regular, GraphicsUnit.Point, 204);
+                listOfStudyingGroupsContentTitleLabel.Font = new Font(fontCollection.Families[0], 16);
                 listOfStudyingGroupsContentTitleLabel.ForeColor = SystemColors.WindowText;
                 listOfStudyingGroupsContentTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
                 listOfStudyingGroupsContentTitleLabel.Dock = DockStyle.Fill;
@@ -120,14 +122,13 @@ namespace ElectronicDiary
                 var addStudyGroupButton = new Button();
                 actionsWithGroupsTableLayoutPanel.Controls.Add(addStudyGroupButton, 2, 0);
                 addStudyGroupButton.Text = "Добавить группу";
-                addStudyGroupButton.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+                addStudyGroupButton.Font = new Font(fontCollection.Families[0], 12);
                 addStudyGroupButton.ForeColor = SystemColors.WindowText;
                 addStudyGroupButton.TextAlign = ContentAlignment.MiddleCenter;
                 addStudyGroupButton.Dock = DockStyle.Fill;
                 addStudyGroupButton.BackColor = Color.DeepSkyBlue;
-                addStudyGroupButton.FlatStyle = FlatStyle.Flat;
-                addStudyGroupButton.Margin = new Padding(16, 23, 13, 27);
-                addStudyGroupButton.FlatAppearance.BorderSize = 0;
+                addStudyGroupButton.FlatStyle = FlatStyle.Standard;
+                addStudyGroupButton.Margin = new Padding(20, 16, 4, 19);
                 actionsWithGroupsTableLayoutPanel.Cursor = Cursors.Hand;
                 addStudyGroupButton.Click += AddStudyGroupButtonClick;        
             }
@@ -137,122 +138,111 @@ namespace ElectronicDiary
             }
         }
 
-        /// <summary>
-        /// Метод, который обрабатывает изменения в groupSelectionComboBox.
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
         private void GroupComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             var groupSelectionComboBox = sender as ComboBox;
             var listOfStudyingGroupsContentTableLayoutPanel = controlsInTableLayoutPanel[1] as TableLayoutPanel;
             var actionsWithGroupsTableLayoutPanel = controlsInTableLayoutPanel[2] as TableLayoutPanel;
-            Student[] studentsInGroup = ClassForWorkWithDatabase.LoadStudentsFromGroup(groupSelectionComboBox.SelectedIndex + 1);
-            listOfStudyingGroupsContentTableLayoutPanel.RowStyles.Clear();
-            listOfStudyingGroupsContentTableLayoutPanel.RowCount = studentsInGroup.Length + 2;
-            listOfStudyingGroupsContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 15));
 
-            if (actionsWithGroupsTableLayoutPanel.Controls.Count == 1)
+            if ((groupSelectionComboBox != null) && (listOfStudyingGroupsContentTableLayoutPanel != null) &&
+                (actionsWithGroupsTableLayoutPanel != null))
             {
-                var addStudentToGroupButton = new Button();
-                actionsWithGroupsTableLayoutPanel.Controls.Add(addStudentToGroupButton, 0, 0);
-                addStudentToGroupButton.Text = "Добавить студента";
-                addStudentToGroupButton.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-                addStudentToGroupButton.ForeColor = SystemColors.WindowText;
-                addStudentToGroupButton.TextAlign = ContentAlignment.MiddleCenter;
-                addStudentToGroupButton.Dock = DockStyle.Fill;
-                addStudentToGroupButton.BackColor = Color.DeepSkyBlue;
-                addStudentToGroupButton.FlatStyle = FlatStyle.Flat;
-                addStudentToGroupButton.FlatAppearance.BorderSize = 0;
-                addStudentToGroupButton.Margin = new Padding(16, 23, 13, 27);
-                addStudentToGroupButton.Cursor = Cursors.Hand;
-                addStudentToGroupButton.Click += AddStudentToGroupButtonClick;
+                var studentsInGroup = DatabaseInteraction.LoadStudentsFromGroups(groupSelectionComboBox.SelectedIndex + 1, true);
+                listOfStudyingGroupsContentTableLayoutPanel.RowStyles.Clear();
+                listOfStudyingGroupsContentTableLayoutPanel.RowCount = studentsInGroup.Length + 2;
+                listOfStudyingGroupsContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 15));
 
-                var addStudentMarkButton = new Button();
-                actionsWithGroupsTableLayoutPanel.Controls.Add(addStudentMarkButton, 1, 0);
-                addStudentMarkButton.Text = "Добавить оценку";
-                addStudentMarkButton.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-                addStudentMarkButton.ForeColor = SystemColors.WindowText;
-                addStudentMarkButton.TextAlign = ContentAlignment.MiddleCenter;
-                addStudentMarkButton.Dock = DockStyle.Fill;
-                addStudentMarkButton.BackColor = Color.DeepSkyBlue;
-                addStudentMarkButton.FlatStyle = FlatStyle.Flat;
-                addStudentMarkButton.FlatAppearance.BorderSize = 0;
-                addStudentMarkButton.Margin = new Padding(16, 23, 13, 27);
-                addStudentMarkButton.Cursor = Cursors.Hand;
-                addStudentMarkButton.Click += AddStudentMarkButtonClick;
+                if (actionsWithGroupsTableLayoutPanel.Controls.Count == 1)
+                {
+                    var addStudentToGroupButton = new Button();
+                    actionsWithGroupsTableLayoutPanel.Controls.Add(addStudentToGroupButton, 0, 0);
+                    addStudentToGroupButton.Text = "Добавить студента";
+                    addStudentToGroupButton.Font = new Font(fontCollection.Families[0], 12);
+                    addStudentToGroupButton.ForeColor = SystemColors.WindowText;
+                    addStudentToGroupButton.TextAlign = ContentAlignment.MiddleCenter;
+                    addStudentToGroupButton.Dock = DockStyle.Fill;
+                    addStudentToGroupButton.BackColor = Color.DeepSkyBlue;
+                    addStudentToGroupButton.FlatStyle = FlatStyle.Standard;
+                    addStudentToGroupButton.Margin = new Padding(4, 16, 13, 19);
+                    addStudentToGroupButton.Cursor = Cursors.Hand;
+                    addStudentToGroupButton.Click += AddStudentToGroupButtonClick;
+
+                    var addStudentMarkButton = new Button();
+                    actionsWithGroupsTableLayoutPanel.Controls.Add(addStudentMarkButton, 1, 0);
+                    addStudentMarkButton.Text = "Добавить оценку";
+                    addStudentMarkButton.Font = new Font(fontCollection.Families[0], 12);
+                    addStudentMarkButton.ForeColor = SystemColors.WindowText;
+                    addStudentMarkButton.TextAlign = ContentAlignment.MiddleCenter;
+                    addStudentMarkButton.Dock = DockStyle.Fill;
+                    addStudentMarkButton.BackColor = Color.DeepSkyBlue;
+                    addStudentMarkButton.FlatStyle = FlatStyle.Standard;
+                    addStudentMarkButton.Margin = new Padding(13, 16, 13, 19);
+                    addStudentMarkButton.Cursor = Cursors.Hand;
+                    addStudentMarkButton.Click += AddStudentMarkButtonClick;
+                }
+
+                for (int i = listOfStudyingGroupsContentTableLayoutPanel.Controls.Count - 1; i > 0; i--)
+                {
+                    listOfStudyingGroupsContentTableLayoutPanel.Controls[i].Dispose();
+                }
+
+                for (int i = 0; i < studentsInGroup.Length; i++)
+                {
+                    var studentFullNameLabel = new Label();
+                    listOfStudyingGroupsContentTableLayoutPanel.Controls.Add(studentFullNameLabel, 0, i + 1);
+                    studentFullNameLabel.Text = $"{studentsInGroup[i].StudentSurname} {studentsInGroup[i].StudentName} " +
+                                                $"{studentsInGroup[i].StudentPatronymic}";
+                    studentFullNameLabel.Font = new Font(fontCollection.Families[0], 12);
+                    studentFullNameLabel.ForeColor = SystemColors.WindowText;
+                    studentFullNameLabel.TextAlign = ContentAlignment.MiddleCenter;
+                    studentFullNameLabel.Dock = DockStyle.Fill;
+                    listOfStudyingGroupsContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10));
+                }
+
+                listOfStudyingGroupsContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 85 - (10 * studentsInGroup.Length)));
             }
-
-            for (int i = listOfStudyingGroupsContentTableLayoutPanel.Controls.Count - 1; i > 0; i--)
-            {
-                listOfStudyingGroupsContentTableLayoutPanel.Controls[i].Dispose();
-            }
-
-            for (int i = 0; i < studentsInGroup.Length; i++) 
-            {
-                var studentFullNameLabel = new Label();
-                listOfStudyingGroupsContentTableLayoutPanel.Controls.Add(studentFullNameLabel, 0, i + 1);
-                studentFullNameLabel.Text = $"{studentsInGroup[i].StudentSurname} {studentsInGroup[i].StudentName} {studentsInGroup[i].StudentPatronymic}";
-                studentFullNameLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-                studentFullNameLabel.ForeColor = SystemColors.WindowText;
-                studentFullNameLabel.TextAlign = ContentAlignment.MiddleCenter;
-                studentFullNameLabel.Dock = DockStyle.Fill;
-                listOfStudyingGroupsContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 8));
-            }
-
-            listOfStudyingGroupsContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 85 - (8 * studentsInGroup.Length)));
         }
 
-        /// <summary>
-        /// Метод, который обрабатывает нажатие на кнопку "Добавить группу".
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
         private void AddStudyGroupButtonClick(object sender, EventArgs e)
         {
-            AddNewStudyGroup addNewStudyGroup = new AddNewStudyGroup(controlsInTableLayoutPanel[0] as ComboBox);
-            addNewStudyGroup.Show();            
+            var groupSelectionComboBox = controlsInTableLayoutPanel.FirstOrDefault() as ComboBox;
+
+            if (groupSelectionComboBox != null)
+            {
+                var addNewStudyGroup = new AddNewStudyGroup(groupSelectionComboBox);
+                addNewStudyGroup.Show();
+            }
         }
 
-        /// <summary>
-        /// Метод, который обрабатывает нажатие на кнопку "Добавить оценку".
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
         private void AddStudentMarkButtonClick(object sender, EventArgs e)
         {
-            var groupSelectionComboBox = controlsInTableLayoutPanel[0] as ComboBox;
-            AddStudentMark addStudentMark = new AddStudentMark(groupSelectionComboBox.SelectedIndex + 1);
-            addStudentMark.Show();
+            var groupSelectionComboBox = controlsInTableLayoutPanel.FirstOrDefault() as ComboBox;
+
+            if (groupSelectionComboBox != null)
+            {
+                var addStudentMark = new AddStudentMark(groupSelectionComboBox.SelectedIndex + 1);
+                addStudentMark.Show();
+            }
         }
 
-        /// <summary>
-        /// Метод, который обрабатывает нажатие на кнопку "Добавить студента".
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
         private void AddStudentToGroupButtonClick(object sender, EventArgs e)
         {
-            var groupSelectionComboBox = controlsInTableLayoutPanel[0] as ComboBox;
-            AddStudentToGroup addStudentToGroup = new AddStudentToGroup(groupSelectionComboBox.SelectedIndex + 1, controlsInTableLayoutPanel[1] as TableLayoutPanel);
-            addStudentToGroup.Show();
+            var groupSelectionComboBox = controlsInTableLayoutPanel.FirstOrDefault() as ComboBox;
+            var listOfStudyingGroupsContentTableLayoutPanel = controlsInTableLayoutPanel[1] as TableLayoutPanel;
+
+            if ((groupSelectionComboBox != null) && (listOfStudyingGroupsContentTableLayoutPanel != null))
+            {
+                var addStudentToGroup = new AddStudentToGroup(groupSelectionComboBox.SelectedIndex + 1, 
+                                                                    listOfStudyingGroupsContentTableLayoutPanel);
+                addStudentToGroup.Show();
+            }
         }
         #endregion
 
         #region Раздел "Расписание"
-        /// <summary>
-        /// Метод, который обрабатывает нажатие на элемент scheduleLabel.
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
         private void ScheduleLabelClick(object sender, EventArgs e)
         {
-            controlsInTableLayoutPanel.Clear();
-
-            if (administratorFormTableLayoutPanel.Controls.Count > 1)
-            {
-                administratorFormTableLayoutPanel.Controls[1].Dispose();
-            }
+            CleanAdministratorFormTableLayoutPanel();
 
             if (scheduleLabel.ForeColor == SystemColors.WindowText)
             {
@@ -271,7 +261,7 @@ namespace ElectronicDiary
                 var scheduleTitleLabel = new Label();
                 scheduleTitleTableLayoutPanel.Controls.Add(scheduleTitleLabel, 0, 0);
                 scheduleTitleLabel.Text = "Расписание";
-                scheduleTitleLabel.Font = new Font("Arial", 30F, FontStyle.Regular, GraphicsUnit.Point, 204);
+                scheduleTitleLabel.Font = new Font(fontCollection.Families[0], 30);
                 scheduleTitleLabel.ForeColor = SystemColors.WindowText;
                 scheduleTitleLabel.TextAlign = ContentAlignment.TopLeft;
                 scheduleTitleLabel.Dock = DockStyle.Fill;
@@ -282,9 +272,9 @@ namespace ElectronicDiary
                 scheduleContentTableLayoutPanel.Dock = DockStyle.Fill;
                 scheduleContentTableLayoutPanel.RowCount = 3;
                 scheduleContentTableLayoutPanel.ColumnCount = 7;
-                scheduleContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 45));
-                scheduleContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10));
-                scheduleContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 45));
+                scheduleContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 48));
+                scheduleContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 4));
+                scheduleContentTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 48));
                 scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 2));
                 scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.66F));
                 scheduleContentTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 2));
@@ -304,27 +294,27 @@ namespace ElectronicDiary
                 var scheduleSelectionButton = new Button();
                 scheduleButtonsTableLayoutPanel.Controls.Add(scheduleSelectionButton, 0, 0);
                 scheduleSelectionButton.Text = "Выбрать расписание";
-                scheduleSelectionButton.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+                scheduleSelectionButton.Font = new Font(fontCollection.Families[0], 12);
                 scheduleSelectionButton.ForeColor = SystemColors.WindowText;
                 scheduleSelectionButton.TextAlign = ContentAlignment.MiddleCenter;
                 scheduleSelectionButton.Dock = DockStyle.Fill;
                 scheduleSelectionButton.BackColor = Color.DeepSkyBlue;
-                scheduleSelectionButton.FlatStyle = FlatStyle.Flat;
-                scheduleSelectionButton.Margin = new Padding(95, 12, 75, 15);
-                scheduleSelectionButton.FlatAppearance.BorderSize = 0;
+                scheduleSelectionButton.FlatStyle = FlatStyle.Standard;
+                scheduleSelectionButton.Margin = new Padding(95, 7, 75, 13);
+                scheduleSelectionButton.Cursor = Cursors.Hand;
                 scheduleSelectionButton.Click += ScheduleSelectionButtonClick;
 
                 var scheduleSaveButton = new Button();
                 scheduleButtonsTableLayoutPanel.Controls.Add(scheduleSaveButton, 1, 0);
                 scheduleSaveButton.Text = "Сохранить";
-                scheduleSaveButton.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+                scheduleSaveButton.Font = new Font(fontCollection.Families[0], 12);
                 scheduleSaveButton.ForeColor = SystemColors.WindowText;
                 scheduleSaveButton.TextAlign = ContentAlignment.MiddleCenter;
                 scheduleSaveButton.Dock = DockStyle.Fill;
                 scheduleSaveButton.BackColor = Color.DeepSkyBlue;
-                scheduleSaveButton.FlatStyle = FlatStyle.Flat;
-                scheduleSaveButton.Margin = new Padding(105, 12, 105, 15);
-                scheduleSaveButton.FlatAppearance.BorderSize = 0;
+                scheduleSaveButton.FlatStyle = FlatStyle.Standard;
+                scheduleSaveButton.Margin = new Padding(105, 7, 105, 13);
+                scheduleSaveButton.Cursor = Cursors.Hand;
                 scheduleSaveButton.Click += ScheduleSaveButtonClick;
 
                 var scheduleMondayTableLayoutPanel = new TableLayoutPanel();
@@ -337,13 +327,13 @@ namespace ElectronicDiary
                 scheduleMondayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 82));
                 controlsInTableLayoutPanel.Add(scheduleMondayTableLayoutPanel);
 
-                var scheduleMondayTitleLable = new Label();
-                scheduleMondayTableLayoutPanel.Controls.Add(scheduleMondayTitleLable, 0, 0);
-                scheduleMondayTitleLable.Text = "Понедельник";
-                scheduleMondayTitleLable.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-                scheduleMondayTitleLable.ForeColor = Color.WhiteSmoke;
-                scheduleMondayTitleLable.TextAlign = ContentAlignment.MiddleCenter;
-                scheduleMondayTitleLable.Dock = DockStyle.Fill;
+                var scheduleMondayTitleLabel = new Label();
+                scheduleMondayTableLayoutPanel.Controls.Add(scheduleMondayTitleLabel, 0, 0);
+                scheduleMondayTitleLabel.Text = "Понедельник";
+                scheduleMondayTitleLabel.Font = new Font(fontCollection.Families[0], 12);
+                scheduleMondayTitleLabel.ForeColor = Color.WhiteSmoke;
+                scheduleMondayTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
+                scheduleMondayTitleLabel.Dock = DockStyle.Fill;
 
                 var scheduleTuesdayTableLayoutPanel = new TableLayoutPanel();
                 scheduleContentTableLayoutPanel.Controls.Add(scheduleTuesdayTableLayoutPanel, 3, 0);
@@ -355,13 +345,13 @@ namespace ElectronicDiary
                 scheduleTuesdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 82));
                 controlsInTableLayoutPanel.Add(scheduleTuesdayTableLayoutPanel);
 
-                var scheduleTuesdayTitleLable = new Label();
-                scheduleTuesdayTableLayoutPanel.Controls.Add(scheduleTuesdayTitleLable, 0, 0);
-                scheduleTuesdayTitleLable.Text = "Вторник";
-                scheduleTuesdayTitleLable.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-                scheduleTuesdayTitleLable.ForeColor = Color.WhiteSmoke;
-                scheduleTuesdayTitleLable.TextAlign = ContentAlignment.MiddleCenter;
-                scheduleTuesdayTitleLable.Dock = DockStyle.Fill;
+                var scheduleTuesdayTitleLabel = new Label();
+                scheduleTuesdayTableLayoutPanel.Controls.Add(scheduleTuesdayTitleLabel, 0, 0);
+                scheduleTuesdayTitleLabel.Text = "Вторник";
+                scheduleTuesdayTitleLabel.Font = new Font(fontCollection.Families[0], 12);
+                scheduleTuesdayTitleLabel.ForeColor = Color.WhiteSmoke;
+                scheduleTuesdayTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
+                scheduleTuesdayTitleLabel.Dock = DockStyle.Fill;
 
                 var scheduleWednesdayTableLayoutPanel = new TableLayoutPanel();
                 scheduleContentTableLayoutPanel.Controls.Add(scheduleWednesdayTableLayoutPanel, 5, 0);
@@ -373,13 +363,13 @@ namespace ElectronicDiary
                 scheduleWednesdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 82));
                 controlsInTableLayoutPanel.Add(scheduleWednesdayTableLayoutPanel);
 
-                var scheduleWednesdayTitleLable = new Label();
-                scheduleWednesdayTableLayoutPanel.Controls.Add(scheduleWednesdayTitleLable, 0, 0);
-                scheduleWednesdayTitleLable.Text = "Среда";
-                scheduleWednesdayTitleLable.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-                scheduleWednesdayTitleLable.ForeColor = Color.WhiteSmoke;
-                scheduleWednesdayTitleLable.TextAlign = ContentAlignment.MiddleCenter;
-                scheduleWednesdayTitleLable.Dock = DockStyle.Fill;
+                var scheduleWednesdayTitleLabel = new Label();
+                scheduleWednesdayTableLayoutPanel.Controls.Add(scheduleWednesdayTitleLabel, 0, 0);
+                scheduleWednesdayTitleLabel.Text = "Среда";
+                scheduleWednesdayTitleLabel.Font = new Font(fontCollection.Families[0], 12);
+                scheduleWednesdayTitleLabel.ForeColor = Color.WhiteSmoke;
+                scheduleWednesdayTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
+                scheduleWednesdayTitleLabel.Dock = DockStyle.Fill;
 
                 var scheduleThursdayTableLayoutPanel = new TableLayoutPanel();
                 scheduleContentTableLayoutPanel.Controls.Add(scheduleThursdayTableLayoutPanel, 1, 2);
@@ -391,13 +381,13 @@ namespace ElectronicDiary
                 scheduleThursdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 82));
                 controlsInTableLayoutPanel.Add(scheduleThursdayTableLayoutPanel);
 
-                var scheduleThursdayTitleLable = new Label();
-                scheduleThursdayTableLayoutPanel.Controls.Add(scheduleThursdayTitleLable, 0, 0);
-                scheduleThursdayTitleLable.Text = "Четверг";
-                scheduleThursdayTitleLable.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-                scheduleThursdayTitleLable.ForeColor = Color.WhiteSmoke;
-                scheduleThursdayTitleLable.TextAlign = ContentAlignment.MiddleCenter;
-                scheduleThursdayTitleLable.Dock = DockStyle.Fill;
+                var scheduleThursdayTitleLabel = new Label();
+                scheduleThursdayTableLayoutPanel.Controls.Add(scheduleThursdayTitleLabel, 0, 0);
+                scheduleThursdayTitleLabel.Text = "Четверг";
+                scheduleThursdayTitleLabel.Font = new Font(fontCollection.Families[0], 12);
+                scheduleThursdayTitleLabel.ForeColor = Color.WhiteSmoke;
+                scheduleThursdayTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
+                scheduleThursdayTitleLabel.Dock = DockStyle.Fill;
 
                 var scheduleFridayTableLayoutPanel = new TableLayoutPanel();
                 scheduleContentTableLayoutPanel.Controls.Add(scheduleFridayTableLayoutPanel, 3, 2);
@@ -409,13 +399,13 @@ namespace ElectronicDiary
                 scheduleFridayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 82));
                 controlsInTableLayoutPanel.Add(scheduleFridayTableLayoutPanel);
 
-                var scheduleFridayTitleLable = new Label();
-                scheduleFridayTableLayoutPanel.Controls.Add(scheduleFridayTitleLable, 0, 0);
-                scheduleFridayTitleLable.Text = "Пятница";
-                scheduleFridayTitleLable.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-                scheduleFridayTitleLable.ForeColor = Color.WhiteSmoke;
-                scheduleFridayTitleLable.TextAlign = ContentAlignment.MiddleCenter;
-                scheduleFridayTitleLable.Dock = DockStyle.Fill;
+                var scheduleFridayTitleLabel = new Label();
+                scheduleFridayTableLayoutPanel.Controls.Add(scheduleFridayTitleLabel, 0, 0);
+                scheduleFridayTitleLabel.Text = "Пятница";
+                scheduleFridayTitleLabel.Font = new Font(fontCollection.Families[0], 12);
+                scheduleFridayTitleLabel.ForeColor = Color.WhiteSmoke;
+                scheduleFridayTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
+                scheduleFridayTitleLabel.Dock = DockStyle.Fill;
 
                 var scheduleSaturdayTableLayoutPanel = new TableLayoutPanel();
                 scheduleContentTableLayoutPanel.Controls.Add(scheduleSaturdayTableLayoutPanel, 5, 2);
@@ -427,13 +417,13 @@ namespace ElectronicDiary
                 scheduleSaturdayTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 82));
                 controlsInTableLayoutPanel.Add(scheduleSaturdayTableLayoutPanel);
 
-                var schedulуSaturdayTitleLable = new Label();
-                scheduleSaturdayTableLayoutPanel.Controls.Add(schedulуSaturdayTitleLable, 0, 0);
-                schedulуSaturdayTitleLable.Text = "Суббота";
-                schedulуSaturdayTitleLable.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-                schedulуSaturdayTitleLable.ForeColor = Color.WhiteSmoke;
-                schedulуSaturdayTitleLable.TextAlign = ContentAlignment.MiddleCenter;
-                schedulуSaturdayTitleLable.Dock = DockStyle.Fill;
+                var scheduleSaturdayTitleLabel = new Label();
+                scheduleSaturdayTableLayoutPanel.Controls.Add(scheduleSaturdayTitleLabel, 0, 0);
+                scheduleSaturdayTitleLabel.Text = "Суббота";
+                scheduleSaturdayTitleLabel.Font = new Font(fontCollection.Families[0], 12);
+                scheduleSaturdayTitleLabel.ForeColor = Color.WhiteSmoke;
+                scheduleSaturdayTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
+                scheduleSaturdayTitleLabel.Dock = DockStyle.Fill;
             }
             else
             {
@@ -441,41 +431,35 @@ namespace ElectronicDiary
             }
         }
 
-        /// <summary>
-        /// Метод, который обрабатывает нажатие на кнопку "Выбрать расписание".
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
         private void ScheduleSelectionButtonClick(object sender, EventArgs e)
         {
-            ScheduleSelectionForm scheduleSelectionForm = new ScheduleSelectionForm(controlsInTableLayoutPanel);
+            var scheduleSelectionForm = new ScheduleSelectionForm(controlsInTableLayoutPanel);
             scheduleSelectionForm.Owner = this;
             scheduleSelectionForm.Show();
         }
 
-        /// <summary>
-        /// Метод, который обрабатывает нажатие на кнопку "Сохранить".
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
         private void ScheduleSaveButtonClick(object sender, EventArgs e)
         {
             for (int i = 0; i < weeklySchedule.Count; i++)
             {
                 for (int j = 0; j < weeklySchedule[i].Count; j++)
                 {
-                    var subjectComboBox = weeklySchedule[i][j] as ComboBox;
+                    var subjectComboBox = weeklySchedule[i][j];
 
-                    ClassForWorkWithDatabase.SaveScedule(groupId, subjectComboBox.SelectedIndex != subjectComboBox.Items.Count - 1 ? subjectComboBox.SelectedIndex + 1 : 0, typeOfWeekId, i + 1, j + 1);
+                    DatabaseInteraction.SaveStudyGroupSchedule(groupId, subjectComboBox.SelectedIndex != subjectComboBox.Items.Count - 1 ? 
+                                                                        subjectComboBox.SelectedIndex + 1 : 0, typeOfWeekId, i + 1, j + 1);
+
                 }
             }
+
+            MessageBox.Show("Расписание успешно сохранено", "Сохранение расписания", MessageBoxButtons.OK);
         }
 
         /// <summary>
         /// Метод, который возвращает данные из формы ScheduleSelectionForm.
         /// </summary>
-        /// <param name="typeOfWeekId"> Id типа недели. </param>
-        /// <param name="groupId"> Id группы. </param>
+        /// <param name="typeOfWeekId"> Идентификатор типа недели. </param>
+        /// <param name="groupId"> Идентификатор группы. </param>
         /// <param name="weeklySchedule"> Расписание группы. </param>
         public void DownloadScheduleData(int typeOfWeekId, int groupId, List<List<ComboBox>> weeklySchedule)
         {
@@ -486,15 +470,12 @@ namespace ElectronicDiary
         #endregion   
 
         #region Раздел "Выйти"
-        /// <summary>
-        /// Метод, который обрабатывает нажатие на кнопку "Выход".
-        /// </summary>
-        /// <param name="sender"> Объект-инициатор. </param>
-        /// <param name="e"> Объект-событие. </param>
         private void ExitLabelClick(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Вы действительно хотите выйти?", "Выход из приложения", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Вы действительно хотите выйти из своего аккаунта?", "Выход из аккаунта",
+                                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
+                Program.SetLoginInformation(true);
                 Close();
             }
         }
@@ -503,7 +484,13 @@ namespace ElectronicDiary
         #region Конструкторы
         public AdministratorFormOfElectronicDiary()
         {
+            fontCollection.AddFontFile("../../../Font/SFProDisplayRegular.otf");
+
             InitializeComponent();
+
+            listOfGroupsLabel.Font = new Font(fontCollection.Families[0], 12);
+            scheduleLabel.Font = new Font(fontCollection.Families[0], 12);
+            exitLabel.Font = new Font(fontCollection.Families[0], 14);
         }
         #endregion
     }
