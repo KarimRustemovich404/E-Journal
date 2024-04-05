@@ -52,7 +52,6 @@ namespace ElectronicDiary
                                 scheduleNameComboBox.BackColor = SystemColors.ControlLight;
                                 scheduleNameComboBox.TabStop = false;
                                 scheduleNameComboBox.SelectedItem = scheduleName != null ? scheduleName : String.Empty;
-                                scheduleNameComboBox.Font = new Font(fontCollection.Families[0], 10);
                                 scheduleNameComboBox.ForeColor = SystemColors.WindowText;
                                 scheduleNameComboBox.Dock = DockStyle.Fill;
                                 scheduleNameComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -109,6 +108,11 @@ namespace ElectronicDiary
             groupSelectionComboBox.Font = new Font(fontCollection.Families[0], 14);
             weekTypeSelectionComboBox.Font = new Font(fontCollection.Families[0], 14);
             scheduleLoadButton.Font = new Font(fontCollection.Families[0], 14);
+
+            for (int i = 0; i < tablesWithSchedulesOfDays.Count; i++)
+            {
+                tablesWithSchedulesOfDays[i].Font = new Font(fontCollection.Families[0], 10);
+            }
         }
         #endregion
     }
