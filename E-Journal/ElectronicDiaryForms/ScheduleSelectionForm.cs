@@ -29,13 +29,12 @@ namespace ElectronicDiary
 
                     if (scheduleTableLayoutPanel != null)
                     {
-                        var controlsCount = scheduleTableLayoutPanel.Controls.Count - 1;
                         var daySchedule = new List<ComboBox>();
                         scheduleTableLayoutPanel.RowCount = 7;
                         scheduleTableLayoutPanel.RowStyles.Clear();
                         scheduleTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 18));
 
-                        for (int j = controlsCount; j > 0; j--)
+                        for (int j = scheduleTableLayoutPanel.Controls.Count - 1; j > 0; j--)
                         {
                             scheduleTableLayoutPanel.Controls[j].Dispose();
                         }

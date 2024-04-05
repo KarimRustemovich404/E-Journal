@@ -22,6 +22,6 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ElectronicDiary
-build_property.ProjectDir = C:\Users\Егор\Desktop\ElectronicDiary\E-Journal\
+build_property.ProjectDir = D:\Домашние работы КФУ\C#\ElectronicDiary\E-Journal\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
